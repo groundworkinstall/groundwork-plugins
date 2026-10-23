@@ -1,0 +1,17 @@
+{
+  "name": "groundwork-plugins",
+  "owner": {
+    "name": "Groundwork"
+  },
+  "description": "Groundwork's private plugins for its clients.",
+  "plugins": [
+    {
+      "name": "business-development-hub",
+      "source": "./plugins/business-development-hub",
+      "description": "Business Development Hub: builds your business development plan with you, brings in your contacts, and feeds you the work every week. Start it by typing: Set up my hub.",
+      "author": {
+        "name": "Groundwork"
+      }
+    }
+  ]
+}

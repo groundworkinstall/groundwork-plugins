@@ -1,0 +1,1359 @@
+<title>Business Development Hub</title>
+<style>
+:root{
+  --page:#FBFBF9; --bg:#F4F5F2; --panel:#FFFFFF; --ink:#1A1F1C; --ink2:#4A524D; --ink3:#69716C;
+  --line:#DDE1DC; --line2:#EEF0EC;
+  --acc:#1E6B5C; --acc-soft:#E3F0EC; --acc-ink:#0F4A3E; --on-acc:#FFFFFF;
+  --brand:#1E6B5C; --on-brand:#FFFFFF;
+  --wait:#8f1c13; --wait-soft:#fdf2f0;
+  --hot:#A8372E; --hot-soft:#F7E4E1;
+  --shadow:0 10px 28px rgba(26,31,28,.10);
+  --r:12px;
+  --sans:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
+  color-scheme:dark;
+  --page:#0F1211; --bg:#151917; --panel:#1E2321; --ink:#EDF0EC; --ink2:#B7BDB8; --ink3:#9AA19C;
+  --line:#2E3532; --line2:#262C29; --acc:#5FB79F; --acc-soft:#1E3A32; --acc-ink:#BFE6D8; --on-acc:#0E1511;
+  --wait:#f2b8ae; --wait-soft:#3a1f1c; --hot:#E0776D; --hot-soft:#3E211E; --shadow:0 10px 28px rgba(0,0,0,.4);
+}}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --page:#0F1211; --bg:#151917; --panel:#1E2321; --ink:#EDF0EC; --ink2:#B7BDB8; --ink3:#9AA19C;
+  --line:#2E3532; --line2:#262C29; --acc:#5FB79F; --acc-soft:#1E3A32; --acc-ink:#BFE6D8; --on-acc:#0E1511;
+  --wait:#f2b8ae; --wait-soft:#3a1f1c; --hot:#E0776D; --hot-soft:#3E211E; --shadow:0 10px 28px rgba(0,0,0,.4);
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html,body{overflow-x:hidden}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 var(--sans);padding-inline:16px;padding-block:14px 32px}
+h1,h3,h4,h5,h6{font-family:var(--sans);margin:0;text-wrap:balance}
+button{font:inherit;color:inherit;cursor:pointer}
+button:focus-visible,input:focus-visible,textarea:focus-visible,a:focus-visible,.pc:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
+a{color:var(--acc-ink)}
+.wrap{max-width:760px;margin:0 auto;display:flex;flex-direction:column;gap:14px}
+.top{display:flex;align-items:center;gap:12px}
+.mark{flex:none;width:40px;height:40px;border-radius:10px;background:var(--brand);color:var(--on-brand);display:grid;place-items:center;font-weight:700;font-size:15px;letter-spacing:.02em}
+.top .t{display:flex;flex-direction:column;min-width:0;flex:1}
+.top h1{font-size:19px;font-weight:650;letter-spacing:-.01em;line-height:1.25;overflow-wrap:anywhere}
+.top .sub{color:var(--ink3);font-size:13px}
+.top .sub:empty{display:none}
+.qmark{flex:none;width:44px;height:44px;border-radius:50%;border:1.5px solid var(--line);background:var(--panel);font-weight:700;font-size:17px;color:var(--ink2)}
+.qmark[aria-pressed="true"]{border-color:var(--brand);background:var(--brand);color:var(--on-brand)}
+.setup{background:var(--wait-soft);border:1px solid var(--line);border-radius:var(--r);padding:12px 14px;display:flex;flex-direction:column;gap:6px}
+.setup b{font-weight:650}
+.setup p{margin:0;font-size:14px;color:var(--ink2)}
+.tabs{display:flex;gap:2px;border-bottom:1px solid var(--line);overflow-x:auto;scrollbar-width:none}
+.tabs::-webkit-scrollbar{display:none}
+.tabs button{flex:none;background:none;border:0;border-bottom:2px solid transparent;padding:8px 6px 9px;font-weight:650;font-size:14px;color:var(--ink3);margin-bottom:-1px;min-height:44px;white-space:nowrap}
+.tabs button .n{font-weight:500;font-size:12px;margin-left:3px;font-variant-numeric:tabular-nums}
+.tabs button[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--brand)}
+.screen{display:flex;flex-direction:column;gap:18px}
+.stack{display:flex;flex-direction:column;gap:10px}
+h3.grp{font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink3);font-weight:650;display:flex;flex-wrap:wrap;gap:4px 8px;align-items:baseline}
+h3.grp span{letter-spacing:0;text-transform:none;font-weight:400;font-size:12px}
+.lede{margin:0;font-size:14px;color:var(--ink2)}
+.lede b{color:var(--ink);font-weight:600}
+.msg{font-size:13px;color:var(--ink3);margin:0}
+.msg[data-s="error"]{color:var(--wait)}
+.logged{border-left:3px solid var(--acc);padding:2px 0 2px 12px;display:flex;flex-direction:column;gap:5px}
+.logged p{margin:0;font-size:14px;color:var(--ink2);display:grid;grid-template-columns:62px minmax(0,1fr);gap:8px;overflow-wrap:anywhere}
+.logged time{color:var(--ink3);font-size:12px;font-variant-numeric:tabular-nums;padding-top:1px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:12px 14px;display:flex;flex-direction:column;gap:8px;min-width:0}
+.card.done{opacity:.62}
+.card.done > :not(.head):not(.stamp){display:none}
+.head{display:flex;flex-wrap:wrap;gap:4px 10px;align-items:baseline}
+.head b{font-weight:650;font-size:15px}
+.head .ch{font-size:12px;color:var(--ink3)}
+.pill{font-size:11px;letter-spacing:.05em;text-transform:uppercase;padding:2px 8px;border-radius:999px;font-weight:650;white-space:nowrap}
+.pill.ready{background:var(--acc-soft);color:var(--acc-ink)}
+.pill.when{background:var(--hot-soft);color:var(--hot)}
+.pill.new{background:var(--wait-soft);color:var(--wait)}
+.card p{margin:0;font-size:14px;color:var(--ink2);overflow-wrap:anywhere}
+.card p.hint{font-size:13px;color:var(--ink3);font-style:italic}
+.card p.why b,.card p.kv b{color:var(--ink);font-weight:600}
+.draft{background:var(--bg);border-left:3px solid var(--line);border-radius:0 8px 8px 0;padding:9px 12px;font-size:14px;color:var(--ink);white-space:pre-line;overflow-wrap:anywhere}
+.draft small{display:block;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink3);font-weight:650;margin-bottom:2px}
+.copyrow{display:flex;align-items:center;justify-content:flex-end;gap:8px}
+.copied{font-size:12px;color:var(--wait);font-weight:500}
+.copied:empty{display:none}
+html:not(.help-on) .help{display:none!important}
+p.help,div.help{font-size:13px;color:var(--ink3);margin:0;font-style:italic}
+.acts{display:flex;flex-wrap:nowrap;gap:8px}
+.acts-help{display:flex;gap:8px;font-size:12px;color:var(--ink3);line-height:1.35;font-style:italic}
+.acts-help span{flex:1 1 0;min-width:0;text-align:center;overflow-wrap:anywhere}
+.acts .btn{flex:1 1 0;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;padding-inline:8px}
+.btn{border:1.5px solid var(--line);background:var(--panel);border-radius:999px;padding:6px 13px;font-size:13px;font-weight:500;min-height:44px}
+.btn.sm{min-height:44px;padding:4px 14px;font-size:13px;flex:none}
+.btn.primary{background:var(--brand);border-color:var(--brand);color:var(--on-brand)}
+.btn.dflt{border-color:var(--acc)}
+.btn.dflt::after{content:" \00B7  default";font-size:11px;color:var(--acc)}
+.btn.primary.dflt::after{color:var(--on-brand)}
+.stamp{font-size:12px;color:var(--acc);font-weight:500;display:flex;flex-wrap:wrap;align-items:center;gap:0 4px}
+.stamp[data-s="error"]{color:var(--wait)}
+.stamp button{background:none;border:0;padding:0 8px;font-size:12px;color:var(--ink2);text-decoration:underline;min-height:44px}
+.list{list-style:none;margin:0;padding:0;background:var(--panel);border:1px solid var(--line);border-radius:var(--r)}
+.list li{padding:10px 14px;border-top:1px solid var(--line2);font-size:14px;display:flex;flex-direction:column;gap:2px;min-width:0}
+.list li:first-child{border-top:0}
+.list li b{font-weight:650}
+.list li span{color:var(--ink2);font-size:13px;overflow-wrap:anywhere}
+.tools{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.tools input{flex:1 1 100%;min-width:0;border:1.5px solid var(--line);border-radius:999px;padding:10px 14px;font:16px var(--sans);background:var(--panel);color:var(--ink)}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{border:1px solid var(--line);background:var(--panel);border-radius:999px;padding:6px 12px;font-size:13px;min-height:44px}
+.chip[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:10px}
+.pc{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:12px 14px;text-align:left;width:100%;display:flex;flex-direction:column;gap:5px;cursor:pointer;min-width:0;min-height:44px}
+.pc .nm{font-weight:650;font-size:15px;display:flex;align-items:center;gap:6px;flex-wrap:wrap;overflow-wrap:anywhere}
+.pc .nm .sp{flex:1 1 auto}
+.pc .role{font-size:11px;color:var(--acc-ink);letter-spacing:.06em;text-transform:uppercase;font-weight:650}
+.pc .role.newt{color:var(--wait)}
+.pc .org{font-size:13px;color:var(--ink2);font-weight:500;overflow-wrap:anywhere}
+.pc .why{font-size:13px;color:var(--ink2);overflow-wrap:anywhere}
+.pc .meta{font-size:12px;color:var(--ink3);font-variant-numeric:tabular-nums}
+.pc .next{font-size:13px;padding-top:7px;border-top:1px dashed var(--line);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pc .next b{font-weight:650}
+.pc .more-info{display:none;flex-direction:column;gap:6px}
+.pc[aria-expanded="true"] .more-info{display:flex}
+.pc[aria-expanded="true"] .next{white-space:normal}
+.pc[aria-expanded="true"]{grid-column:1 / -1;border-color:var(--acc)}
+.pc dl{margin:2px 0 0;display:grid;grid-template-columns:auto minmax(0,1fr);gap:2px 12px;font-size:13px}
+.pc dt{color:var(--ink3)}
+.pc dd{margin:0;color:var(--ink2);overflow-wrap:anywhere}
+.pc dd a{display:inline-block;min-height:24px}
+.pc .hist{font-size:13px;color:var(--ink2);border-top:1px solid var(--line2);padding-top:6px;margin-top:2px;display:flex;flex-direction:column;gap:3px}
+.pc .hist p{margin:0;overflow-wrap:anywhere}
+.pc .hist time{color:var(--ink3);margin-right:8px}
+.stage{font-size:11px;font-weight:500;color:var(--ink2);background:var(--line2);border-radius:999px;padding:1px 8px}
+.brief-btn{font-size:12px;font-weight:500;color:var(--acc-ink);background:var(--acc-soft);border:1px solid var(--acc);border-radius:999px;padding:0 12px;min-height:32px}
+.goal{display:flex;flex-direction:column;gap:5px}
+.goal .gl{display:flex;flex-wrap:wrap;justify-content:space-between;gap:2px 10px;font-size:14px;align-items:baseline}
+.goal .gl b{font-weight:600}
+.goal .gl span{font-variant-numeric:tabular-nums;color:var(--ink2);white-space:nowrap;font-size:13px}
+.bar{height:8px;border-radius:999px;background:var(--line2);overflow:hidden}
+.bar i{display:block;height:100%;background:var(--brand);border-radius:999px}
+.plan{list-style:none;margin:0;padding:0;background:var(--panel);border:1px solid var(--line);border-radius:var(--r)}
+.plan li{padding:10px 14px;border-top:1px solid var(--line2);display:grid;grid-template-columns:minmax(0,1fr) auto;gap:3px 10px}
+.plan li:first-child{border-top:0}
+.plan .pn{font-weight:600;font-size:14px;overflow-wrap:anywhere}
+.plan .pf{font-size:12px;color:var(--acc-ink);background:var(--acc-soft);border-radius:999px;padding:1px 8px;align-self:start;white-space:nowrap;font-weight:500}
+.plan .pw,.plan .pa{grid-column:1 / -1;font-size:13px;color:var(--ink2);min-width:0;overflow-wrap:anywhere}
+.plan .pa b{font-weight:600;color:var(--ink)}
+.tag{font-size:11px;letter-spacing:.04em;text-transform:uppercase;padding:2px 7px;border-radius:999px;font-weight:650;white-space:nowrap;background:var(--line2);color:var(--ink2)}
+.weekline{font-size:13px;color:var(--ink2);margin:0}
+.blist{display:flex;flex-wrap:wrap;gap:6px}
+.brief{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:14px;display:flex;flex-direction:column;gap:13px}
+.brief header{display:flex;flex-direction:column;gap:3px;border-bottom:1px solid var(--line);padding-bottom:10px}
+.brief header h4{font-size:17px;font-weight:650}
+.brief header .bo,.brief header .bm{font-size:13px;color:var(--ink2)}
+.brief header .by{font-size:12px;color:var(--acc);font-weight:500}
+.brief section{display:flex;flex-direction:column;gap:5px}
+.brief h5{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink3);font-weight:650}
+.brief p{margin:0;font-size:14px;color:var(--ink2);overflow-wrap:anywhere}
+.brief p.raw{white-space:pre-line}
+.brief ul,.brief ol{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:4px;font-size:14px;color:var(--ink2);overflow-wrap:anywhere}
+.brief li b{color:var(--ink);font-weight:600}
+.brief .src li{font-size:12px;color:var(--ink3)}
+.brief .nextstep{background:var(--acc-soft);color:var(--acc-ink);border-radius:8px;padding:9px 11px}
+.oldlines{list-style:none;margin:0;padding:0}
+.oldlines li{border-top:1px solid var(--line2)}
+.oldlines li:first-child{border-top:0}
+.oldlines button{background:none;border:0;padding:8px 0;font-size:14px;color:var(--ink2);text-align:left;width:100%;min-height:44px}
+.foot{font-size:12px;color:var(--ink3);border-top:1px solid var(--line);padding-top:10px;display:flex;flex-wrap:wrap;gap:4px 14px;align-items:center}
+.foot #save[data-s="saved"]{color:var(--acc)}
+.foot #save[data-s="error"]{color:var(--wait)}
+.foot #save:empty,.foot #readat:empty{display:none}
+.foot .tourlink{background:none;border:0;padding:0;font-size:12px;color:var(--ink3);text-decoration:underline;min-height:44px}
+.cap{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:8px;display:flex;flex-wrap:wrap;align-items:flex-start;gap:6px 8px}
+.cap-text{flex:1;min-width:0;height:44px;min-height:44px;resize:none;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink);padding:10px;font:16px/1.3 var(--sans);transition:height .15s ease}
+.cap-text:focus,.cap-text:not(:placeholder-shown){height:96px}
+.cap-save{flex:0 0 auto;min-height:44px;padding:10px 16px;border:0;border-radius:8px;background:var(--brand);color:var(--on-brand);font-weight:500;font-size:14px}
+.capstatus,.cap details.caps,.review,.cap .help{flex-basis:100%}
+.capstatus{font-size:13px;color:var(--acc);padding:0 2px}
+.capstatus:empty{display:none}
+.capstatus[data-s="error"]{color:var(--wait)}
+.review{border-top:1px solid var(--line2);padding-top:8px;display:flex;flex-direction:column;gap:8px}
+.review .quote{font-size:14px;color:var(--ink);background:var(--bg);border-radius:8px;padding:8px 10px;white-space:pre-line;overflow-wrap:anywhere}
+.review .lbl{font-size:12px;color:var(--ink3);letter-spacing:.06em;text-transform:uppercase;font-weight:650}
+.pick{display:flex;flex-direction:column;gap:4px}
+.pick label{display:flex;gap:10px;align-items:center;font-size:14px;min-height:44px;padding:2px 4px;border-radius:8px}
+.pick input[type=checkbox]{width:20px;height:20px;accent-color:var(--brand);flex:none}
+.pick small{color:var(--ink3);font-size:12px}
+.pick .tag{background:var(--wait-soft);color:var(--wait)}
+.addrow{display:flex;gap:6px}
+.addrow input{flex:1;min-width:0;border:1px solid var(--line);background:var(--bg);color:var(--ink);border-radius:8px;padding:8px 10px;font:16px var(--sans)}
+.found{display:flex;flex-direction:column;gap:4px}
+.found button{text-align:left;border:1px solid var(--line);background:var(--panel);border-radius:8px;padding:8px 10px;font-size:14px;min-height:44px}
+.found button.mk{border-style:dashed;color:var(--acc-ink)}
+.rv-acts{display:flex;gap:8px}
+.rv-acts .btn{flex:1 1 0}
+details.caps summary{font-size:13px;color:var(--acc);cursor:pointer;list-style:none;padding:0 2px;min-height:44px;display:flex;align-items:center}
+details.caps summary::-webkit-details-marker{display:none}
+details.caps summary::after{content:" \25BE"}
+.caplist{display:flex;flex-direction:column;gap:6px;margin-top:2px}
+.caplist > div{font-size:14px;border-top:1px solid var(--line2);padding-top:6px;overflow-wrap:anywhere}
+.caplist small{display:block;font-size:12px;color:var(--acc)}
+.caplist small.wait{color:var(--ink3)}
+.caplist small.err{color:var(--wait)}
+.caplist small button{background:none;border:0;padding:0 0 0 8px;font-size:12px;color:var(--ink2);text-decoration:underline;min-height:44px}
+.caplist .empty{font-size:13px;color:var(--ink3);border-top:0}
+.tour-back{position:fixed;inset:0;background:rgba(15,18,17,.45);display:flex;align-items:flex-end;justify-content:center;padding:16px;z-index:10}
+@media (min-width:600px){.tour-back{align-items:center}}
+.tour{width:100%;max-width:400px;background:var(--panel);border:1px solid var(--acc);border-radius:16px;padding:16px 16px 12px;display:flex;flex-direction:column;gap:10px;box-shadow:var(--shadow)}
+.tour .tk{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--acc);font-weight:650}
+.tour p{margin:0;font-size:15px;color:var(--ink)}
+.tour p.read{font-size:14px;color:var(--ink2);border-top:1px solid var(--line2);padding-top:8px}
+.tour .dots{display:flex;gap:6px}
+.tour .dots i{width:8px;height:8px;border-radius:50%;background:var(--line)}
+.tour .dots i.on{background:var(--acc)}
+.tour .tb{display:flex;align-items:center;gap:8px}
+.tour .tb .sp{flex:1}
+@media (prefers-reduced-motion: no-preference){.card,.pc{transition:opacity .2s,border-color .2s}}
+</style>
+
+<div class="wrap">
+  <!-- Phone header: business name and accent color come from the owner's row in Basics -->
+  <header class="top">
+    <span class="mark" id="mark" aria-hidden="true">BD</span>
+    <div class="t">
+      <h1 id="bname">Business Development Hub</h1>
+      <span class="sub" id="asof"></span>
+    </div>
+    <button type="button" class="qmark" id="help-toggle" aria-pressed="true" aria-label="Show or hide the help notes" title="Show or hide the help notes">?</button>
+  </header>
+
+  <section class="setup" id="setup" hidden>
+    <b id="setup-b">This page isn't connected to your Hub yet.</b>
+    <p id="setup-p">It connects at the end of your Hub setup.</p>
+  </section>
+
+  <nav class="tabs" role="tablist" aria-label="Screens">
+    <button role="tab" id="t-today" aria-selected="true" data-s="today">Today<span class="n" id="n-today"></span></button>
+    <button role="tab" id="t-people" aria-selected="false" data-s="people">People<span class="n" id="n-people"></span></button>
+    <button role="tab" id="t-outreach" aria-selected="false" data-s="outreach">Outreach<span class="n" id="n-outreach"></span></button>
+    <button role="tab" id="t-briefs" aria-selected="false" data-s="briefs">Briefs<span class="n" id="n-briefs"></span></button>
+  </nav>
+
+  <!-- Tell the hub: type or speak what happened, the page shows who it matched, one tap saves -->
+  <section class="cap" aria-label="Tell the hub">
+    <textarea class="cap-text" id="cap-text" placeholder="Tell the hub" aria-label="Tell the hub"></textarea>
+    <button type="button" class="cap-save" id="cap-save">Save</button>
+    <div class="review" id="review" hidden></div>
+    <div class="capstatus" id="capstatus" role="status"></div>
+    <p class="help">Tell your Hub what happened. Name the people; I'll add it to their notes.</p>
+    <details class="caps"><summary id="cap-sum">Your notes</summary>
+      <p class="help">Your last 10 notes on this phone or computer, and whether each one saved.</p>
+      <div class="caplist" id="cap-list"></div>
+    </details>
+  </section>
+
+  <section class="screen" id="s-today">
+    <p class="lede">What needs you today, and anything waiting on a go or hold.</p>
+    <div class="stack" id="sec-chat" hidden>
+      <h3 class="grp">From the hub chat today</h3>
+      <p class="help">What your Business Development chats saved today.</p>
+      <div class="logged" id="chat"></div>
+    </div>
+    <div class="stack" id="sec-ready">
+      <h3 class="grp">Ready for you</h3>
+      <p class="help">Due today, check-ins due today, meetings today and on the next weekday, and drafts you said yes to.</p>
+      <p class="msg" id="cal-msg" hidden></p>
+      <div class="stack" id="ready"></div>
+    </div>
+    <div class="stack" id="sec-gh" hidden>
+      <h3 class="grp">Go or hold</h3>
+      <p class="help">A yes or no for you. The default is marked.</p>
+      <div class="stack" id="gh"></div>
+    </div>
+  </section>
+
+  <section class="screen" id="s-people" hidden>
+    <p class="lede">Everyone in your Hub. Search anything, and tap a card for their notes and history.</p>
+    <p class="help">Search anything: a name, a company, a next step.</p>
+    <div class="tools">
+      <input id="q" type="search" placeholder="Search a name, a company, a referrer" aria-label="Search people" autocomplete="off">
+      <div class="chips" id="chips" role="group" aria-label="Filter people"></div>
+    </div>
+    <div class="grid" id="grid"></div>
+    <p class="msg" id="people-msg"></p>
+  </section>
+
+  <section class="screen" id="s-outreach" hidden>
+    <p class="lede" id="out-lede"></p>
+    <p class="help">This week's asks against your plan. Copy a draft, send it yourself, then tap Sent.</p>
+    <div class="stack" id="sec-goals">
+      <h3 class="grp">Your goals <span>set when we built your plan</span></h3>
+      <div class="card" id="goals"></div>
+    </div>
+    <div class="stack" id="sec-plan" hidden>
+      <h3 class="grp">The plan <span>who you're reaching, how often, and what you ask for</span></h3>
+      <ul class="plan" id="plan"></ul>
+    </div>
+    <div class="stack">
+      <h3 class="grp" id="week-h">This week's outreach</h3>
+      <p class="weekline" id="weekline" hidden></p>
+      <div class="bar" id="weekbar" hidden><i></i></div>
+      <p class="msg">People with something already open are on Today, so they're left off this list.</p>
+      <div class="stack" id="outreach"></div>
+    </div>
+    <div class="stack" id="sec-worked" hidden>
+      <h3 class="grp">Asks that worked</h3>
+      <ul class="list" id="worked"></ul>
+    </div>
+  </section>
+
+  <section class="screen" id="s-briefs" hidden>
+    <p class="lede">Before a meeting, Claude reads what's public about the person and their business, checks it against what's in your Hub, and writes a brief you can read in five minutes.</p>
+    <p class="help">Your meeting briefs, soonest meeting first.</p>
+    <div class="blist" id="blist" role="group" aria-label="Pick a brief"></div>
+    <div id="brief-view"></div>
+    <div class="stack" id="sec-older" hidden>
+      <h3 class="grp">Older briefs</h3>
+      <ul class="oldlines" id="older"></ul>
+    </div>
+    <p class="msg" id="briefs-msg"></p>
+  </section>
+
+  <footer class="foot">
+    <span id="save" data-s="saved">Saved</span>
+    <span id="readat"></span>
+    <span>Built with Groundwork</span>
+    <button type="button" class="tourlink" id="tour-again">Show the tour again</button>
+  </footer>
+</div>
+
+<div class="tour-back" id="tour" hidden role="dialog" aria-modal="true" aria-labelledby="tour-k">
+  <div class="tour">
+    <span class="tk" id="tour-k"></span>
+    <p id="tour-p"></p>
+    <p class="read" id="tour-r" hidden></p>
+    <div class="tb"><span class="dots" id="tour-dots"></span><span class="sp"></span><button class="btn sm" type="button" id="tour-got">Got it</button><button class="btn sm primary" type="button" id="tour-next">Next</button></div>
+  </div>
+</div>
+
+<script>
+(function(){
+  "use strict";
+  // One code base for every owner: nothing about the owner is written here.
+  // The page's own database holds the pointers (hub/config, written by the hub skill when it publishes the page):
+  // settings_view, plan_view, basics_view, contacts_ds, log_ds, and optional person and calendar.
+  // Name, time zone, brand and calendar come from Basics; stages, help and view links from the Hub Settings row;
+  // the plan, plan groups and weekly targets from the Hub Plan row. Taps live in hub/state; notes, help, tour and tab on the device.
+  var F = {name:"Name", first:"First name", last:"Last name", aka:"Also known as", company:"Company", title:"Title",
+    email:"Email", email2:"Second email", phone:"Phone", phone2:"Work phone", who:"Who they are", stage:"Stage", track:"Track",
+    next:"Next step", nextDate:"Next step date", lastTalked:"Last talked", confirmed:"Last confirmed", ask:"Ask",
+    referred:"Referred by", archived:"Archived", askKind:"Ask kind", draft1:"Draft 1", draft2:"Draft 2",
+    week:"Outreach week", landed:"Ask landed", brief:"Brief", briefFor:"Brief for", briefWritten:"Brief written",
+    website:"Website", linkedin:"LinkedIn", address:"Address", about:"About", followup:"Follow-up draft",
+    goHold:"Go or hold", dflt:"Default", whyDefault:"Why the default", whyWeek:"Why this week", created:"Created"};
+  var PLUGIN = "Business Development", WORKSPACE = "Business Development";
+  var PTR = null, SET = null, BAS = null, PLAN = null, PTR_READ = false;
+  var ERR = {settings:"", basics:"", plan:"", people:"", live:""};
+  var TAPS = {}, NOTES = [], COPIED = {}, HIST = {};
+  var PEOPLE = {}, LOADED = {people:false}, MADE = {};
+  var LIVE = {peopleAt:0, cal:null, calErr:"", log:null};
+  var dbRef = null, mcpP = null, writing = Promise.resolve();
+  var filter = "all", BRIEF_SEL = "", OPEN_ID = "";
+  var COMB = new RegExp("[" + String.fromCharCode(0x300) + "-" + String.fromCharCode(0x36f) + "]", "g");
+  function lsGet(k){ try{ return localStorage.getItem(k); }catch(e){ return null; } }
+  function lsSet(k, v){ try{ if(v == null) localStorage.removeItem(k); else localStorage.setItem(k, v); }catch(e){} }
+  var HELP_LOCAL = lsGet("hub-help"); if(HELP_LOCAL !== "on" && HELP_LOCAL !== "off") HELP_LOCAL = null;
+  try{ var nl = JSON.parse(lsGet("hub-notes") || "[]"); if(Array.isArray(nl)) NOTES = nl.filter(function(x){ return x && x.text; }).slice(0, 10); }catch(e){ NOTES = []; }
+
+  function $(id){ return document.getElementById(id); }
+  function esc(t){ var d=document.createElement("div"); d.textContent = t==null ? "" : String(t); return d.innerHTML; }
+  function clone(o){ return JSON.parse(JSON.stringify(o)); }
+  function configured(){ return !!(SET && SET.contactsView); }
+  function tz(){ return (BAS && BAS.tz) || undefined; }
+  function safe(fn, a, b){ try{ return fn(a, b); }catch(e){ return fn(a, Object.assign({}, b, {timeZone:undefined})); } }
+  function parts(d, o){ var p = safe(function(x,oo){ return new Intl.DateTimeFormat("en-US", oo).formatToParts(x); }, d, Object.assign({timeZone:tz()}, o)); var r = {}; p.forEach(function(x){ r[x.type] = x.value; }); return r; }
+  // "9:14am" in the owner's time zone
+  function tm(d){ var o = parts(d, {hour:"numeric", minute:"2-digit", hour12:true}); return o.hour + ":" + o.minute + String(o.dayPeriod||"").toLowerCase(); }
+  // "2:00" for a meeting's time, as the script writes it
+  function hm(d){ var o = parts(d, {hour:"numeric", minute:"2-digit", hour12:true}); return o.hour + ":" + o.minute; }
+  // "Thu Oct 22" for a date-time, in the owner's time zone
+  function dayName(d){ var o = parts(d, {weekday:"short", month:"short", day:"numeric"}); return o.weekday + " " + o.month + " " + o.day; }
+  function ymd(d){ var o = parts(d, {year:"numeric", month:"2-digit", day:"2-digit"}); return o.year + "-" + o.month + "-" + o.day; }
+  function today(){ return ymd(new Date()); }
+  function addDays(s, n){ var d = new Date(s + "T12:00:00Z"); d.setUTCDate(d.getUTCDate() + n); return d.toISOString().slice(0,10); }
+  function dow(s){ return new Date(s + "T12:00:00Z").getUTCDay(); }
+  function monday(){ var t = today(); return addDays(t, -((dow(t) + 6) % 7)); }
+  // The next weekday after today: Friday, Saturday and Sunday give Monday
+  function nextWeekday(){ var t = today(), d = dow(t); return addDays(t, d === 5 ? 3 : (d === 6 ? 2 : 1)); }
+  function dayOf(s){ s = String(s||""); if(!s) return ""; if(s.length <= 10) return s.slice(0,10); var d = new Date(s); return isNaN(d) ? s.slice(0,10) : ymd(d); }
+  // "Wed Oct 21" for a stored date
+  function fmtDate(s){ if(!s) return ""; var d = new Date(String(s).slice(0,10)+"T12:00:00Z"); if(isNaN(d)) return String(s); var o = {}; new Intl.DateTimeFormat("en-US", {weekday:"short", month:"short", day:"numeric", timeZone:"UTC"}).formatToParts(d).forEach(function(x){ o[x.type] = x.value; }); return o.weekday + " " + o.month + " " + o.day; }
+  // "Oct 8" for a stored date
+  function shortDate(s){ if(!s) return ""; var d = new Date(String(s).slice(0,10)+"T12:00:00Z"); if(isNaN(d)) return String(s); var o = {}; new Intl.DateTimeFormat("en-US", {month:"short", day:"numeric", timeZone:"UTC"}).formatToParts(d).forEach(function(x){ o[x.type] = x.value; }); return o.month + " " + o.day; }
+  function daysBetween(a, b){ return Math.round((new Date(b + "T12:00:00Z") - new Date(a + "T12:00:00Z")) / 86400000); }
+  // "Wed Oct 21, 2026", the History line date
+  function historyDate(){ var o = parts(new Date(), {weekday:"short", month:"short", day:"numeric", year:"numeric"}); return o.weekday + " " + o.month + " " + o.day + ", " + o.year; }
+  // Now as a date-time with the owner's offset, for the Log's Time column
+  function nowStamp(){
+    var n = new Date(); n.setMilliseconds(0);
+    var o = parts(n, {year:"numeric", month:"2-digit", day:"2-digit", hour:"2-digit", minute:"2-digit", second:"2-digit", hourCycle:"h23"});
+    var h = o.hour === "24" ? "00" : o.hour;
+    var asUtc = Date.UTC(+o.year, +o.month - 1, +o.day, +h, +o.minute, +o.second), off = Math.round((asUtc - n.getTime()) / 60000);
+    var sg = off < 0 ? "-" : "+", a = Math.abs(off), oh = String(Math.floor(a/60)).padStart(2,"0"), om = String(a%60).padStart(2,"0");
+    return o.year + "-" + o.month + "-" + o.day + "T" + h + ":" + o.minute + ":" + o.second + sg + oh + ":" + om;
+  }
+  function idOf(u){ var m = String(u||"").replace(/-/g,"").match(/([0-9a-f]{32})(?![0-9a-f])/i); return m ? m[1].toLowerCase() : ""; }
+  function fold(s){ s = String(s==null ? "" : s).toLowerCase(); return s.normalize ? s.normalize("NFD").replace(COMB,"") : s; }
+  function reEsc(s){ return s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"); }
+  function hasWord(hay, w){ return !!w && new RegExp("(^|[^a-z0-9])" + reEsc(w) + "($|[^a-z0-9])").test(hay); }
+  function yes(v){ return v === true || v === "__YES__" || v === "Yes" || v === "true"; }
+  function str(v){ return v == null ? "" : String(v).trim(); }
+  function num(v){ var n = parseFloat(v); return isNaN(n) ? 0 : n; }
+  function link(r, name){ return str(r[name + " view"]); }
+  function dateOf(r, f){ return str(r["date:" + f + ":start"] || r[f]); }
+  function href(u){ u = str(u); if(!u) return ""; return /^https?:\/\//i.test(u) ? u : "https://" + u.replace(/^\/+/, ""); }
+  function bare(u){ return str(u).replace(/^https?:\/\//i, "").replace(/^www\./i, "").replace(/\/$/, ""); }
+  function list(names){ return names.length < 2 ? names.join("") : names.slice(0, -1).join(", ") + " and " + names[names.length - 1]; }
+
+  // His, her or their, from the first name only when it's clear; their when it isn't
+  var HE = " aaron adam alan albert andrew anthony arthur ben benjamin bill bob brad brandon brian bruce carl charles christopher craig dan daniel dave david dennis derek don donald doug douglas ed edward eric frank fred gary george greg gregory harold harry henry howard jack jacob jake james jason jeff jeffrey jerry jim joe john jonathan jose joseph josh joshua juan keith ken kenneth kevin larry luis mark martin matt matthew michael mike nathan nick paul peter phil philip ralph raymond richard rick rob robert roger ron ronald roy russell ryan samuel scott sean stephen steve steven ted thomas tim timothy todd tom tony victor walter wayne william ";
+  var SHE = " abby alice amanda amy andrea angela ann anna anne barbara betty beverly bev brenda carol carolyn catherine cheryl christina christine cynthia deborah debra denise diana diane donna dorothy elizabeth ellen emily emma evelyn frances gina gloria grace heather helen jane janet janice jennifer jessica joan joyce judith judy julia julie karen kate katherine kathleen kathy laura lauren linda lisa lori louise margaret maria marie marilyn martha mary megan melissa michelle nancy nell nicole pamela patricia rachel rebecca rita rose ruth sandra sara sarah sharon shirley stephanie susan teresa theresa tina victoria virginia wendy ";
+  function pronoun(first){ var f = " " + fold(first).trim() + " "; if(f.trim() && HE.indexOf(f) >= 0) return "His"; if(f.trim() && SHE.indexOf(f) >= 0) return "Her"; return "Their"; }
+
+  // ---------- Hub Settings, Basics, Hub Plan ----------
+  function settingsFrom(r){
+    return {stages:str(r.Stages).split(",").map(function(s){ return s.trim(); }).filter(Boolean),
+      help: r["Help on"] == null ? true : yes(r["Help on"]), calendarTool:str(r["Calendar tool"]),
+      contactsView:link(r, "Contacts"), logView:link(r, "Log"), planView:link(r, "Hub Plan"), basicsView:link(r, "Basics")};
+  }
+  function basicsFrom(rows){
+    var owner = rows.filter(function(r){ return fold(r.Role) === "owner"; })[0];
+    if(!owner) return null;
+    var who = (PTR && str(PTR.person)) ? rows.filter(function(r){ return fold(r.Person) === fold(PTR.person); })[0] : null;
+    var lines = str(owner["Brand colors"]).split(/\n|;/), acc = null, firstHex = null;
+    lines.forEach(function(l){ var m = l.match(/#[0-9a-f]{6}\b/i); if(!m) return; if(!firstHex) firstHex = m[0]; if(!acc && /accent/i.test(l)) acc = m[0]; });
+    var cal = fold(owner.Calendar);
+    return {name:str(owner["Business name"]), tz:str(owner["Time zone"]), color: acc || firstHex || "",
+      person:str((who || owner).Person), calendar: cal.indexOf("google") === 0 ? "google" : (cal.indexOf("microsoft") === 0 ? "microsoft" : "")};
+  }
+  function planFrom(r){
+    return {asksWeek:num(r["Asks each week"]), convWeek:num(r["Conversations each week"]), goal:str(r["My goal"]),
+      goalNum:num(r["Goal number"]), goalCounts:str(r["Goal counts"]), worked:str(r["Asks that worked"]),
+      groups:str(r["Plan groups"]), made:dateOf(r, "Created")};
+  }
+  function helpOn(){ return HELP_LOCAL ? HELP_LOCAL === "on" : !(SET && SET.help === false); }
+  function applyHelp(){ var on = helpOn(); document.documentElement.classList.toggle("help-on", on); $("help-toggle").setAttribute("aria-pressed", String(on)); }
+  $("help-toggle").addEventListener("click", function(){ HELP_LOCAL = helpOn() ? "off" : "on"; lsSet("hub-help", HELP_LOCAL); applyHelp(); });
+  function onColor(hex){ var r=parseInt(hex.substr(1,2),16), g=parseInt(hex.substr(3,2),16), b=parseInt(hex.substr(5,2),16); return (0.299*r+0.587*g+0.114*b) > 160 ? "#1A1F1C" : "#FFFFFF"; }
+  function initials(n){ var w = String(n||"").replace(/[^A-Za-z0-9 ]/g," ").split(/\s+/).filter(Boolean); return (w.length > 1 ? w[0][0] + w[1][0] : (w[0]||"BD").slice(0,2)).toUpperCase(); }
+  function applySettings(){
+    var name = (BAS && BAS.name) ? BAS.name.slice(0, 60) + " Hub" : "Business Development Hub";
+    $("bname").textContent = name; document.title = name;
+    $("mark").textContent = initials(BAS && BAS.name ? BAS.name : "Business Development");
+    var col = BAS && BAS.color, root = document.documentElement.style;
+    if(col){ root.setProperty("--brand", col); root.setProperty("--on-brand", onColor(col)); }
+    else { root.removeProperty("--brand"); root.removeProperty("--on-brand"); }
+    var b = "", p = [];
+    if(PTR_READ && (!PTR || !PTR.settings_view)){ b = "This page isn't connected to your Hub yet."; p.push("It connects at the end of your Hub setup."); }
+    else if(PTR){
+      if(ERR.live) p.push(ERR.live);
+      if(ERR.settings) p.push("It couldn't read how your Hub is set up: " + ERR.settings + ".");
+      if(ERR.basics) p.push("It couldn't read your name, business and time zone: " + ERR.basics + ".");
+      if(ERR.people) p.push("It couldn't read your contacts: " + ERR.people + ".");
+      if(p.length) b = "This page couldn't read part of your Hub.";
+    }
+    $("setup").hidden = !b; $("setup-b").textContent = b; $("setup-p").textContent = p.join(" ");
+    var up = lastRewrite();
+    $("asof").textContent = up ? "Updated " + dayName(up) + ", " + tm(up) : "";
+    $("readat").textContent = LIVE.peopleAt ? "Your Hub read " + tm(new Date(LIVE.peopleAt)) : "";
+    applyHelp();
+  }
+
+  // ---------- tabs ----------
+  var TABS = ["today","people","outreach","briefs"];
+  var tabs = document.querySelectorAll(".tabs [role=tab]");
+  function show(s){
+    tabs.forEach(function(t){ t.setAttribute("aria-selected", String(t.dataset.s===s)); });
+    TABS.forEach(function(x){ $("s-" + x).hidden = x !== s; });
+    lsSet("hub-tab", s);
+  }
+  tabs.forEach(function(t){ t.addEventListener("click", function(){ show(t.dataset.s); }); });
+
+  // ---------- contacts (live from the All people view) ----------
+  function personFrom(r){
+    var id = idOf(r.url); if(!id) return null;
+    var first = str(r[F.first]), last = str(r[F.last]), name = str(r[F.name]) || (first + " " + last).trim();
+    var p = {id:id, url:str(r.url), name:name || "(no name)", first:first, last:last, aka:str(r[F.aka]),
+      company:str(r[F.company]), title:str(r[F.title]), email:str(r[F.email]), email2:str(r[F.email2]),
+      phone:str(r[F.phone]), phone2:str(r[F.phone2]), who:str(r[F.who]), stage:str(r[F.stage]), track:str(r[F.track]),
+      next:str(r[F.next]), nextDate:dateOf(r, F.nextDate), talked:dateOf(r, F.lastTalked), ask:str(r[F.ask]),
+      referred:str(r[F.referred]), archived:yes(r[F.archived]), askKind:str(r[F.askKind]), draft1:str(r[F.draft1]),
+      draft2:str(r[F.draft2]), week:dateOf(r, F.week), landed:str(r[F.landed]), brief:str(r[F.brief]), briefFor:dateOf(r, F.briefFor),
+      briefWritten:dateOf(r, F.briefWritten), website:str(r[F.website]), linkedin:str(r[F.linkedin]), address:str(r[F.address]),
+      about:str(r[F.about]), followup:str(r[F.followup]), goHold:str(r[F.goHold]), dflt:str(r[F.dflt]), whyDefault:str(r[F.whyDefault]),
+      whyWeek:str(r[F.whyWeek]), created:dateOf(r, F.created)};
+    // Search covers the row: name (a group row's names too), company, title, email, Who they are, Stage, Next step, About, Referred by
+    p.hay = fold([p.name, p.company, p.title, p.email, p.who, p.stage, p.next, p.about, p.referred].join(" "));
+    return p;
+  }
+  function all(){ return Object.keys(PEOPLE).map(function(k){ return PEOPLE[k]; }); }
+  function active(){ return all().filter(function(p){ return !p.archived; }); }
+  function search(q){ var ws = fold(q).split(/\s+/).filter(Boolean); if(!ws.length) return []; return active().filter(function(p){ return ws.every(function(w){ return p.hay.indexOf(w) >= 0; }); }); }
+  function newToday(p){ return (p.created && dayOf(p.created) === today()) || MADE[p.id] === today(); }
+
+  // ---------- Log rows ----------
+  function logRows(){ return (LIVE.log || []).filter(function(r){ return r.Plugin === PLUGIN; }); }
+  function rowTime(r){ return str(r["date:Time:start"] || r.Time); }
+  function weekRows(){ var m = monday(), t = today(); return logRows().filter(function(r){ var d = dayOf(rowTime(r)); return d && d >= m && d <= t; }); }
+  function namedIn(text, prefix, name){ text = str(text); return text.indexOf(prefix) === 0 && fold(text.slice(prefix.length).trim()) === fold(name).trim(); }
+  function isRewrite(r){ return str(r.Text).indexOf("Hub Today rewritten") === 0 || str(r.Event).indexOf("Hub Today rewritten") === 0; }
+  // The newest "Hub Today rewritten" row, any day
+  function lastRewrite(){ var best = null; logRows().forEach(function(r){ if(!isRewrite(r)) return; var d = new Date(rowTime(r)); if(!isNaN(d) && (!best || d > best)) best = d; }); return best; }
+  // This week's rows starting with prefix, leaving out any with a later Correction row for the same person
+  function counted(prefix){
+    var rows = weekRows(), out = [];
+    rows.forEach(function(r){
+      var text = str(r.Text); if(text.indexOf(prefix) !== 0) return;
+      var who = text.slice(prefix.length).trim(), at = new Date(rowTime(r)).getTime();
+      var fixed = rows.some(function(c){ return namedIn(c.Text, "Correction: " + prefix, who) && new Date(rowTime(c)).getTime() >= at; });
+      if(!fixed && out.indexOf(fold(who)) < 0) out.push(fold(who));
+    });
+    return out;
+  }
+
+  // ---------- taps kept in the page's own store (hub/state) ----------
+  function key(kind, p, extra){ var d = (kind === "out") ? monday() : today(); return d + "|" + kind + "|" + p.id + (extra ? "|" + extra : ""); }
+  function stampEl(text, t, retry, undo){
+    var st = document.createElement("div"); st.className = "stamp"; st.setAttribute("data-s", t && t.notion === "err" ? "error" : "ok");
+    var sp = document.createElement("span"); sp.textContent = text + (t && t.notion === "err" ? " Not saved yet." : ""); st.appendChild(sp);
+    if(t && t.notion === "err" && retry){ var a = document.createElement("button"); a.type="button"; a.textContent="Try again"; a.addEventListener("click", retry); st.appendChild(a); }
+    if(undo){ var u = document.createElement("button"); u.type="button"; u.textContent="Undo"; u.addEventListener("click", undo); st.appendChild(u); }
+    return st;
+  }
+  function at(t){ return t && t.at ? tm(new Date(t.at)) : ""; }
+  function helpRow(texts){ return '<div class="acts-help help">' + texts.map(function(x){ return '<span>' + esc(x) + '</span>'; }).join("") + '</div>'; }
+  function notePerson(p){ var box = $("cap-text"); box.value = p.name + ": "; box.focus(); try{ box.setSelectionRange(box.value.length, box.value.length); }catch(e){} window.scrollTo(0, 0); }
+
+  // ---------- Today: From the hub chat today ----------
+  // Today's rows from Business Development chats: the page's own rows (Event starting "Hub page"),
+  // "Hub page note worked:" rows and "Hub Today rewritten" are left out
+  function chatRows(){
+    var t = today();
+    return logRows().filter(function(r){
+      if(dayOf(rowTime(r)) !== t) return false;
+      if(str(r.Event).indexOf("Hub page") === 0 || str(r.Text).indexOf("Hub page note") === 0 || isRewrite(r)) return false;
+      return !!str(r.Text);
+    }).sort(function(a,b){ return String(rowTime(b)).localeCompare(String(rowTime(a))); }).slice(0, 6);
+  }
+  function plainLine(r){ var t = str(r.Text), ty = str(r.Type); if(ty && t.toLowerCase().indexOf(ty.toLowerCase() + ":") === 0) t = t.slice(ty.length + 1).trim(); return t.replace(/^Status:\s*/i, ""); }
+  function renderChat(){
+    var rows = configured() ? chatRows() : [];
+    $("sec-chat").hidden = !rows.length;
+    $("chat").innerHTML = rows.map(function(r){ var d = new Date(rowTime(r));
+      return '<p><time>' + (rowTime(r).length > 10 && !isNaN(d) ? esc(tm(d)) : "") + '</time><span>' + esc(plainLine(r).slice(0, 220)) + '</span></p>'; }).join("");
+  }
+
+  // ---------- Today: meetings from the calendar ----------
+  // A calendar time as an instant. Outlook sends {"dateTime":"2026-10-29T15:00:00.0000000","timeZone":"UTC"} with no offset:
+  // UTC gets a Z; another named zone gets that zone's offset; no zone at all is read in the owner's time zone.
+  function zoneOffset(day, zone){
+    try{ var f = new Intl.DateTimeFormat("en-US", {timeZone:zone, timeZoneName:"longOffset"}).formatToParts(new Date(day + "T12:00:00Z")).filter(function(x){ return x.type === "timeZoneName"; })[0].value;
+      var m = f.match(/GMT([+-]\d\d:\d\d)/); return m ? m[1] : (f === "GMT" ? "+00:00" : null); }catch(e){ return null; }
+  }
+  function instant(v){
+    var s = typeof v === "string" ? v : (v && (v.dateTime || v.date)) || "", z = v && typeof v === "object" ? String(v.timeZone || "") : "";
+    if(!s || s.length <= 10) return s;
+    s = s.replace(/(\.\d{3})\d+/, "$1");
+    if(/(Z|[+-]\d\d:?\d\d)$/i.test(s)) return s;
+    if(/^(utc|etc\/utc|gmt|z)$/i.test(z)) return s + "Z";
+    var off = zoneOffset(s.slice(0,10), z || tz() || "UTC");
+    return off ? s + off : s;
+  }
+  function calEvents(p){
+    if(!p) return [];
+    var a = p.events || p.value || p.items || (Array.isArray(p) ? p : []);
+    return (Array.isArray(a) ? a : []).map(function(ev, i){
+      var st = ev.start || ev.startTime || {}, en = ev.end || ev.endTime || {};
+      var s = instant(st), e = instant(en);
+      var allDay = !!(ev.isAllDay || (st && st.date && !st.dateTime));
+      var att = (ev.attendees || []).map(function(x){ var ea = x.emailAddress || {}; return {email:String(x.email || ea.address || ""), self:!!x.self}; });
+      var loc = ev.location; loc = typeof loc === "string" ? loc : (loc && (loc.displayName || loc.name)) || "";
+      return {id:String(ev.id || ev.iCalUID || (s + "|" + i)), title:String(ev.summary || ev.subject || ev.title || "(no title)"), place:String(loc||""),
+        start:s, end:e, allDay:allDay, cancelled: ev.status === "cancelled" || ev.isCancelled === true, att:att};
+    });
+  }
+  function matchEvent(ev){
+    var people = active(), hits = {}, title = fold(ev.title);
+    ev.att.forEach(function(a){ if(a.self) return; var em = fold(a.email); if(!em) return;
+      people.forEach(function(p){ if(fold(p.email) === em || (p.email2 && fold(p.email2) === em)) hits[p.id] = p; }); });
+    people.forEach(function(p){ var full = fold((p.first + " " + p.last).trim() || p.name); if(full.indexOf(" ") > 0 && hasWord(title, full)) hits[p.id] = p; });
+    return Object.keys(hits).map(function(k){ return hits[k]; });
+  }
+  function evDay(e){ return e.allDay ? String(e.start).slice(0,10) : dayOf(e.start); }
+  function meetings(){
+    if(!LIVE.cal) return [];
+    return calEvents(LIVE.cal).filter(function(e){ return !e.cancelled && e.start; }).map(function(e){ e.who = matchEvent(e); e.day = evDay(e); return e; })
+      .filter(function(e){ return e.who.length; }).sort(function(a,b){ return String(a.start).localeCompare(String(b.start)); });
+  }
+  function whenText(e){ var d = new Date(e.start); return e.allDay || isNaN(d) ? fmtDate(e.day) : dayName(d) + ", " + tm(d); }
+  // "10:00 to 10:45am", or "11:30am to 12:15pm" when the two halves differ
+  function span(s, en){ var a = tm(s); if(isNaN(en)) return a; var b = tm(en); return a.slice(-2) === b.slice(-2) ? a.slice(0, -2) + " to " + b : a + " to " + b; }
+  function calSource(){ return (BAS && BAS.calendar) || ""; }
+
+  // ---------- Today: Ready for you and Go or hold ----------
+  function waitingOn(p){ return /^waiting on\b/i.test(p.next); }
+  // On this week's Outreach with nothing done about the ask yet: handled on Outreach, so left off Ready for you
+  function onOutreach(p){
+    if(!(p.week && p.week.slice(0,10) === monday())) return false;
+    var t = TAPS[key("out", p)];
+    if(t) return false;
+    if(sentNames().indexOf(fold(p.name)) >= 0 || movedByLog(p)) return false;
+    return true;
+  }
+  function readyItems(){
+    var t = today(), nw = nextWeekday(), items = [], meetToday = {};
+    meetings().filter(function(e){ return e.day === t || e.day === nw; }).forEach(function(e){
+      e.who.forEach(function(p){ if(e.day === t) meetToday[p.id] = true; items.push({kind:"meet", p:p, e:e, k:key("meet", p, e.id + "@" + e.day), later: e.day !== t}); }); });
+    // One card per person per day: a meeting today takes the place of their next-step card
+    active().filter(function(p){ return p.nextDate && p.nextDate.slice(0,10) <= t && !onOutreach(p) && !meetToday[p.id]; })
+      .sort(function(a,b){ return a.nextDate.localeCompare(b.nextDate) || a.name.localeCompare(b.name); })
+      .forEach(function(p){ items.push({kind:"step", p:p, k:key("step", p)}); });
+    active().filter(function(p){ return p.followup; }).sort(function(a,b){ return a.name.localeCompare(b.name); })
+      .forEach(function(p){ items.push({kind:"draft", p:p, k:key("draft", p)}); });
+    return items;
+  }
+  function ghItems(){ return active().filter(function(p){ return p.goHold; }).sort(function(a,b){ return a.name.localeCompare(b.name); }).map(function(p){ return {kind:"gh", p:p, k:key("gh", p)}; }); }
+  function head(p, pill, cls, sub){ return '<div class="head"><b>' + esc(sub || p.name) + '</b>' + (p.company ? '<span class="ch">' + esc(p.company) + '</span>' : '') + (pill ? '<span class="pill ' + cls + '">' + esc(pill) + '</span>' : '') + '</div>'; }
+  function readyCard(it){
+    var p = it.p, t = TAPS[it.k], el = document.createElement("div"), h = "";
+    el.className = "card" + (t ? " done" : ""); el.dataset.id = p.id; el.dataset.kind = it.kind;
+    if(it.kind === "meet"){
+      var e = it.e, hasBrief = p.brief && p.briefFor && p.briefFor.slice(0,10) === e.day;
+      h = head(p, whenText(e), "when") + '<p>' + esc(e.title + (e.place ? ", " + e.place : "") + ".") + (hasBrief ? " Their brief is ready." : "") + '</p>' +
+        (it.later ? '<div class="acts"><button class="btn" type="button" data-act="note">Note</button></div>'
+          : '<div class="acts"><button class="btn primary" type="button" data-act="happened">Happened</button><button class="btn" type="button" data-act="note">Note</button></div>' +
+        helpRow(["Tap after the meeting, then tell me how it went.", ""]));
+    } else if(it.kind === "step"){
+      var w = waitingOn(p), d = p.nextDate.slice(0,10), pill = w ? "check in today" : (d === today() ? "due today" : "due " + fmtDate(d));
+      h = head(p, pill, w ? "new" : (d === today() ? "ready" : "when")) + '<p>' + esc(p.next || "No next step yet") + '</p>' +
+        '<div class="acts"><button class="btn primary" type="button" data-act="done">Done</button><button class="btn" type="button" data-act="later">Later</button><button class="btn" type="button" data-act="note">Note</button></div>' +
+        helpRow(["Tap when you've done the next step, then tell me what's next.", "Off today. It's back tomorrow.", ""]);
+    } else {
+      h = head(p, "draft ready", "ready") + '<p>A follow-up you said yes to in a chat.</p><div class="draft">' + esc(p.followup) + '</div>' +
+        '<div class="copied" role="status">' + (COPIED["f|" + p.id] ? "Copied, not sent yet" : "") + '</div>' +
+        '<div class="acts"><button class="btn" type="button" data-act="copy">Copy</button><button class="btn primary" type="button" data-act="fsent">Sent</button><button class="btn" type="button" data-act="later">Later</button></div>' +
+        helpRow(["Copies the draft. Nothing is sent.", "Tap after you've sent it yourself.", "Off today. It's back tomorrow."]);
+    }
+    el.innerHTML = h;
+    el.querySelectorAll("[data-act]").forEach(function(b){ b.addEventListener("click", function(){ todayTap(it, b.getAttribute("data-act"), el); }); });
+    if(t) el.appendChild(stampEl(foldText(t), t, function(){ retryTap(it, t); }, function(){ undoTap(it, t); }));
+    return el;
+  }
+  function foldText(t){
+    if(t.act === "done") return "Done " + at(t) + ".";
+    if(t.act === "later") return "Later, back tomorrow.";
+    if(t.act === "happened") return "Happened " + at(t) + ".";
+    if(t.act === "fsent") return "Sent " + at(t) + ".";
+    if(t.act === "go") return "Go " + at(t) + ".";
+    if(t.act === "hold") return "Hold " + at(t) + ".";
+    if(t.act === "sent") return "Sent " + at(t) + ". Counted toward this week.";
+    if(t.act === "olater") return "Later " + at(t) + ".";
+    if(t.act === "skip") return "Skipped " + at(t) + ".";
+    return "";
+  }
+  function ghCard(it){
+    var p = it.p, t = TAPS[it.k], el = document.createElement("div"), d = fold(p.dflt);
+    el.className = "card" + (t ? " done" : ""); el.dataset.id = p.id; el.dataset.kind = "gh";
+    el.innerHTML = head(p, "", "", p.name + (p.referred ? ", through " + p.referred : "")) + '<p>' + esc(p.goHold) + '</p>' +
+      (d === "go" || d === "hold" ? '<p class="hint">' + esc("Default " + d + (p.whyDefault ? ": " + p.whyDefault : ".")) + '</p>' : '') +
+      '<div class="acts"><button class="btn' + (d === "go" ? " dflt" : "") + '" type="button" data-act="go">Go</button><button class="btn' + (d === "hold" ? " dflt" : "") + '" type="button" data-act="hold">Hold</button></div>';
+    el.querySelectorAll("[data-act]").forEach(function(b){ b.addEventListener("click", function(){ todayTap(it, b.getAttribute("data-act"), el); }); });
+    if(t) el.appendChild(stampEl(foldText(t), t, function(){ retryTap(it, t); }, function(){ undoTap(it, t); }));
+    return el;
+  }
+  function renderToday(){
+    renderChat();
+    var on = configured();
+    $("sec-ready").hidden = !on;
+    var box = $("ready"), items = on ? readyItems() : [], gh = on ? ghItems() : [];
+    box.innerHTML = ""; items.forEach(function(it){ box.appendChild(readyCard(it)); });
+    if(on && LOADED.people && !items.length) box.innerHTML = '<p class="msg">Nothing needs you today.</p>';
+    else if(on && !LOADED.people) box.innerHTML = '<p class="msg">Reading your Hub.</p>';
+    var msg = $("cal-msg"), src = calSource();
+    var cm = on && BAS_READ && src ? LIVE.calErr : "";
+    msg.hidden = !cm; msg.textContent = cm;
+    var g = $("gh"); g.innerHTML = ""; gh.forEach(function(it){ g.appendChild(ghCard(it)); });
+    $("sec-gh").hidden = !gh.length;
+    var open = items.concat(gh).filter(function(it){ return !TAPS[it.k] && !it.later; }).length;
+    $("n-today").textContent = on && LOADED.people ? open + " for you" : "";
+  }
+  // People with a card on Today's Ready for you or Go or hold
+  function waitingIds(){ var s = {}; if(!configured()) return s; readyItems().concat(ghItems()).forEach(function(it){ s[it.p.id] = true; }); return s; }
+
+  // ---------- People ----------
+  var CHIPS = [["all","All"],["waiting","Waiting on you"],["referrers","Referrers"],["prospects","Prospects"],["quiet","Quiet 30+ days"]];
+  function buildChips(){ $("chips").innerHTML = CHIPS.map(function(c){ return '<button class="chip" type="button" aria-pressed="'+(c[0]===filter)+'" data-f="'+c[0]+'">'+esc(c[1])+'</button>'; }).join(""); }
+  $("chips").addEventListener("click", function(e){ var c = e.target.closest && e.target.closest(".chip"); if(!c) return; filter = c.getAttribute("data-f"); buildChips(); renderPeople(); });
+  function stageRank(p){ var st = (SET && SET.stages) || [], i = st.map(fold).indexOf(fold(p.stage)); return i < 0 ? (p.stage ? st.length : st.length + 1) : i; }
+  function renderPeople(){
+    var q = $("q").value, grid = $("grid"), wait = waitingIds(), t = today();
+    var people = q.trim() ? search(q) : active();
+    $("n-people").textContent = LOADED.people ? String(active().length) : "";
+    people = people.filter(function(p){
+      if(filter === "waiting") return !!wait[p.id];
+      if(filter === "referrers") return p.who === "Sends me work" || p.who === "Partner";
+      if(filter === "prospects") return p.who === "Lead";
+      if(filter === "quiet") return !!p.talked && daysBetween(p.talked.slice(0,10), t) >= 30;
+      return true;
+    });
+    people.sort(function(a,b){ return (wait[b.id] ? 1 : 0) - (wait[a.id] ? 1 : 0) || stageRank(a) - stageRank(b) ||
+      String(b.talked||"").localeCompare(String(a.talked||"")) || a.name.localeCompare(b.name); });
+    var cap = 200, h = "";
+    people.slice(0, cap).forEach(function(p){
+      var org = [p.company, p.title].filter(Boolean).join(" · "), o = p.id === OPEN_ID;
+      var dl = [["Email", p.email ? esc(p.email) : ""], ["Phone", esc(p.phone || p.phone2)],
+        ["Website", p.website ? '<a href="'+esc(href(p.website))+'" target="_blank" rel="noopener">'+esc(bare(p.website))+'</a>' : ""],
+        ["LinkedIn", p.linkedin ? '<a href="'+esc(href(p.linkedin))+'" target="_blank" rel="noopener">'+pronoun(p.first)+' profile</a>' : ""],
+        ["Address", esc(p.address)]].filter(function(x){ return x[1]; });
+      h += '<div class="pc" role="button" tabindex="0" data-id="'+esc(p.id)+'" aria-expanded="'+o+'">'+
+        '<div class="nm"><span>'+esc(p.name)+'</span><span class="sp"></span>'+(p.brief ? '<button class="brief-btn" type="button" data-brief="'+esc(p.id)+'">Brief</button>' : '')+
+        (p.stage ? '<span class="stage">'+esc(p.stage)+'</span>' : '')+'</div>'+
+        (newToday(p) ? '<div class="role newt">New today</div>' : '')+
+        (p.brief ? '<p class="help">Opens their brief.</p>' : '')+
+        (org ? '<div class="org">'+esc(org)+'</div>' : '')+
+        '<div class="next"><b>Next</b> '+esc(p.next ? p.next + (p.nextDate ? ", " + fmtDate(p.nextDate) : "") : "No next step yet")+'</div>'+
+        '<div class="more-info">'+(p.who ? '<div class="role">'+esc(p.who)+'</div>' : '')+(p.about ? '<div class="why">'+esc(p.about)+'</div>' : '')+
+        (dl.length ? '<dl>'+dl.map(function(x){ return '<dt>'+x[0]+'</dt><dd>'+x[1]+'</dd>'; }).join("")+'</dl>' : '')+
+        (p.talked ? '<div class="meta">Last talked '+esc(shortDate(p.talked))+'</div>' : '')+
+        '<div class="hist" data-hist="'+esc(p.id)+'">'+histHtml(p)+'</div></div></div>';
+    });
+    grid.innerHTML = h;
+    var msg = "";
+    if(!LOADED.people) msg = configured() ? "Reading your contacts." : "Once the page is connected, everyone in your contacts shows here.";
+    else if(!people.length) msg = q.trim() ? "No match. Tell the hub the name and a card gets added." : (filter === "all" ? "Nobody here yet." : "Nobody here right now.");
+    else if(people.length > cap) msg = "Showing " + cap + " of " + people.length + ". Search to narrow it down.";
+    $("people-msg").textContent = msg;
+  }
+  function histHtml(p){
+    var hs = HIST[p.id];
+    if(!hs) return '<p class="meta">Reading their history.</p>';
+    if(hs.err) return '<p class="meta">Their history couldn\'t be read: ' + esc(hs.err) + '.</p>';
+    if(!hs.lines.length) return '<p>No history written yet.</p>';
+    return hs.lines.map(function(l){ return '<p>' + (l.d ? '<time>' + esc(l.d) + '</time>' : '') + esc(l.t) + '</p>'; }).join("");
+  }
+  // History: the dated lines under the History heading on their page, newest first
+  function parseHistory(text){
+    var lines = String(text||"").split(/\n/), out = [], inH = false;
+    lines.forEach(function(l){
+      var s = l.trim();
+      if(/^#{1,6}\s/.test(s)){ inH = /^#{1,6}\s*history\s*$/i.test(s); return; }
+      if(!inH || !s || /^<\/?[a-z]/i.test(s)) return;
+      s = s.replace(/^[-*]\s+/, "");
+      var m = s.match(/^(?:[A-Z][a-z]{2},?\s+)?([A-Z][a-z]{2})\s+(\d{1,2}),\s*\d{4}:\s*(.*)$/);
+      out.push(m ? {d:m[1] + " " + m[2], t:m[3]} : {d:"", t:s});
+    });
+    return out;
+  }
+  function fetchText(p){ if(typeof p === "string") return p; if(!p) return ""; return p.text || p.content || p.markdown || p.body || ""; }
+  function loadHistory(p){
+    if(HIST[p.id] && !HIST[p.id].err) return;
+    hub().then(function(mcp){
+      if(!mcp) throw {code:"not_granted"};
+      return mcp.callTool("Notion","notion-fetch", {id:p.id}, {cache:false});
+    }).then(function(res){
+      var raw = res && res.payload, p2 = raw; if(typeof raw === "string"){ try{ p2 = JSON.parse(raw); }catch(e){ p2 = raw; } }
+      HIST[p.id] = {lines: parseHistory(fetchText(p2))};
+    }, function(e){ HIST[p.id] = {lines:[], err: errText(e)}; }).then(function(){
+      var el = document.querySelector('[data-hist="' + p.id + '"]'); if(el) el.innerHTML = histHtml(p);
+    });
+  }
+  $("grid").addEventListener("click", function(e){
+    if(e.target.closest && e.target.closest("a[href]")) return;
+    var bb = e.target.closest && e.target.closest("[data-brief]");
+    if(bb){ e.stopPropagation(); BRIEF_SEL = bb.getAttribute("data-brief"); renderBriefs(); show("briefs"); window.scrollTo(0, 0); return; }
+    var b = e.target.closest && e.target.closest(".pc"); if(!b) return;
+    var id = b.dataset.id, o = b.getAttribute("aria-expanded")==="true";
+    OPEN_ID = o ? "" : id;
+    $("grid").querySelectorAll(".pc").forEach(function(x){ x.setAttribute("aria-expanded", String(x.dataset.id === OPEN_ID)); });
+    if(OPEN_ID && PEOPLE[id]) loadHistory(PEOPLE[id]);
+  });
+  $("grid").addEventListener("keydown", function(e){ if((e.key === "Enter" || e.key === " ") && e.target && e.target.matches(".pc")){ e.preventDefault(); e.target.click(); } });
+  $("q").addEventListener("input", renderPeople);
+
+  // ---------- Outreach ----------
+  function goalBar(label, have, want, word){
+    var pct = want > 0 ? Math.min(100, Math.round(have / want * 100)) : 0, txt = have + (want > 0 ? " of " + want : "") + (word ? " " + word : "");
+    return '<div class="goal"><div class="gl"><b>'+esc(label)+'</b><span>'+esc(txt)+'</span></div>'+
+      '<div class="bar" role="img" aria-label="'+esc(label)+': '+esc(txt)+'"><i style="width:'+pct+'%"></i></div></div>';
+  }
+  function sentNames(){
+    var names = counted("Ask sent:"), m = monday();
+    Object.keys(TAPS).forEach(function(k){ var t = TAPS[k]; if(t && t.act === "sent" && k.indexOf(m + "|out|") === 0 && t.notion === "ok" && names.indexOf(fold(t.name)) < 0) names.push(fold(t.name)); });
+    return names;
+  }
+  function renderGoals(){
+    var box = $("goals"), sent = sentNames().length, conv = counted("Conversation booked:").length, h = "";
+    if(!PLAN){ box.innerHTML = '<p class="msg"'+(ERR.plan ? ' data-s="error"' : '')+'>'+esc(ERR.plan ? "Your plan couldn't be read: " + ERR.plan + "." : (configured() ? "Reading your plan." : "Your goals show here once the page is connected."))+'</p>'; return; }
+    h += goalBar("Asks sent this week", sent, PLAN.asksWeek, "sent");
+    h += goalBar("Conversations booked this week", conv, PLAN.convWeek, "booked");
+    var gc = fold(PLAN.goalCounts);
+    if(PLAN.goal && (gc === "asks sent" || gc === "conversations booked")) h += goalBar(PLAN.goal, gc === "asks sent" ? sent : conv, PLAN.goalNum, "");
+    box.innerHTML = h;
+  }
+  // Plan groups: one line per group, "name | how often | who's in it | the ask" (how often left empty when the owner gave none)
+  function planGroups(text){
+    return String(text||"").split(/\n/).map(function(l){ return l.replace(/^\s*[-*]\s+/, "").trim(); }).filter(Boolean).map(function(l){
+      var c = l.split("|").map(function(x){ return x.trim(); });
+      if(c.length >= 4) return {name:c[0], often:c[1], who:c[2], ask:c.slice(3).join(" | ")};
+      if(c.length === 3) return {name:c[0], often:"", who:c[1], ask:c[2]};
+      return {name:l, often:"", who:"", ask:""};
+    });
+  }
+  function renderPlan(){
+    var lede = "Each Monday the Hub picks this week's people from your plan and drafts every ask. You send them yourself, then tap Sent.";
+    var made = PLAN && PLAN.made ? " on " + shortDate(dayOf(PLAN.made)) : "";
+    $("out-lede").innerHTML = '<b>' + esc(lede) + '</b> ' + esc("Your plan came out of our setup session" + made + ": who you're looking for, who sends you work, and what you're asking for.");
+    var gs = PLAN ? planGroups(PLAN.groups) : [];
+    $("sec-plan").hidden = !gs.length;
+    $("plan").innerHTML = gs.map(function(g){ return '<li><span class="pn">'+esc(g.name)+'</span>'+(g.often ? '<span class="pf">'+esc(g.often)+'</span>' : '')+
+      (g.who ? '<span class="pw">'+esc(g.who)+'</span>' : '')+(g.ask ? '<span class="pa"><b>The ask:</b> '+esc(g.ask)+'</span>' : '')+'</li>'; }).join("");
+    var worked = PLAN ? PLAN.worked.split(/\n/).map(function(l){ return l.replace(/^\s*[-*]\s+/, "").trim(); }).filter(Boolean) : [];
+    $("sec-worked").hidden = !worked.length;
+    $("worked").innerHTML = worked.map(function(l){ var i = l.indexOf(","); return i > 0 ? '<li><b>'+esc(l.slice(0,i))+'</b><span>'+esc(l.slice(i+1).trim())+'</span></li>' : '<li><span>'+esc(l)+'</span></li>'; }).join("");
+  }
+  // A Later or Skip Log row naming them since Monday
+  function movedByLog(p){ return weekRows().some(function(r){ return namedIn(r.Text, "Ask moved to later:", p.name) || namedIn(r.Text, "Ask skipped this week:", p.name); }); }
+  function weekPeople(){ var m = monday(); return active().filter(function(p){ return p.week && p.week.slice(0,10) === m; })
+      .sort(function(a,b){ return String(a.nextDate||"9").localeCompare(String(b.nextDate||"9")) || a.name.localeCompare(b.name); }); }
+  function outState(p, sent){
+    var t = TAPS[key("out", p)];
+    if(t && t.act === "sent") return "sent";
+    if(t && (t.act === "olater" || t.act === "skip")) return "moved";
+    if(sent.indexOf(fold(p.name)) >= 0) return "sentlog";
+    if(movedByLog(p)) return "hidden";
+    return "open";
+  }
+  function sentLogTime(p){ var best = ""; weekRows().forEach(function(r){ if(namedIn(r.Text, "Ask sent:", p.name) && rowTime(r) > best) best = rowTime(r); }); return best; }
+  function outCard(p, state){
+    var el = document.createElement("div"), t = TAPS[key("out", p)];
+    el.className = "card" + (state !== "open" ? " done" : ""); el.dataset.id = p.id;
+    var sub = p.title || p.company, kd = [p.askKind, p.nextDate ? fmtDate(p.nextDate) : ""].filter(Boolean).join(", ");
+    el.innerHTML = '<div class="head"><b>'+esc(p.name)+'</b>'+(sub ? '<span class="ch">'+esc(sub)+'</span>' : '')+(p.who ? '<span class="tag">'+esc(p.who)+'</span>' : '')+'</div>'+
+      (p.whyWeek ? '<p class="why"><b>Why this week:</b> '+esc(p.whyWeek)+'</p>' : '')+
+      (kd ? '<p class="kv"><b>The ask:</b> '+esc(kd)+'</p>' : '')+
+      (p.draft1 ? '<div class="draft"><small>Text</small>'+esc(p.draft1)+'</div><div class="copyrow"><button class="btn sm" type="button" data-copy="1">Copy</button></div>' : '')+
+      (p.draft2 ? '<div class="draft"><small>Email</small>'+esc(p.draft2)+'</div><div class="copyrow"><button class="btn sm" type="button" data-copy="2">Copy</button></div>' : '')+
+      ((p.draft1 || p.draft2) ? '<p class="help">Copies the draft. Nothing is sent.</p>' : '')+
+      '<div class="copied" role="status">'+(COPIED["o|" + p.id] ? "Copied, not sent yet" : "")+'</div>'+
+      '<div class="acts"><button class="btn primary" type="button" data-act="sent">Sent</button><button class="btn" type="button" data-act="olater">Later</button><button class="btn" type="button" data-act="skip">Skip</button></div>'+
+      helpRow(["Tap after you've sent it yourself. This counts it.", "Off this week's list. They can come back next Monday.", "This ask doesn't fit this week. Off the list."]);
+    el.querySelectorAll("[data-copy]").forEach(function(b){ b.addEventListener("click", function(){ copyText(b.getAttribute("data-copy") === "1" ? p.draft1 : p.draft2, "o|" + p.id, el); }); });
+    var it = {kind:"out", p:p, k:key("out", p)};
+    el.querySelectorAll("[data-act]").forEach(function(b){ b.addEventListener("click", function(){ todayTap(it, b.getAttribute("data-act"), el); }); });
+    if(t) el.appendChild(stampEl(foldText(t), t, function(){ retryTap(it, t); }, t.act === "sent" ? function(){ undoTap(it, t); } : null));
+    else if(state === "sentlog"){ var s = sentLogTime(p), d = new Date(s); el.appendChild(stampEl("Sent" + (s.length > 10 && !isNaN(d) ? " " + tm(d) : "") + ". Counted toward this week.", null, null, null)); }
+    return el;
+  }
+  function renderOutreach(){
+    renderGoals(); renderPlan();
+    var m = monday(), rw = logRows().filter(function(r){ return isRewrite(r) && dayOf(rowTime(r)) === m; }).map(function(r){ return rowTime(r); }).sort()[0];
+    var rd = rw ? new Date(rw) : null;
+    $("week-h").innerHTML = "This week's outreach <span>" + esc("week of " + shortDate(m) + (rd && !isNaN(rd) ? ", picked Monday " + tm(rd) : "")) + "</span>";
+    var sent = sentNames(), ppl = weekPeople(), box = $("outreach"), n = {sent:0, moved:0, open:0};
+    box.innerHTML = "";
+    ppl.forEach(function(p){ var s = outState(p, sent);
+      if(s === "sent" || s === "sentlog") n.sent++; else if(s === "moved" || s === "hidden") n.moved++; else n.open++;
+      if(s !== "hidden") box.appendChild(outCard(p, s)); });
+    var total = ppl.length, handled = n.sent + n.moved;
+    var on = LOADED.people && total > 0;
+    $("weekline").hidden = !on; $("weekbar").hidden = !on;
+    $("weekline").textContent = handled + " of " + total + " handled. " + n.sent + " sent, " + n.moved + " later or skipped, " + n.open + " to go.";
+    $("weekbar").querySelector("i").style.width = (total ? Math.round(handled / total * 100) : 0) + "%";
+    if(!total) box.innerHTML = '<p class="msg">'+(LOADED.people ? "Nobody on this week's list yet. Your morning page picks them on Monday." : (configured() ? "Reading your contacts." : "This week's asks show here once the page is connected."))+'</p>';
+    $("n-outreach").textContent = LOADED.people ? String(n.open) : "";
+  }
+  // Copy: the clipboard only. Nothing is written and nothing is counted.
+  function copyText(text, ck, el){
+    function done(){ COPIED[ck] = true; var c = el.querySelector(".copied"); if(c) c.textContent = "Copied, not sent yet"; }
+    function fallback(){ var ta = document.createElement("textarea"); ta.value = text; ta.setAttribute("readonly",""); ta.style.position = "fixed"; ta.style.opacity = "0"; document.body.appendChild(ta); ta.select(); try{ document.execCommand("copy"); }catch(e){} document.body.removeChild(ta); done(); }
+    try{ if(navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(text).then(done, fallback); else fallback(); }catch(e){ fallback(); }
+  }
+
+  // ---------- Briefs ----------
+  var SECTIONS = ["Who they are","What they're likely dealing with","Where you could help","Questions to ask","Keep out of the first meeting","Suggested next step","Sources"];
+  function inline(s){ return esc(s).replace(/\*\*([^*]+)\*\*/g, "<b>$1</b>"); }
+  function parseBrief(text){
+    var out = {}, cur = null, found = 0;
+    String(text||"").replace(/’/g, "'").split(/\n/).forEach(function(l){
+      var s = l.trim(), hit = null;
+      SECTIONS.forEach(function(sec){ if(hit) return; var m = s.match(new RegExp("^(?:[-*]\\s+|#{1,6}\\s*)?(?:\\*\\*)?" + reEsc(sec) + "(?:\\*\\*)?\\s*:?(?:\\*\\*)?\\s*(.*)$", "i")); if(m) hit = {sec:sec, rest:m[1]}; });
+      if(hit){ cur = hit.sec; out[cur] = []; found++; if(hit.rest) out[cur].push(hit.rest); return; }
+      if(cur && s) out[cur].push(s);
+    });
+    return found ? out : null;
+  }
+  function sectionHtml(sec, lines){
+    var items = [];
+    lines.forEach(function(l){ String(l).split(/\s+(?=\d+\.\s)/).forEach(function(x){ if(x.trim()) items.push(x.trim()); }); });
+    var numbered = items.length > 1 && items.every(function(x){ return /^\d+\.\s/.test(x); });
+    var bullets = items.length > 1 || items.some(function(x){ return /^[-*]\s/.test(x); });
+    if(sec === "Suggested next step") return '<p class="nextstep">' + inline(items.map(function(x){ return x.replace(/^[-*]\s+/, ""); }).join(" ")) + '</p>';
+    if(sec === "Sources"){ var srcs = items.length === 1 && !/^[-*]\s/.test(items[0]) ? items[0].split(/;\s+/) : items;
+      return '<ul class="src">' + srcs.map(function(x){ return '<li>' + inline(x.replace(/^[-*]\s+/, "")) + '</li>'; }).join("") + '</ul>'; }
+    if(numbered) return '<ol>' + items.map(function(x){ return '<li>' + inline(x.replace(/^\d+\.\s+/, "")) + '</li>'; }).join("") + '</ol>';
+    if(bullets) return '<ul>' + items.map(function(x){ return '<li>' + inline(x.replace(/^[-*]\s+/, "")) + '</li>'; }).join("") + '</ul>';
+    return items.map(function(x){ return '<p>' + inline(x) + '</p>'; }).join("");
+  }
+  function briefMeeting(p){
+    var d = p.briefFor ? p.briefFor.slice(0,10) : "";
+    var e = d ? meetings().filter(function(x){ return x.day === d && x.who.some(function(w){ return w.id === p.id; }); })[0] : null;
+    if(e){ var s = new Date(e.start), en = new Date(e.end);
+      if(e.allDay || isNaN(s)) return e.title + ", " + fmtDate(e.day);
+      return e.title + ", " + dayName(s) + ", " + span(s, en); }
+    return d ? fmtDate(d) : "";
+  }
+  function briefHtml(p){
+    var wr = p.briefWritten ? new Date(p.briefWritten.length > 10 ? p.briefWritten : p.briefWritten + "T12:00:00Z") : null;
+    var by = wr && !isNaN(wr) ? "Written by Claude " + dayName(wr) + (p.briefWritten.length > 10 ? ", " + tm(wr) : "") + "." : "";
+    var org = [p.title, p.company].filter(Boolean).join(", "), mt = briefMeeting(p), secs = parseBrief(p.brief), body = "";
+    if(secs) SECTIONS.forEach(function(sec){ if(secs[sec] && secs[sec].length) body += '<section><h5>' + esc(sec) + '</h5>' + sectionHtml(sec, secs[sec]) + '</section>'; });
+    else body = '<p class="raw">' + inline(p.brief) + '</p>';
+    return '<article class="brief" data-id="' + esc(p.id) + '"><header><h4>' + esc(p.name) + '</h4>' + (org ? '<span class="bo">' + esc(org) + '</span>' : '') +
+      (mt ? '<span class="bm">' + esc(mt) + '</span>' : '') + (by ? '<span class="by">' + esc(by) + '</span>' : '') + '</header>' + body + '</article>';
+  }
+  function renderBriefs(){
+    var t = today(), withBrief = all().filter(function(p){ return p.brief; });
+    var up = withBrief.filter(function(p){ return p.briefFor && p.briefFor.slice(0,10) >= t; }).sort(function(a,b){ return a.briefFor.localeCompare(b.briefFor) || a.name.localeCompare(b.name); });
+    var old = withBrief.filter(function(p){ return !(p.briefFor && p.briefFor.slice(0,10) >= t); }).sort(function(a,b){ return String(b.briefFor||"").localeCompare(String(a.briefFor||"")) || a.name.localeCompare(b.name); });
+    var shown = up.slice(0, 8);
+    if(!BRIEF_SEL || !PEOPLE[BRIEF_SEL] || !PEOPLE[BRIEF_SEL].brief) BRIEF_SEL = shown[0] ? shown[0].id : "";
+    $("blist").innerHTML = shown.map(function(p){ return '<button class="chip" type="button" data-b="'+esc(p.id)+'" aria-pressed="'+(p.id === BRIEF_SEL)+'">'+esc(p.name)+'</button>'; }).join("");
+    $("brief-view").innerHTML = BRIEF_SEL ? briefHtml(PEOPLE[BRIEF_SEL]) : "";
+    $("sec-older").hidden = !old.length;
+    $("older").innerHTML = old.map(function(p){ return '<li><button type="button" data-b="'+esc(p.id)+'">'+esc(p.name + (p.briefFor ? ", " + fmtDate(p.briefFor) : ""))+'</button></li>'; }).join("");
+    $("briefs-msg").textContent = withBrief.length ? "" : (LOADED.people ? "No briefs yet. Your morning page writes one for each meeting with someone in your Hub." : (configured() ? "Reading your contacts." : "Your briefs show here once the page is connected."));
+    $("n-briefs").textContent = LOADED.people ? String(up.length) : "";
+  }
+  function pickBrief(e){ var b = e.target.closest && e.target.closest("[data-b]"); if(!b) return; BRIEF_SEL = b.getAttribute("data-b"); renderBriefs(); var v = $("brief-view"); if(v.scrollIntoView) v.scrollIntoView({block:"nearest"}); }
+  $("blist").addEventListener("click", pickBrief); $("older").addEventListener("click", pickBrief);
+
+  function footStatus(){
+    var pend = 0, err = 0;
+    Object.keys(TAPS).forEach(function(k){ var t = TAPS[k]; if(!t) return; if(t.notion === "pending") pend++; if(t.notion === "err") err++; });
+    NOTES.forEach(function(n){ if(n.hub === "pending") pend++; if(n.hub === "err") err++; });
+    var el = $("save"); el.setAttribute("data-s", pend ? "wait" : (err ? "error" : "saved")); el.textContent = pend ? "Saving" : (err ? "Not saved yet" : "Saved");
+  }
+  function renderAll(){ applySettings(); renderToday(); renderPeople(); renderOutreach(); renderBriefs(); footStatus(); }
+
+  // ---------- writing to Notion ----------
+  function hub(){ return getMcp(); }
+  function errText(e){
+    var c = e && e.code;
+    if(c==="needs_reauth") return "reconnect your notes app in Settings, Connectors";
+    if(c==="server_not_connected") return "your notes app isn't connected on this account";
+    if(c==="not_granted"||c==="not_in_manifest") return "access wasn't allowed for this page";
+    if(c==="tool_error") return "your notes app said: " + String(e.message||"error").slice(0,60);
+    if(c==="not_configured") return "the page isn't fully connected yet";
+    return "your notes app isn't reachable right now";
+  }
+  function historyLine(text){ return historyDate() + ": " + String(text).replace(/\s+/g," ").trim().slice(0, 1800); }
+  // One dated line under the person's History heading, newest first. No History heading yet: one is added at the top.
+  function writeHistory(mcp, id, line){
+    return mcp.callTool("Notion","notion-update-page", {page_id:id, command:"update_content", content_updates:[{old_str:"# History\n", new_str:"# History\n" + line + "\n"}]}, {cache:false})
+      .catch(function(e){
+        if(e && e.code === "tool_error") return mcp.callTool("Notion","notion-update-page", {page_id:id, command:"insert_content", content:"## History\n" + line, position:{type:"start"}}, {cache:false});
+        throw e;
+      }).then(function(r){ delete HIST[id]; return r; });
+  }
+  function setProps(mcp, id, props){ return mcp.callTool("Notion","notion-update-page", {page_id:id, command:"update_properties", properties:props}, {cache:false}); }
+  function dayProp(props, field){ props["date:" + field + ":start"] = today(); props["date:" + field + ":is_datetime"] = 0; return props; }
+  // One Log row. The page's own rows have an Event starting "Hub page", so From the hub chat today can leave them out.
+  function logRow(mcp, type, event, text){
+    var ds = String((PTR && PTR.log_ds) || "").replace(/^collection:\/\//,"");
+    if(!ds) return Promise.reject({code:"not_configured"});
+    var props = {"Event": ("Hub page: " + event).slice(0, 200), "Plugin": PLUGIN, "Workspace": WORKSPACE, "Person": (BAS && BAS.person) || "",
+      "Type": type, "Text": String(text).slice(0, 1900), "date:Time:start": nowStamp(), "date:Time:is_datetime": 1};
+    return mcp.callTool("Notion","notion-create-pages", {parent:{type:"data_source_id", data_source_id:ds}, pages:[{properties:props}]}, {cache:false});
+  }
+  function refreshReads(){ hub().then(function(mcp){ if(mcp && typeof mcp.invalidate === "function") return mcp.invalidate("Notion","notion-query-data-sources").catch(function(){}); }); }
+
+  // ---------- page state (hub/state): taps ----------
+  function stateWrite(k){
+    var patch = {taps:{}}; patch.taps[k] = TAPS[k] ? clone(TAPS[k]) : null;
+    writing = writing.then(function(){
+      if(!dbRef) return;
+      return dbRef.update(patch).catch(function(){ return dbRef.set({taps: clone(TAPS)}); });
+    }).catch(function(){});
+    return writing;
+  }
+  function runTap(k, job){
+    if(TAPS[k]){ TAPS[k].notion = "pending"; renderAll(); }
+    return hub().then(function(mcp){ if(!mcp) throw {code:"not_granted"}; return job(mcp); }).then(function(){
+      if(!TAPS[k]) return; TAPS[k].notion = "ok"; delete TAPS[k].err; stateWrite(k); renderAll(); refreshReads();
+    }, function(e){
+      if(!TAPS[k]) return; TAPS[k].notion = "err"; TAPS[k].err = errText(e); stateWrite(k); renderAll();
+    });
+  }
+  // What each tap writes, exactly as the script lists it
+  function jobFor(it, t){
+    var p = it.p;
+    if(t.act === "done") return function(mcp){ return setProps(mcp, p.id, dayProp({}, F.confirmed))
+      .then(function(){ return writeHistory(mcp, p.id, historyLine("Done: " + (t.next || "the next step") + " (Hub page)")); })
+      .then(function(){ return logRow(mcp, "Status", "Done", "Done: " + p.name + ". " + (t.next || "the next step") + " (Hub page)"); }); };
+    if(t.act === "later") return function(mcp){ return logRow(mcp, "Status", "Later", "Moved to tomorrow: " + p.name); };
+    if(t.act === "happened") return function(mcp){ return writeHistory(mcp, p.id, historyLine("Met: " + shortDate(today()) + " (Hub page)"))
+      .then(function(){ return setProps(mcp, p.id, dayProp({}, F.lastTalked)); })
+      .then(function(){ return logRow(mcp, "Status", "Met", "Met: " + p.name); }); };
+    if(t.act === "fsent") return function(mcp){ return writeHistory(mcp, p.id, historyLine("Follow-up sent (Hub page)"))
+      .then(function(){ return setProps(mcp, p.id, dayProp({}, F.lastTalked)); })
+      .then(function(){ return logRow(mcp, "Status", "Follow-up sent", "Follow-up sent: " + p.name); }); };
+    if(t.act === "go" || t.act === "hold"){ var w = t.act === "go" ? "Go" : "Hold";
+      return function(mcp){ return writeHistory(mcp, p.id, historyLine(w + ": " + (t.what || "the go or hold") + " (Hub page)"))
+        .then(function(){ return logRow(mcp, "Status", w, w + ": " + p.name); }); }; }
+    if(t.act === "sent") return function(mcp){ return writeHistory(mcp, p.id, historyLine("Ask sent: " + (t.kind || "Other") + " (Hub page)"))
+      .then(function(){ var pr = dayProp({}, F.lastTalked); pr[F.landed] = "No reply yet"; return setProps(mcp, p.id, pr); })
+      .then(function(){ return logRow(mcp, "Status", "Ask sent", "Ask sent: " + p.name); }); };
+    if(t.act === "olater") return function(mcp){ return logRow(mcp, "Status", "Ask moved to later", "Ask moved to later: " + p.name); };
+    if(t.act === "skip") return function(mcp){ return logRow(mcp, "Status", "Ask skipped this week", "Ask skipped this week: " + p.name); };
+    return function(){ return Promise.resolve(); };
+  }
+  function todayTap(it, act, el){
+    var p = it.p;
+    if(act === "note"){ notePerson(p); return; }
+    if(act === "copy"){ copyText(p.followup, "f|" + p.id, el); return; }
+    if(TAPS[it.k]) return;
+    var t = {act:act, at:Date.now(), notion:"pending", name:p.name, next:p.next, kind:p.askKind, what:p.goHold.split(/\n/)[0].slice(0, 200)};
+    TAPS[it.k] = t; renderAll(); stateWrite(it.k);
+    runTap(it.k, jobFor(it, t));
+  }
+  function retryTap(it, t){ runTap(it.k, jobFor(it, t)); }
+  // Undo: the tap comes off the page. A Correction line and a Correction Log row; nothing is deleted or rolled back.
+  // Later on Today wrote no History line, so its Undo writes only the Correction Log row.
+  var UNDO = {done:"Done", happened:"Met", fsent:"Follow-up sent", go:"Go", hold:"Hold", sent:"Ask sent", later:"Moved to tomorrow"};
+  function undoTap(it, t){
+    var p = it.p, k = it.k; delete TAPS[k]; renderAll(); stateWrite(k);
+    if(t.notion !== "ok") return;
+    var what = UNDO[t.act] || t.act;
+    hub().then(function(mcp){ if(!mcp) return;
+      var first = t.act === "later" ? Promise.resolve() : writeHistory(mcp, p.id, historyLine("Correction: the " + what + " line below was tapped by mistake (Hub page)"));
+      return first.then(function(){ return logRow(mcp, "Correction", "Undo", "Correction: " + what + ": " + p.name); });
+    }).then(refreshReads).catch(function(){});
+  }
+
+  // ---------- Tell the hub: match before create ----------
+  // Strong: an email, a full name, or a first name or nickname with its company named too. Maybe: a first name alone.
+  function matchText(text){
+    var h = " " + fold(text) + " ", strong = {}, maybeBy = {};
+    function addMaybe(k, p){ (maybeBy[k] = maybeBy[k] || []).push(p); }
+    active().forEach(function(p){
+      var full = fold((p.first + " " + p.last).trim()), nm = fold(p.name), co = fold(p.company), coSaid = co.length >= 2 && hasWord(h, co);
+      if((p.email && h.indexOf(fold(p.email)) >= 0) || (p.email2 && h.indexOf(fold(p.email2)) >= 0)) { strong[p.id] = p; return; }
+      if((full.indexOf(" ") > 0 && hasWord(h, full)) || (nm.indexOf(" ") > 0 && hasWord(h, nm))) { strong[p.id] = p; return; }
+      var nick = fold(p.aka).split(/[,;]/).map(function(a){ return a.trim(); }).filter(function(a){ return a.length >= 3 && hasWord(h, a); })[0];
+      var f = fold(p.first), word = nick || (f.length >= 3 && hasWord(h, f) ? f : "");
+      if(!word) return;
+      if(coSaid){ strong[p.id] = p; return; }
+      addMaybe(word, p);
+    });
+    var maybe = [];
+    Object.keys(maybeBy).forEach(function(k){
+      if(Object.keys(strong).some(function(id){ return fold(strong[id].first) === k; })) return;
+      var ps = maybeBy[k].filter(function(p){ return !strong[p.id]; });
+      ps.forEach(function(p){ maybe.push({p:p, pre: false, word:k, n:ps.length}); });
+    });
+    return {strong: Object.keys(strong).map(function(k){ return strong[k]; }), maybe: maybe};
+  }
+  var RV = null;
+  function capStatus(s, t){ var el = $("capstatus"); el.setAttribute("data-s", s); el.textContent = t; }
+  function openReview(){
+    var text = ($("cap-text").value||"").trim(); if(!text) return;
+    if(!configured() || !LOADED.people){ saveNote(text, []); return; }
+    var m = matchText(text), picks = {};
+    m.strong.forEach(function(p){ picks[p.id] = {p:p, on:true}; });
+    m.maybe.forEach(function(x){ var w = x.word.charAt(0).toUpperCase() + x.word.slice(1); picks[x.p.id] = {p:x.p, on:x.pre, maybe:x.n > 1 ? "Which " + w + "?" : "only \"" + w + "\" was written"}; });
+    // A full name nobody in your contacts has: offered, unchecked, as a new contact
+    unknownNames(text).forEach(function(nm, i){ var ps = nm.split(/\s+/), nid = "new:t" + i;
+      picks[nid] = {p:{id:nid, name:nm, first:ps[0], last:ps.slice(1).join(" "), company:""}, on:false, isNew:true}; });
+    RV = {text:text, picks:picks, q:""};
+    renderReview();
+  }
+  var NOT_NAME = " a an and at but by for from had has i in it me met monday tuesday wednesday thursday friday saturday sunday january february march april may june july august september october november december my of on or our she he they the this to we with called talked told asked emailed texted saw sent got hub ";
+  function unknownNames(text){
+    var out = [], seen = {}, re = /\b([A-Z][a-z\u00C0-\u017F'\u2019-]+(?:\s+[A-Z][a-z\u00C0-\u017F'\u2019-]+)+)\b/g, m;
+    while((m = re.exec(text))){
+      var ws = m[1].split(/\s+/);
+      while(ws.length && NOT_NAME.indexOf(" " + fold(ws[0]) + " ") >= 0) ws.shift();
+      if(ws.length < 2 || ws.length > 3) continue;
+      var nm = ws.join(" "), f = fold(nm);
+      if(seen[f]) continue; seen[f] = 1;
+      if(active().some(function(p){ return sameName(p, nm) || fold(p.company).indexOf(f) >= 0 || f.indexOf(fold((p.first + " " + p.last).trim()) || "\u0000") >= 0; })) continue;
+      out.push(nm);
+    }
+    return out;
+  }
+  function renderReview(){
+    var box = $("review"); if(!RV){ box.hidden = true; box.innerHTML = ""; return; }
+    var ids = Object.keys(RV.picks), on = ids.filter(function(i){ return RV.picks[i].on; }).length;
+    var h = '<div class="quote">'+esc(RV.text)+'</div><div class="lbl">Goes to</div><div class="pick">';
+    if(!ids.length) h += '<p class="msg">No one in your contacts was named. Pick someone below, add them as new, or save it as a general note.</p>';
+    ids.forEach(function(i){ var x = RV.picks[i], o = x.isNew ? "" : x.p.company;
+      h += '<label><input type="checkbox" data-pk="'+esc(i)+'"'+(x.on?" checked":"")+'><span>'+(x.isNew ? esc("Add " + x.p.name + " as a new contact") : esc(x.p.name))+(o?' <small>'+esc(o)+'</small>':'')+
+        (x.maybe?' <small>('+esc(x.maybe)+')</small>':'')+'</span></label>'; });
+    h += '</div><div class="addrow"><input id="rv-q" type="search" placeholder="Someone else? Type a name" aria-label="Find someone else" autocomplete="off" value="'+esc(RV.q)+'"></div><div class="found" id="rv-found"></div>';
+    h += '<div class="rv-acts"><button class="btn primary" type="button" id="rv-save">'+(on ? "Save to " + on + (on === 1 ? " person" : " people") : "Save as a general note")+'</button><button class="btn" type="button" id="rv-cancel">Back</button></div>';
+    box.innerHTML = h; box.hidden = false;
+    box.querySelectorAll("[data-pk]").forEach(function(cb){ cb.addEventListener("change", function(){ RV.picks[cb.getAttribute("data-pk")].on = cb.checked; renderReview(); }); });
+    var q = $("rv-q"); q.addEventListener("input", function(){ RV.q = q.value; renderFound(); });
+    $("rv-save").addEventListener("click", commitReview);
+    $("rv-cancel").addEventListener("click", function(){ RV = null; renderReview(); });
+    renderFound();
+  }
+  function sameName(p, name){ var n = fold(name).replace(/\s+/g," ").trim(); return fold(p.name).trim() === n || fold((p.first+" "+p.last).trim()) === n; }
+  function renderFound(){
+    var box = $("rv-found"), q = (RV.q||"").trim(); if(!box) return;
+    if(q.length < 2){ box.innerHTML = ""; return; }
+    var hits = search(q).filter(function(p){ return !RV.picks[p.id]; }).slice(0, 5), h = "";
+    hits.forEach(function(p){ h += '<button type="button" data-add="'+esc(p.id)+'">'+esc(p.name)+(p.company?', '+esc(p.company):'')+'</button>'; });
+    // "Add as a new contact" only when no one has that full name
+    var exact = active().some(function(p){ return sameName(p, q); }) || Object.keys(RV.picks).some(function(i){ return RV.picks[i].isNew && fold(RV.picks[i].p.name) === fold(q); });
+    if(!exact && q.split(/\s+/).length >= 2) h += '<button type="button" class="mk" data-new="1">Add '+esc(q)+' as a new contact</button>';
+    else if(!exact && !hits.length) h += '<p class="msg">Type their first and last name to add them as new.</p>';
+    box.innerHTML = h;
+    box.querySelectorAll("[data-add]").forEach(function(b){ b.addEventListener("click", function(){ var p = PEOPLE[b.getAttribute("data-add")]; RV.picks[p.id] = {p:p, on:true}; RV.q = ""; renderReview(); }); });
+    var nb = box.querySelector("[data-new]");
+    if(nb) nb.addEventListener("click", function(){ var nid = "new:" + Date.now(), ps = q.split(/\s+/);
+      RV.picks[nid] = {p:{id:nid, name:q, first:ps[0], last:ps.slice(1).join(" "), company:""}, on:true, isNew:true}; RV.q = ""; renderReview(); });
+  }
+  function commitReview(){
+    var people = Object.keys(RV.picks).filter(function(i){ return RV.picks[i].on; }).map(function(i){ var x = RV.picks[i]; return {id:x.isNew ? "" : x.p.id, name:x.p.name, first:x.p.first||"", last:x.p.last||"", isNew:!!x.isNew}; });
+    var text = RV.text; RV = null; renderReview();
+    saveNote(text, people);
+  }
+  // Your notes: the last 10 on this device only
+  function keepNotes(){ NOTES = NOTES.slice(0, 10); lsSet("hub-notes", JSON.stringify(NOTES)); }
+  function noteById(id){ return NOTES.filter(function(n){ return n.id === id; })[0]; }
+  function saveNote(text, people){
+    var n = {id:"n" + Date.now(), text:text, at:Date.now(), people:people, hub:"pending"};
+    NOTES.unshift(n); keepNotes();
+    $("cap-text").value = ""; capStatus("", "");
+    renderNotes(); footStatus(); noteToNotion(n.id);
+  }
+  // From Friday at 7:00am through Sunday the next morning update is Monday's; Monday to Thursday it's tomorrow's
+  function nextMorning(){ var d = dow(today()), h = +parts(new Date(), {hour:"2-digit", hourCycle:"h23"}).hour % 24; return (d === 6 || d === 0 || (d === 5 && h >= 7)) ? "Monday morning" : "tomorrow morning"; }
+  function afterSaveLine(n){
+    var ps = n.people || [], by = "or by " + nextMorning() + ".";
+    if(!ps.length) return "Saved. Your next Business Development chat will ask you who it's for.";
+    if(ps.length === 1) return "Saved to " + ps[0].name + "'s notes. " + pronoun(ps[0].first || ps[0].name.split(" ")[0]) + " next step and stage update the next time you open a Business Development chat, " + by;
+    return "Saved to " + list(ps.map(function(p){ return p.name + "'s"; })) + " notes. Their next steps and stages update the next time you open a Business Development chat, " + by;
+  }
+  // A new contact: Name, First name and Last name only, with the History line in its page
+  function createContact(mcp, person, line){
+    var ds = String((PTR && PTR.contacts_ds) || "").replace(/^collection:\/\//,"");
+    if(!ds) return Promise.reject({code:"not_configured"});
+    var dup = active().filter(function(p){ return sameName(p, person.name); })[0];
+    if(dup) return writeHistory(mcp, dup.id, line).then(function(){ return dup.id; });
+    var props = {}; props[F.name] = person.name; props[F.first] = person.first; props[F.last] = person.last || "";
+    return mcp.callTool("Notion","notion-create-pages", {parent:{type:"data_source_id", data_source_id:ds}, pages:[{properties:props, content:"## History\n" + line}]}, {cache:false})
+      .then(function(res){ var p = res && res.payload; if(typeof p === "string"){ try{ p = JSON.parse(p); }catch(e){ p = null; } }
+        var u = p && ((p.pages && p.pages[0] && (p.pages[0].url || p.pages[0].id)) || p.url || p.id); return idOf(u) || ""; });
+  }
+  // A note for people: a History line ending (Hub page) and Last talked on each, then one Log row (Status, "Hub page note").
+  // With nobody picked: one Log row (Open item).
+  function noteToNotion(id){
+    var n = noteById(id); if(!n) return;
+    n.hub = "pending"; delete n.err; keepNotes(); renderNotes(); footStatus();
+    var line = historyLine(n.text + " (Hub page)");
+    hub().then(function(mcp){
+      if(!mcp) throw {code:"not_granted"};
+      return n.people.reduce(function(pr, person){
+        return pr.then(function(){
+          if(person.done) return;
+          var job = (person.isNew ? createContact(mcp, person, line).then(function(pid){ person.id = pid; person.isNew = false; person.created = true; if(pid) MADE[pid] = today(); })
+            : writeHistory(mcp, person.id, line))
+            .then(function(){ return person.id ? setProps(mcp, person.id, dayProp({}, F.lastTalked)) : null; });
+          return job.then(function(){ person.done = true; keepNotes(); });
+        });
+      }, Promise.resolve()).then(function(){
+        if(n.logged) return;
+        var names = n.people.map(function(p){ return p.name + (p.created ? " (new contact)" : ""); }).join(", ");
+        return logRow(mcp, n.people.length ? "Status" : "Open item", "Hub page note",
+          n.people.length ? "Hub page note: " + names + ": " + n.text : "Hub page note, nobody picked: " + n.text).then(function(){ n.logged = true; });
+      });
+    }).then(function(){
+      n.hub = "ok"; delete n.err; keepNotes(); renderNotes(); footStatus(); refreshReads();
+      capStatus("saved", afterSaveLine(n));
+    }, function(e){
+      n.hub = "err"; n.err = errText(e); keepNotes(); renderNotes(); footStatus();
+      var box = $("cap-text"); if(!box.value.trim()) box.value = n.text;
+      capStatus("error", "Not saved yet: " + errText(e) + ".");
+    });
+  }
+  function renderNotes(){
+    var h = "", waiting = 0;
+    NOTES.forEach(function(n){
+      var d = new Date(n.at), when = dayName(d).split(" ")[0] + " " + tm(d), who = (n.people||[]).map(function(p){ return p.name; });
+      if(n.hub !== "ok") waiting++;
+      h += '<div>' + esc(n.text) + (n.hub === "ok" ? '<small>' + esc((who.length ? "Saved to " + list(who) : "Saved") + " " + when) + '</small>'
+        : n.hub === "err" ? '<small class="err">Not saved yet<button type="button" data-retry="' + esc(n.id) + '">Try again</button></small>'
+        : '<small class="wait">Saving</small>') + '</div>';
+    });
+    $("cap-list").innerHTML = h || '<div class="empty">Nothing here yet. Notes you save show here.</div>';
+    $("cap-sum").textContent = "Your notes" + (waiting ? ", " + waiting + " not saved" : "");
+  }
+  $("cap-save").addEventListener("click", openReview);
+  $("cap-list").addEventListener("click", function(e){ var k = e.target && e.target.getAttribute && e.target.getAttribute("data-retry"); if(k && noteById(k)){ var n = noteById(k); if($("cap-text").value.trim() === n.text) $("cap-text").value = ""; noteToNotion(k); } });
+  $("cap-text").addEventListener("input", function(){ if(RV){ RV = null; renderReview(); } });
+
+  // ---------- first-open tour ----------
+  var TOUR = [
+    ["Tell the hub what happened, in your own words. It goes on their notes right away; your next chat in Business Development, or the next weekday morning's update, changes what's next.", ""],
+    ["Today is your list for the day: what's ready for you and what needs a go or hold. Tap the buttons here as you go. Your morning page is for reading: to change anything there, tell your Business Development chat.", ""],
+    ["People is everyone in your Hub. Search anything, and tap a card for their notes and history.", ""],
+    ["Outreach is this week's asks, picked every Monday from your plan, each with two drafts. Copy one, send it yourself, then tap Sent.", ""],
+    ["Briefs has a brief for each meeting with someone in your Hub, ready by 7:00am on the day of the meeting, and usually the morning before. Things you can type in a Business Development chat: prep me for my meeting with, research this person, fill in my contacts, check my email, Friday review, park it.", ""]];
+  var tourAt = 0;
+  function tourShow(i){
+    tourAt = i; $("tour").hidden = false;
+    $("tour-k").textContent = "First time you open it · " + (i + 1) + " of " + TOUR.length;
+    $("tour-p").textContent = TOUR[i][0]; $("tour-r").hidden = !TOUR[i][1]; $("tour-r").textContent = TOUR[i][1];
+    $("tour-dots").innerHTML = TOUR.map(function(x, j){ return '<i' + (j === i ? ' class="on"' : '') + '></i>'; }).join("");
+    $("tour-next").hidden = i >= TOUR.length - 1;
+    $("tour-got").focus();
+  }
+  function tourClose(){ $("tour").hidden = true; lsSet("hub-tour", "seen"); }
+  $("tour-next").addEventListener("click", function(){ if(tourAt < TOUR.length - 1) tourShow(tourAt + 1); });
+  $("tour-got").addEventListener("click", tourClose);
+  $("tour-again").addEventListener("click", function(){ tourShow(0); });
+
+  // ---------- the page's own database: pointers and taps ----------
+  function bootDb(){
+    var c = window.claude;
+    if(!c || typeof c.use !== "function"){ PTR_READ = true; renderAll(); return; }
+    c.use("db").then(function(db){
+      if(!db){ ERR.live = "Open the Hub page from its link in the Claude app."; PTR_READ = true; renderAll(); return; }
+      db.doc("hub/config").onSnapshot(function(snap){
+        PTR = snap.exists ? clone(snap.data()) : null; PTR_READ = true;
+        startLive(); renderAll();
+      }, function(){ PTR_READ = true; renderAll(); });
+      dbRef = db.doc("hub/state");
+      dbRef.onSnapshot(function(snap){
+        var d = snap.exists ? clone(snap.data()) : {}, t = d.taps || {}, keep = {};
+        Object.keys(t).forEach(function(k){ if(t[k]) keep[k] = t[k]; });
+        // A tap still waiting on this device stays as it is
+        Object.keys(TAPS).forEach(function(k){ if(TAPS[k] && TAPS[k].notion === "pending") keep[k] = TAPS[k]; });
+        TAPS = keep; renderAll();
+      }, function(){});
+    }).catch(function(){ PTR_READ = true; renderAll(); });
+  }
+
+  // ---------- live reads: Hub Settings, Basics, Hub Plan and contacts every minute; calendar and Log every 5 minutes ----------
+  function payloadOf(r){ var p = r && r.payload; if(typeof p==="string"){ try{ p = JSON.parse(p); }catch(e){ p = null; } } return p || null; }
+  function calErr(e, server){
+    var c = e && e.code;
+    if(c==="needs_reauth"||c==="server_not_connected") return "Connect " + server + " in Settings, Connectors to see your meetings here.";
+    if(c==="not_granted"||c==="not_in_manifest") return "Calendar access wasn't allowed for this page. Reopen it and allow it when asked.";
+    return server + " isn't reachable right now. It tries again on its own.";
+  }
+  // Today through the next 15 days: meeting cards use today and the next weekday, brief headers use the rest
+  function calCall(){
+    var src = calSource(), o = (PTR && PTR.calendar) || {}, d0 = today(), d1 = addDays(d0, 15);
+    if(src === "microsoft" && o.server && o.tool && o.input){
+      var input = JSON.parse(JSON.stringify(o.input).replace(/\{start\}/g, d0 + "T00:00:00").replace(/\{end\}/g, d1 + "T00:00:00").replace(/\{tz\}/g, tz() || ""));
+      return {server:o.server, tool:o.tool, input:input};
+    }
+    if(src !== "google") return null;
+    var i = {startTime: d0 + "T00:00:00", endTime: d1 + "T00:00:00", orderBy:"startTime", pageSize:100};
+    if(tz()) i.timeZone = tz();
+    return {server:"Google Calendar", tool:"list_events", input:i};
+  }
+  function stopLive(l){ l.forEach(function(u){ try{ u(); }catch(e){} }); }
+  var setKey = "", subKey = "", dataKey = "", calKey = "", setWatch = [], subWatch = [], dataWatch = [], calWatch = [], BAS_READ = false;
+  function getMcp(){
+    var c = window.claude; if(!c || typeof c.use !== "function") return Promise.resolve(null);
+    if(!mcpP) mcpP = c.use("mcp").then(function(mcp){ return (mcp && typeof mcp.watchTool==="function") ? mcp : null; }).catch(function(){ return null; });
+    return mcpP;
+  }
+  function watchView(mcp, l, view, size, every, cb, onErr){
+    l.push(mcp.watchTool("Notion","notion-query-data-sources", {data:{mode:"view", view_url:view, page_size:size}}, function(ev){
+      if(ev.type === "data"){ var p = payloadOf(ev.result); cb((p && p.results) || [], p, ev); }
+      else if(ev.type === "error" && onErr) onErr(ev.error);
+    }, {refetchInterval:every, cache:{staleTime:Math.min(every/2, 60000)}}));
+  }
+  function startLive(){
+    var k = JSON.stringify(PTR || null); if(k === setKey) return; setKey = k;
+    stopLive(setWatch); setWatch = []; stopLive(subWatch); subWatch = []; subKey = ""; SET = null; BAS = null; PLAN = null; BAS_READ = false; ERR = {settings:"", basics:"", plan:"", people:"", live:""};
+    if(!PTR || !PTR.settings_view){ dataKey = ""; calKey = ""; stopLive(dataWatch); dataWatch = []; stopLive(calWatch); calWatch = []; renderAll(); return; }
+    getMcp().then(function(mcp){
+      if(k !== setKey) return;
+      if(!mcp){ ERR.live = "Open the Hub page from its link in the Claude app to see your Hub."; renderAll(); return; }
+      watchView(mcp, setWatch, PTR.settings_view, 5, 60000, function(rows){
+        if(k !== setKey) return;
+        var r = rows[0]; SET = r ? settingsFrom(r) : null; ERR.settings = r ? "" : "the row that holds it is empty";
+        startSub(mcp); startData(mcp); renderAll();
+      }, function(e){ if(k !== setKey) return; ERR.settings = errText(e); renderAll(); });
+    });
+  }
+  // Basics and Hub Plan: links from hub/config first, else from the Hub Settings row
+  function startSub(mcp){
+    var bv = str(PTR.basics_view) || (SET && SET.basicsView) || "", pv = str(PTR.plan_view) || (SET && SET.planView) || "";
+    var k = JSON.stringify([bv, pv, PTR.person || ""]); if(k === subKey) return; subKey = k;
+    stopLive(subWatch); subWatch = []; BAS = null; PLAN = null; BAS_READ = false;
+    if(bv) watchView(mcp, subWatch, bv, 20, 60000, function(rows){
+      if(k !== subKey) return;
+      BAS = basicsFrom(rows); BAS_READ = true; ERR.basics = BAS ? (BAS.tz ? "" : "your time zone isn't filled in yet") : "there's no owner row in your basics yet";
+      startCal(mcp); renderAll();
+    }, function(e){ if(k !== subKey) return; ERR.basics = errText(e); BAS_READ = true; startCal(mcp); renderAll(); });
+    else { ERR.basics = "the link to your basics is missing"; BAS_READ = true; }
+    if(pv) watchView(mcp, subWatch, pv, 5, 60000, function(rows){
+      if(k !== subKey) return; PLAN = rows[0] ? planFrom(rows[0]) : null; ERR.plan = rows[0] ? "" : "your plan is empty"; renderOutreach();
+    }, function(e){ if(k !== subKey) return; ERR.plan = errText(e); renderOutreach(); });
+    else ERR.plan = "the link to your plan is missing";
+  }
+  function startData(mcp){
+    var k = JSON.stringify([SET && SET.contactsView, SET && SET.logView]);
+    if(k === dataKey) return; dataKey = k;
+    stopLive(dataWatch); dataWatch = []; PEOPLE = {}; LOADED = {people:false}; LIVE.log = null;
+    if(!configured()) return;
+    // Every row of a view: first page through the watch, then each further page by cursor while has_more and keepGoing
+    function more(view, cursor, n, acc, keepGoing){
+      if(!cursor || n > 40 || (keepGoing && !keepGoing(acc))) return Promise.resolve(acc);
+      return mcp.callTool("Notion","notion-query-data-sources", {data:{mode:"view", view_url:view, page_size:100, start_cursor:cursor}}, {cache:false})
+        .then(function(res){ var p = payloadOf(res), rows = (p && p.results) || []; return more(view, p && p.has_more ? p.next_cursor : null, n+1, acc.concat(rows), keepGoing); });
+    }
+    watchView(mcp, dataWatch, SET.contactsView, 100, 60000, function(rows, p, ev){
+      if(k !== dataKey || !p) return;
+      var stored = (ev.result.cache && ev.result.cache.storedAt) || Date.now();
+      more(SET.contactsView, p.has_more ? p.next_cursor : null, 1, rows.slice()).then(function(l){
+        if(k !== dataKey) return;
+        var map = {}; l.forEach(function(r){ var x = personFrom(r); if(x) map[x.id] = x; });
+        PEOPLE = map; LOADED.people = true; LIVE.peopleAt = stored; ERR.people = "";
+        renderAll(); if(RV) renderReview();
+      }).catch(function(e){ ERR.people = errText(e); renderAll(); });
+    }, function(e){
+      ERR.people = errText(e);
+      if(e && /needs_reauth|not_granted|not_in_manifest|server_not_connected/.test(e.code||"")){ PEOPLE = {}; LOADED.people = false; }
+      renderAll();
+    });
+    // The Log, newest first: page back until the rows reach last Monday, for this week's counts
+    if(SET.logView) watchView(mcp, dataWatch, SET.logView, 100, 300000, function(rows, p){
+      if(k !== dataKey || !p) return;
+      var m = monday();
+      more(SET.logView, p.has_more ? p.next_cursor : null, 1, rows.slice(), function(acc){ var last = acc[acc.length - 1]; return last && dayOf(rowTime(last)) >= m; })
+        .then(function(l){ if(k !== dataKey) return; LIVE.log = l; renderAll(); }).catch(function(){});
+    });
+  }
+  function startCal(mcp){
+    var cal = BAS_READ ? calCall() : null, k = JSON.stringify([cal, calSource(), configured()]);
+    if(k === calKey) return; calKey = k;
+    stopLive(calWatch); calWatch = []; LIVE.cal = null; LIVE.calErr = "";
+    if(cal){
+      calWatch.push(mcp.watchTool(cal.server, cal.tool, cal.input, function(ev){
+        if(k !== calKey) return;
+        if(ev.type === "data"){ LIVE.cal = payloadOf(ev.result); LIVE.calErr = ""; renderAll(); }
+        else if(ev.type === "error"){ LIVE.calErr = calErr(ev.error, cal.server); if(ev.error && /needs_reauth|not_granted|not_in_manifest|server_not_connected/.test(ev.error.code||"")) LIVE.cal = null; renderAll(); }
+      }, {refetchInterval:300000, cache:{staleTime:120000}}));
+    } else if(calSource() === "microsoft"){ LIVE.calErr = "Meeting cards don't work with Outlook here yet. Your meetings are on your morning page."; }
+  }
+
+  buildChips();
+  var start = lsGet("hub-tab") || "today";
+  show(TABS.indexOf(start) >= 0 ? start : "today");
+  renderAll(); renderNotes(); bootDb();
+  if(lsGet("hub-tour") !== "seen") tourShow(0);
+})();
+</script>
