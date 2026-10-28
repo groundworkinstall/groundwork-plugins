@@ -12,6 +12,14 @@
       "author": {
         "name": "Groundwork"
       }
+    },
+    {
+      "name": "youtube-machine",
+      "source": "./plugins/youtube-machine",
+      "description": "YouTube Machine: runs your YouTube channel with you, one video at a time, from research brief to the email that goes out with it. Start it by typing: Set up the YouTube Machine.",
+      "author": {
+        "name": "Groundwork"
+      }
     }
   ]
 }

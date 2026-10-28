@@ -1,0 +1,463 @@
+<title>YouTube Machine Board</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,500&family=Public+Sans:wght@400;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: a production board. Header, three counts, then videos on the left and what needs you on the right; on a phone, what needs you comes first. */
+:root{
+  --bg:#f2eee5; --card:#fbfaf6; --ink:#1d2019; --ink2:#41453b; --mute:#7e8272; --line:#e2ddd1;
+  --off-bg:#ebe7de; --off-fg:#8a8576; --off-num:#a39d8c;
+  --green-bg:#dce5d0; --green:#3f5230; --blue-bg:#d5e4ee; --blue:#2c4e66; --teal-bg:#cfe7e1; --teal:#23584d;
+  --indigo-bg:#dfe0f0; --indigo:#3e4a7a; --purple-bg:#e4dbee; --purple:#553f6e; --rose-bg:#ebdcdf; --rose:#6e3f4a;
+  --gray-bg:#e0e3e6; --gray:#3d4652;
+  --warn-bg:#f3e6c4; --warn:#6b4e0e; --bad-bg:#f4d6d2; --bad:#9a2a1e;
+  --f-display:Newsreader, Georgia, "Times New Roman", serif;
+  --f-body:"Public Sans", "Segoe UI", Arial, sans-serif;
+  --f-mono:"IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#191b17; --card:#22251f; --ink:#ece8de; --ink2:#c6c2b6; --mute:#949484; --line:#34372f;
+  --off-bg:#2a2c26; --off-fg:#8d897c; --off-num:#6f6c62;
+  --green-bg:#2f3a26; --green:#b9cfa2; --blue-bg:#22323f; --blue:#a9c9e0; --teal-bg:#1f3732; --teal:#9fd3c6;
+  --indigo-bg:#2b2e45; --indigo:#b8bde8; --purple-bg:#352b42; --purple:#cfb9e6; --rose-bg:#3d2a2f; --rose:#e3b8c2;
+  --gray-bg:#2c3036; --gray:#c3cad3;
+  --warn-bg:#3d331a; --warn:#ecd08c; --bad-bg:#43211c; --bad:#f2a596;
+  color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#191b17; --card:#22251f; --ink:#ece8de; --ink2:#c6c2b6; --mute:#949484; --line:#34372f;
+  --off-bg:#2a2c26; --off-fg:#8d897c; --off-num:#6f6c62;
+  --green-bg:#2f3a26; --green:#b9cfa2; --blue-bg:#22323f; --blue:#a9c9e0; --teal-bg:#1f3732; --teal:#9fd3c6;
+  --indigo-bg:#2b2e45; --indigo:#b8bde8; --purple-bg:#352b42; --purple:#cfb9e6; --rose-bg:#3d2a2f; --rose:#e3b8c2;
+  --gray-bg:#2c3036; --gray:#c3cad3;
+  --warn-bg:#3d331a; --warn:#ecd08c; --bad-bg:#43211c; --bad:#f2a596;
+  color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:15px;line-height:1.45}
+.wrap{max-width:1180px;margin:0 auto;padding-inline:20px;padding-block:24px 48px;display:flex;flex-direction:column;gap:22px}
+a{color:inherit}
+p,h1,h2,h3{margin:0}
+.mono{font-family:var(--f-mono)}
+.label{font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--mute)}
+
+header{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:14px}
+.brand{display:flex;gap:14px;align-items:center;min-width:0}
+.brand svg{flex:none}
+h1{font-family:var(--f-display);font-weight:500;font-size:clamp(28px,4.4vw,40px);line-height:1.05;text-wrap:balance}
+.sub{color:var(--ink2);font-size:14px;margin-top:4px}
+.fresh{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.fresh p{font-size:13px;color:var(--mute)}
+.fresh p.stale{color:var(--warn)}
+button{font:600 14px var(--f-body);color:var(--ink);background:var(--card);border:1.5px solid var(--line);border-radius:999px;padding:7px 16px;cursor:pointer}
+button:hover{border-color:var(--mute)}
+button:focus-visible,a:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+button[disabled]{opacity:.55;cursor:default}
+
+.notice{background:var(--warn-bg);color:var(--warn);border-radius:12px;padding:12px 16px;font-size:14px}
+.notice.bad{background:var(--bad-bg);color:var(--bad)}
+
+.stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.stat{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 16px;display:flex;flex-direction:column;gap:4px}
+.stat b{font-family:var(--f-display);font-weight:500;font-size:34px;line-height:1;font-variant-numeric:tabular-nums}
+.stat span{font-size:13px;color:var(--ink2)}
+
+.grid{display:grid;grid-template-columns:minmax(0,1fr) 340px;grid-template-areas:"videos wait" "videos remind" "videos topics";gap:18px;align-items:start}
+.a-videos{grid-area:videos}.a-wait{grid-area:wait}.a-remind{grid-area:remind}.a-topics{grid-area:topics}
+section{display:flex;flex-direction:column;gap:10px;min-width:0}
+h2{font-family:var(--f-display);font-weight:500;font-size:22px}
+
+#videos{display:flex;flex-direction:column;gap:12px}
+.video{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px 18px;display:flex;flex-direction:column;gap:12px}
+.vhead{display:flex;gap:10px;align-items:baseline;flex-wrap:wrap}
+.vnum{font-family:var(--f-mono);font-size:13px;color:var(--mute)}
+.vtitle{font-weight:700;font-size:17px;flex:1 1 220px;min-width:0}
+.pill{font-family:var(--f-mono);font-size:12px;padding:3px 10px;border-radius:999px;white-space:nowrap}
+.p-done{background:var(--green-bg);color:var(--green)}
+.p-prog{background:var(--blue-bg);color:var(--blue)}
+.p-wait{background:var(--warn-bg);color:var(--warn)}
+.p-park{background:var(--off-bg);color:var(--off-fg)}
+.p-stuck{background:var(--bad-bg);color:var(--bad)}
+.where{font-size:14px;color:var(--ink2)}
+.strip{display:grid;grid-template-columns:repeat(10,minmax(0,1fr));gap:5px}
+.seg{display:flex;flex-direction:column;gap:1px;padding:6px 6px;border-radius:8px;border:1.5px solid transparent;text-decoration:none;min-width:0}
+.seg .n{font-family:var(--f-mono);font-size:11px}
+.seg .t{font-size:12px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.seg.off{background:var(--off-bg);color:var(--off-fg)}
+.seg.off .n{color:var(--off-num)}
+.seg.done{background:var(--c-bg);color:var(--ink)}
+.seg.done .n{color:var(--c)}
+.seg.now{background:var(--card);border-color:var(--c);color:var(--ink)}
+.seg.now .n{color:var(--c)}
+.seg.now.stuck{border-color:var(--bad);background:var(--bad-bg)}
+.seg.person .n::after{content:" you";font-family:var(--f-body)}
+a.seg:hover{text-decoration:underline}
+.c1,.c5{--c:var(--green);--c-bg:var(--green-bg)}.c2{--c:var(--blue);--c-bg:var(--blue-bg)}
+.c3,.c4{--c:var(--teal);--c-bg:var(--teal-bg)}.c6{--c:var(--indigo);--c-bg:var(--indigo-bg)}
+.c7{--c:var(--purple);--c-bg:var(--purple-bg)}.c8,.c10{--c:var(--rose);--c-bg:var(--rose-bg)}.c9{--c:var(--gray);--c-bg:var(--gray-bg)}
+.vnote{font-size:14px;color:var(--ink2);border-top:1px solid var(--line);padding-top:10px;overflow-wrap:anywhere}
+.vnote.stuck{color:var(--bad)}
+.vlinks{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:13px}
+.vlinks a{color:var(--blue)}
+
+.list{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:6px 16px;display:flex;flex-direction:column}
+.item{padding:11px 0;border-bottom:1px solid var(--line);display:flex;flex-direction:column;gap:3px;overflow-wrap:anywhere}
+.item:last-child{border-bottom:0}
+.item b{font-weight:600}
+.item small{font-size:13px;color:var(--ink2)}
+.item.bad b{color:var(--bad)}
+.item.warn b{color:var(--warn)}
+.item.ok b{color:var(--green)}
+.empty{padding:12px 0;color:var(--ink2);font-size:14px}
+
+footer{display:flex;flex-wrap:wrap;gap:8px 18px;font-size:13px;color:var(--mute);border-top:1px solid var(--line);padding-top:14px}
+footer a{color:var(--blue)}
+
+@media (max-width:860px){
+  .grid{grid-template-columns:minmax(0,1fr);grid-template-areas:"wait" "videos" "remind" "topics"}
+}
+@media (max-width:620px){
+  .seg .t{display:none}
+  .seg{padding:7px 2px;align-items:center}
+  .seg.person .n::after{content:""}
+  .stat b{font-size:28px}
+  .stats{gap:8px}
+  .stat{padding:12px}
+}
+@media (prefers-reduced-motion:no-preference){.seg,.video{transition:background .3s,border-color .3s}}
+</style>
+
+<div class="wrap">
+  <header>
+    <div class="brand">
+      <svg width="40" height="40" viewBox="0 0 40 40" aria-hidden="true"><rect x="2" y="2" width="36" height="36" rx="9" fill="var(--green-bg)"/><path d="M11 27h18M11 21h12M11 15h7" stroke="var(--green)" stroke-width="3" stroke-linecap="round"/><path d="M26 12.5v7l6-3.5z" fill="var(--green)"/></svg>
+      <div>
+        <h1 id="biz">Video board</h1>
+        <p class="sub" id="subline">Every video, where it is, and what's waiting on you.</p>
+      </div>
+    </div>
+    <div class="fresh">
+      <p id="checked" aria-live="polite">Waiting for the tracker</p>
+      <button id="refresh" type="button" disabled>Refresh</button>
+    </div>
+  </header>
+
+  <div id="pagenote" class="notice" hidden></div>
+
+  <div class="stats">
+    <div class="stat"><p class="label">This month</p><b id="s-done">–</b><span id="s-done-l">videos finished</span></div>
+    <div class="stat"><p class="label">Last publish</p><b id="s-days">–</b><span id="s-days-l">days ago</span></div>
+    <div class="stat"><p class="label">Email list</p><b id="s-list">–</b><span id="s-list-l">people signed up</span></div>
+  </div>
+
+  <div class="grid">
+    <section class="a-videos" aria-labelledby="h-videos">
+      <h2 id="h-videos">Videos</h2>
+      <div id="videos"><div class="list"><p class="empty">The videos from your tracker show up here, each with its ten steps.</p></div></div>
+    </section>
+    <section class="a-wait" aria-labelledby="h-wait">
+      <h2 id="h-wait">Waiting on you</h2>
+      <div class="list" id="wait"><p class="empty">Anything only a person can do shows up here.</p></div>
+    </section>
+    <section class="a-remind" aria-labelledby="h-remind">
+      <h2 id="h-remind">Reminders</h2>
+      <div class="list" id="remind"><p class="empty">The monthly field scan, the every-fourth-video look back, and anything stuck.</p></div>
+    </section>
+    <section class="a-topics" aria-labelledby="h-topics">
+      <h2 id="h-topics">Next topics</h2>
+      <div class="list" id="topics"><p class="empty">The next three open topics from your list.</p></div>
+    </section>
+  </div>
+
+  <footer>
+    <span>This board only reads. The machine writes the tracker as each step finishes, and the board picks it up within a minute.</span>
+    <a id="tracker-link" href="#" target="_blank" rel="noopener">Open the tracker</a>
+    <a id="folder-link" href="#" target="_blank" rel="noopener" hidden>Open the video folder</a>
+    <span id="version"></span>
+  </footer>
+</div>
+
+<script>
+(function(){
+  "use strict";
+  var SHEET_ID = "__SPREADSHEET_ID__";
+  var SERVER = "Google Sheets", TOOL = "get_values";
+  var RANGES = {settings:"Settings!A1:B60", topics:"Topics!A1:E300", videos:"Videos!A1:T300", log:"Log!A1:D2000"};
+  var STEPS = [
+    [1,"Topic",[]],[2,"Brief",["Brief"]],[3,"Interview",["Interview"]],[4,"Outline",["Outline","Fact check"]],
+    [5,"Film",["Filmed","Raw file"]],[6,"Trim",["Descript project","Trimmed"]],[7,"Package",["Package","Checklist"]],
+    [8,"Email",["Email draft"]],[9,"Publish",["YouTube link","Published"]],[10,"Send",["Email sent"]]
+  ];
+  var LONG = {1:"Pick the topic",2:"Research brief",3:"Interview",4:"Outline and fact check",5:"Film",6:"Trim in Descript",7:"Video package",8:"Email draft",9:"Upload and publish",10:"Send the email"};
+  var PERSON = {9:true,10:true};
+
+  var trackerUrl = "https://docs.google.com/spreadsheets/d/" + SHEET_ID + "/edit";
+  document.getElementById("tracker-link").href = trackerUrl;
+
+  var data = {settings:null, topics:null, videos:null, log:null};
+  var stored = {};
+  var errors = {};
+  var mcp = null;
+
+  function $(id){ return document.getElementById(id); }
+  function el(tag, cls, text){ var e=document.createElement(tag); if(cls) e.className=cls; if(text!=null) e.textContent=text; return e; }
+  function clear(n){ while(n.firstChild) n.removeChild(n.firstChild); }
+  function norm(s){ return String(s==null?"":s).trim(); }
+  function urlIn(s){ var m = norm(s).match(/https?:\/\/[^\s)]+/); return m ? m[0] : ""; }
+
+  function rowsToObjects(values){
+    if(!values || !values.length) return [];
+    var head = values[0].map(norm);
+    return values.slice(1).filter(function(r){ return r && r.some(function(c){ return norm(c); }); }).map(function(r){
+      var o = {}; head.forEach(function(h,i){ o[h] = norm(r[i]); }); return o;
+    });
+  }
+  function col(o, starts){ for(var k in o){ if(k.toLowerCase().indexOf(starts.toLowerCase())===0) return o[k]; } return ""; }
+
+  var MONTHS = {jan:0,feb:1,mar:2,apr:3,may:4,jun:5,jul:6,aug:7,sep:8,oct:9,nov:10,dec:11};
+  function parseDate(s){
+    s = norm(s); if(!s) return null;
+    var iso = s.match(/(\d{4})-(\d{2})-(\d{2})/);
+    if(iso) return new Date(+iso[1], +iso[2]-1, +iso[3]);
+    var m = s.match(/\b(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)[a-z]*\.?\s+(\d{1,2})(?:,?\s+(\d{4}))?/i);
+    if(!m) return null;
+    var now = new Date();
+    var y = m[3] ? +m[3] : now.getFullYear();
+    var d = new Date(y, MONTHS[m[1].slice(0,3).toLowerCase()], +m[2]);
+    if(!m[3] && d - now > 2*864e5) d.setFullYear(y-1);
+    return d;
+  }
+  function fmtAgo(ms){
+    var s = Math.max(0, Math.round((Date.now()-ms)/1000));
+    if(s < 60) return "just now";
+    var m = Math.round(s/60); if(m < 60) return m + (m===1?" minute ago":" minutes ago");
+    var h = Math.round(m/60); if(h < 24) return h + (h===1?" hour ago":" hours ago");
+    var d = Math.round(h/24); return d + (d===1?" day ago":" days ago");
+  }
+  function stepNum(s){ var m = norm(s).match(/^(\d{1,2})/); return m ? Math.min(10, Math.max(1, +m[1])) : 1; }
+
+  function settingsMap(){
+    var map = {};
+    (data.settings || []).slice(1).forEach(function(r){ if(r && norm(r[0])) map[norm(r[0])] = norm(r[1]); });
+    return map;
+  }
+
+  function openHelps(videos, log){
+    var help = [];
+    log.forEach(function(r, i){
+      var type = col(r,"Type").toLowerCase();
+      if(type !== "help") return;
+      var v = col(r,"Video");
+      var fixed = log.slice(i+1).some(function(x){ return col(x,"Type").toLowerCase()==="fixed" && col(x,"Video")===v; });
+      var vid = videos.filter(function(x){ return col(x,"#")===v; })[0];
+      if(vid && col(vid,"Status").toLowerCase()==="done") fixed = true;
+      if(!fixed) help.push({video:v, time:col(r,"Time"), text:col(r,"What happened")});
+    });
+    return help;
+  }
+
+  function render(){
+    var S = settingsMap();
+    var videos = rowsToObjects(data.videos);
+    var topics = rowsToObjects(data.topics);
+    var log = rowsToObjects(data.log);
+    var helps = openHelps(videos, log);
+    var now = new Date();
+
+    if(S["Business"]) $("biz").textContent = S["Business"];
+    var who = [S["On camera"] ? "On camera: " + S["On camera"] : "", S["Keeper"] ? "Keeper: " + S["Keeper"] : ""].filter(Boolean).join(" · ");
+    if(who) $("subline").textContent = who;
+    var folder = urlIn(S["Folder"]);
+    if(folder){ $("folder-link").href = folder; $("folder-link").hidden = false; }
+    if(S["Machine version"]) $("version").textContent = "YouTube Machine v" + S["Machine version"];
+
+    // Counts
+    if(data.videos){
+      var pubDates = videos.map(function(v){ return parseDate(col(v,"Published")); }).filter(Boolean);
+      var thisMonth = videos.filter(function(v){
+        var d = parseDate(col(v,"Published")) || parseDate(col(v,"Email sent"));
+        return col(v,"Status").toLowerCase()==="done" && d && d.getMonth()===now.getMonth() && d.getFullYear()===now.getFullYear();
+      }).length;
+      $("s-done").textContent = thisMonth;
+      $("s-done-l").textContent = thisMonth===1 ? "video finished" : "videos finished";
+      if(pubDates.length){
+        var last = new Date(Math.max.apply(null, pubDates));
+        var today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+        var days = Math.round((today - last)/864e5);
+        $("s-days").textContent = days;
+        $("s-days-l").textContent = (days===1?"day ago, ":"days ago, ") + last.toLocaleDateString(undefined,{month:"short",day:"numeric"});
+      } else { $("s-days").textContent = "–"; $("s-days-l").textContent = "nothing published yet"; }
+    }
+    if(data.log){
+      var counts = log.map(function(r){ var m = col(r,"What happened").match(/list count:?\s*(\d[\d,]*)/i); return m ? +m[1].replace(/,/g,"") : null; }).filter(function(x){ return x!==null; });
+      if(counts.length){
+        var n = counts[counts.length-1], prev = counts.length>1 ? counts[counts.length-2] : null;
+        $("s-list").textContent = n;
+        $("s-list-l").textContent = prev===null ? "people signed up" : "signed up, " + (n-prev>=0?"+":"") + (n-prev) + " since the last count";
+      } else { $("s-list").textContent = "–"; $("s-list-l").textContent = "no count logged yet"; }
+    }
+
+    // Videos
+    if(data.videos){
+      var box = $("videos"); clear(box);
+      if(!videos.length){ var l = el("div","list"); l.appendChild(el("p","empty","No videos yet. Say \"start my next video\" to Claude and the first one shows up here.")); box.appendChild(l); }
+      var order = videos.slice().sort(function(a,b){
+        var da = col(a,"Status").toLowerCase()==="done", db = col(b,"Status").toLowerCase()==="done";
+        if(da!==db) return da?1:-1;
+        return (+col(b,"#")||0) - (+col(a,"#")||0);
+      });
+      order.forEach(function(v){
+        var status = col(v,"Status"), sl = status.toLowerCase();
+        var isDone = sl==="done", parked = sl==="parked", waiting = sl.indexOf("waiting")===0;
+        var cur = isDone ? 11 : stepNum(col(v,"Step"));
+        var vHelp = helps.filter(function(h){ return h.video===col(v,"#"); });
+        var card = el("article","video");
+        card.setAttribute("aria-label","Video " + col(v,"#") + ": " + col(v,"Title"));
+        var head = el("div","vhead");
+        head.appendChild(el("span","vnum","#" + col(v,"#")));
+        head.appendChild(el("span","vtitle", col(v,"Title") || col(v,"Topic") || "Untitled"));
+        var pc = isDone ? "p-done" : parked ? "p-park" : vHelp.length ? "p-stuck" : waiting ? "p-wait" : "p-prog";
+        head.appendChild(el("span","pill " + pc, vHelp.length && !isDone ? "Stuck" : (status || "In progress")));
+        card.appendChild(head);
+        card.appendChild(el("p","where", isDone ? "All ten steps done" + (col(v,"Published") ? ". " + col(v,"Published").replace(/^Done at /,"Published ") : "") : "Step " + cur + " of 10: " + LONG[cur] + (PERSON[cur] ? " (a person does this one)" : "")));
+
+        var strip = el("div","strip");
+        STEPS.forEach(function(s){
+          var n = s[0], link = "", tip = "";
+          s[2].forEach(function(c){ var val = col(v,c); if(val){ tip = tip ? tip + "; " + c + ": " + val : c + ": " + val; if(!link) link = urlIn(val); } });
+          var state = (isDone || n < cur) ? "done" : n===cur ? "now" : "off";
+          if(parked && state!=="done") state = "off";
+          var seg = el(link ? "a" : "div", "seg c" + n + " " + state + (PERSON[n] ? " person" : "") + (state==="now" && vHelp.length ? " stuck" : ""));
+          if(link){ seg.href = link; seg.target = "_blank"; seg.rel = "noopener"; }
+          seg.title = LONG[n] + (tip ? "\n" + tip : "") + (PERSON[n] ? "\nA person does this step" : "");
+          seg.setAttribute("aria-label", "Step " + n + ", " + LONG[n] + ", " + (state==="done"?"done":state==="now"?"current":"not started"));
+          seg.appendChild(el("span","n", (n<10?"0":"") + n));
+          seg.appendChild(el("span","t", s[1]));
+          strip.appendChild(seg);
+        });
+        card.appendChild(strip);
+
+        var links = el("div","vlinks");
+        [["Descript project","Descript project"],["Package","Package"],["Email draft","Email draft"],["YouTube link","On YouTube"],["Checklist","Checklist"]].forEach(function(p){
+          var u = urlIn(col(v,p[0])); if(u){ var a = el("a",null,p[1]); a.href=u; a.target="_blank"; a.rel="noopener"; links.appendChild(a); }
+        });
+        if(links.firstChild) card.appendChild(links);
+        vHelp.forEach(function(h){ card.appendChild(el("p","vnote stuck","Stuck since " + h.time + ": " + h.text)); });
+        if(col(v,"Notes") && !isDone) card.appendChild(el("p","vnote", col(v,"Notes")));
+        box.appendChild(card);
+      });
+    }
+
+    // Waiting on you
+    if(data.videos && data.log){
+      var w = $("wait"); clear(w); var any = false;
+      function add(box, cls, title, small){ var it = el("div","item " + (cls||"")); it.appendChild(el("b",null,title)); if(small) it.appendChild(el("small",null,small)); box.appendChild(it); any = true; }
+      helps.forEach(function(h){ add(w,"bad","Video #" + h.video + " is stuck", h.text + " (" + h.time + ")"); });
+      videos.forEach(function(v){
+        var sl = col(v,"Status").toLowerCase(); if(sl==="done"||sl==="parked") return;
+        var c = stepNum(col(v,"Step")), t = col(v,"Title");
+        if(c===9) add(w,"warn","Upload and publish #" + col(v,"#") + " on YouTube", t + ". Paste the link back to Claude when it's live.");
+        else if(c===10) add(w,"warn","Send the email for #" + col(v,"#"), t + ". The draft is waiting in your email service.");
+        else if(sl.indexOf("waiting")===0) add(w,"warn","#" + col(v,"#") + " " + t + ": step " + c + ", " + LONG[c], col(v,"Notes") || "A person needs to do the next part.");
+      });
+      if(!any) w.appendChild(el("p","empty","Nothing is waiting on you right now."));
+    }
+
+    // Reminders
+    if(data.settings && data.videos && data.log){
+      var r = $("remind"); clear(r);
+      function rem(cls, title, small){ var it = el("div","item " + cls); it.appendChild(el("b",null,title)); if(small) it.appendChild(el("small",null,small)); r.appendChild(it); }
+      var scan = parseDate(S["Last field scan"]) || (function(){ var m = norm(S["Last field scan"]).match(/([A-Za-z]+)\s+(\d{4})/); return m && MONTHS[m[1].slice(0,3).toLowerCase()]!=null ? new Date(+m[2], MONTHS[m[1].slice(0,3).toLowerCase()], 1) : null; })();
+      if(!scan || scan.getFullYear()*12+scan.getMonth() < now.getFullYear()*12+now.getMonth())
+        rem("warn","Field scan is due", "Last one: " + (S["Last field scan"] || "never") + ". Say \"run the field scan\" when no video is mid-step.");
+      else rem("ok","Field scan is done for this month", "Last one: " + S["Last field scan"] + ".");
+      var finished = videos.filter(function(v){ return col(v,"Status").toLowerCase()==="done"; }).length;
+      var learnedAt = log.filter(function(x){ return col(x,"Type").toLowerCase()==="learned"; }).length;
+      if(finished>0 && finished%4===0 && learnedAt < finished/4) rem("warn","Time to look back", finished + " videos finished. Say \"what should we make next?\"");
+      else { var left = 4 - (finished%4); rem("ok","Next look back in " + left + (left===1?" video":" videos"), "It runs after every fourth finished video. " + finished + " finished so far."); }
+      if(helps.length) rem("bad", helps.length + (helps.length===1?" stuck step needs":" stuck steps need") + " a fix", "A Help row stays red until a Fixed row follows it in the log.");
+      var mism = log.filter(function(x){ return col(x,"Type").toLowerCase()==="didn't match"; }).length;
+      if(mism) rem("", mism + (mism===1?" step didn't match":" steps didn't match") + " what was expected", "Each one is in the tracker's Log tab.");
+    }
+
+    // Topics
+    if(data.topics){
+      var tp = $("topics"); clear(tp);
+      var open = topics.filter(function(t){ var s = col(t,"Status").toLowerCase(); return !s || s==="open"; }).slice(0,3);
+      if(!open.length) tp.appendChild(el("p","empty","No open topics. Add a few to the Topics tab, or ask for the field scan."));
+      open.forEach(function(t){ var it = el("div","item"); it.appendChild(el("b",null,col(t,"Topic"))); var q = col(t,"Who searches"); if(q) it.appendChild(el("small",null,"People search: “" + q + "”")); var nt = col(t,"Notes"); if(nt) it.appendChild(el("small",null,nt)); tp.appendChild(it); });
+    }
+    renderFresh();
+  }
+
+  function renderFresh(){
+    var times = Object.keys(RANGES).map(function(k){ return stored[k]; }).filter(Boolean);
+    var p = $("checked");
+    if(!times.length){ return; }
+    var oldest = Math.min.apply(null, times);
+    p.textContent = "Last checked " + fmtAgo(oldest);
+    p.className = (Date.now()-oldest > 10*60e3) ? "stale" : "";
+  }
+  setInterval(renderFresh, 20000);
+
+  var DENY = {needs_reauth:1, server_not_connected:1, blocked_by_policy:1, approval_required:1, not_in_manifest:1, consent_required:1, selection_required:1, not_granted:1, capability_disabled:1, capability_removed:1};
+  function message(code){
+    switch(code){
+      case "needs_reauth": return "Google Sheets needs reconnecting. Reconnect it in Claude's Settings, under Connectors, then reload this page.";
+      case "server_not_connected": return "Google Sheets isn't connected for you. Add it in Claude's Settings, under Connectors, then reload this page.";
+      case "selection_required": return "You have more than one Google Sheets connection. Pick one when Claude asks, then reload this page.";
+      case "not_in_manifest": case "consent_required": return "This board isn't allowed to read Google Sheets for you. Reload the page and allow it when asked.";
+      case "blocked_by_policy": case "approval_required": return "Your organization's settings block this board from reading Google Sheets.";
+      case "tool_error": return "Google Sheets couldn't read the tracker. Check the tracker still exists and you can open it.";
+      default: return "The board can't reach the tracker right now. It will try again on its own.";
+    }
+  }
+  function showNote(text, bad){ var n = $("pagenote"); if(!text){ n.hidden = true; return; } n.textContent = text; n.className = "notice" + (bad?" bad":""); n.hidden = false; }
+
+  function noLive(){
+    $("checked").textContent = "Live updates are off here";
+    showNote("This board reads the tracker live when it's opened in Claude by someone with Google Sheets connected. Here it can't, so open the tracker directly.", false);
+  }
+
+  function extract(result){
+    var p = result && result.payload;
+    if(!p && result && result.content){ var t = result.content.filter(function(c){ return c.type==="text"; })[0]; if(t){ try{ p = JSON.parse(t.text); }catch(e){} } }
+    if(typeof p === "string"){ try{ p = JSON.parse(p); }catch(e){ p = null; } }
+    return p && Array.isArray(p.values) ? p.values : (p && p.range ? [] : null);
+  }
+
+  function start(m){
+    mcp = m;
+    if(!mcp){ noLive(); return; }
+    if(SHEET_ID.indexOf("__")===0){ showNote("This board isn't linked to a tracker yet. Ask Claude to set up the YouTube Machine.", true); return; }
+    $("refresh").disabled = false;
+    Object.keys(RANGES).forEach(function(key){
+      mcp.watchTool(SERVER, TOOL, {spreadsheetId: SHEET_ID, range: RANGES[key]}, function(ev){
+        if(ev.type === "data"){
+          var vals = extract(ev.result);
+          if(vals === null){ errors[key] = "tool_error"; }
+          else { data[key] = vals; delete errors[key]; stored[key] = (ev.result.cache && ev.result.cache.storedAt) || Date.now(); }
+        } else {
+          var code = ev.error && ev.error.code || "upstream_error";
+          errors[key] = code;
+          if(DENY[code]){ data[key] = null; }
+        }
+        var codes = Object.keys(errors).map(function(k){ return errors[k]; });
+        if(codes.length){
+          var deny = codes.filter(function(c){ return DENY[c]; })[0];
+          showNote(message(deny || codes[0]), !!deny || codes[0]==="tool_error");
+        } else showNote("");
+        render();
+      }, {refetchInterval: 60000});
+    });
+  }
+
+  $("refresh").addEventListener("click", function(){
+    if(!mcp) return;
+    var b = $("refresh"); b.disabled = true; b.textContent = "Checking";
+    mcp.invalidate(SERVER, TOOL).catch(function(){}).then(function(){ setTimeout(function(){ b.disabled = false; b.textContent = "Refresh"; }, 1500); });
+  });
+
+  if(window.claude && typeof window.claude.use === "function"){
+    window.claude.use("mcp").then(start, function(){ start(null); });
+  } else noLive();
+})();
+</script>
