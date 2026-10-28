@@ -327,7 +327,7 @@ details.caps summary::after{content:" \25BE"}
     <span class="tk" id="tour-k"></span>
     <p id="tour-p"></p>
     <p class="read" id="tour-r" hidden></p>
-    <div class="tb"><span class="dots" id="tour-dots"></span><span class="sp"></span><button class="btn sm" type="button" id="tour-got">Got it</button><button class="btn sm primary" type="button" id="tour-next">Next</button></div>
+    <div class="tb"><span class="dots" id="tour-dots"></span><span class="sp"></span><button class="btn sm" type="button" id="tour-back">Back</button><button class="btn sm primary" type="button" id="tour-next">Next</button><button class="btn sm primary" type="button" id="tour-done">Done</button></div>
   </div>
 </div>
 
@@ -864,7 +864,7 @@ details.caps summary::after{content:" \25BE"}
     $("weekline").hidden = !on; $("weekbar").hidden = !on;
     $("weekline").textContent = handled + " of " + total + " handled. " + n.sent + " sent, " + n.moved + " later or skipped, " + n.open + " to go.";
     $("weekbar").querySelector("i").style.width = (total ? Math.round(handled / total * 100) : 0) + "%";
-    if(!total) box.innerHTML = '<p class="msg">'+(LOADED.people ? "Nobody on this week's list yet. Your morning page picks them on Monday." : (configured() ? "Reading your contacts." : "This week's asks show here once the page is connected."))+'</p>';
+    if(!total) box.innerHTML = '<p class="msg">'+(LOADED.people ? "Nobody on this week's list yet. Your 7:00am update picks them on Monday." : (configured() ? "Reading your contacts." : "This week's asks show here once the page is connected."))+'</p>';
     $("n-outreach").textContent = LOADED.people ? String(n.open) : "";
   }
   // Copy: the clipboard only. Nothing is written and nothing is counted.
@@ -926,7 +926,7 @@ details.caps summary::after{content:" \25BE"}
     $("brief-view").innerHTML = BRIEF_SEL ? briefHtml(PEOPLE[BRIEF_SEL]) : "";
     $("sec-older").hidden = !old.length;
     $("older").innerHTML = old.map(function(p){ return '<li><button type="button" data-b="'+esc(p.id)+'">'+esc(p.name + (p.briefFor ? ", " + fmtDate(p.briefFor) : ""))+'</button></li>'; }).join("");
-    $("briefs-msg").textContent = withBrief.length ? "" : (LOADED.people ? "No briefs yet. Your morning page writes one for each meeting with someone in your Hub." : (configured() ? "Reading your contacts." : "Your briefs show here once the page is connected."));
+    $("briefs-msg").textContent = withBrief.length ? "" : (LOADED.people ? "No briefs yet. Your 7:00am update writes one for each meeting with someone in your Hub." : (configured() ? "Reading your contacts." : "Your briefs show here once the page is connected."));
     $("n-briefs").textContent = LOADED.people ? String(up.length) : "";
   }
   function pickBrief(e){ var b = e.target.closest && e.target.closest("[data-b]"); if(!b) return; BRIEF_SEL = b.getAttribute("data-b"); renderBriefs(); var v = $("brief-view"); if(v.scrollIntoView) v.scrollIntoView({block:"nearest"}); }
@@ -1201,23 +1201,27 @@ details.caps summary::after{content:" \25BE"}
 
   // ---------- first-open tour ----------
   var TOUR = [
-    ["Tell the hub what happened, in your own words. It goes on their notes right away; your next chat in Business Development, or the next weekday morning's update, changes what's next.", ""],
-    ["Today is your list for the day: what's ready for you and what needs a go or hold. Tap the buttons here as you go. Your morning page is for reading: to change anything there, tell your Business Development chat.", ""],
-    ["People is everyone in your Hub. Search anything, and tap a card for their notes and history.", ""],
-    ["Outreach is this week's asks, picked every Monday from your plan, each with two drafts. Copy one, send it yourself, then tap Sent.", ""],
-    ["Briefs has a brief for each meeting with someone in your Hub, ready by 7:00am on the day of the meeting, and usually the morning before. Things you can type in a Business Development chat: prep me for my meeting with, research this person, fill in my contacts, check my email, Friday review, park it.", ""]];
+    ["After a call, coffee or email, type what happened in the box at the top of any tab, in your own words, and tap Save. Name the people and it goes on their notes right away. The next time you open a chat in your Business Development project, or by the next weekday morning, Claude reads it and updates what's next with them.", ""],
+    ["Today is your business development list for the day, in three parts. From the hub chat today: what you told Claude today. Ready for you: who to reach out to or follow up with, and your meetings. Go or hold: people waiting on your OK before you contact them this week. Tap the buttons as you go. To change anything else, tell Claude in your Business Development project.", ""],
+    ["People is everyone in your Hub. Search a name or a company, and tap a card to see their notes and history.", ""],
+    ["Outreach is this week's asks, picked every Monday from your plan, each with two drafts: a short text and an email. Copy one, send it yourself from your own email or phone, then tap Sent so it's counted.", ""],
+    ["Briefs has a short brief for each meeting with someone in your Hub, ready by 7:00am on the day and usually the morning before. In a Business Development chat you can also type: prep me for my meeting with, research this person, fill in my contacts, check my email, Friday review, or park it.", ""]];
   var tourAt = 0;
   function tourShow(i){
     tourAt = i; $("tour").hidden = false;
     $("tour-k").textContent = "First time you open it · " + (i + 1) + " of " + TOUR.length;
     $("tour-p").textContent = TOUR[i][0]; $("tour-r").hidden = !TOUR[i][1]; $("tour-r").textContent = TOUR[i][1];
     $("tour-dots").innerHTML = TOUR.map(function(x, j){ return '<i' + (j === i ? ' class="on"' : '') + '></i>'; }).join("");
-    $("tour-next").hidden = i >= TOUR.length - 1;
-    $("tour-got").focus();
+    var last = i >= TOUR.length - 1;
+    $("tour-back").hidden = i === 0;
+    $("tour-next").hidden = last;
+    $("tour-done").hidden = !last;
+    (last ? $("tour-done") : $("tour-next")).focus();
   }
   function tourClose(){ $("tour").hidden = true; lsSet("hub-tour", "seen"); }
   $("tour-next").addEventListener("click", function(){ if(tourAt < TOUR.length - 1) tourShow(tourAt + 1); });
-  $("tour-got").addEventListener("click", tourClose);
+  $("tour-back").addEventListener("click", function(){ if(tourAt > 0) tourShow(tourAt - 1); });
+  $("tour-done").addEventListener("click", tourClose);
   $("tour-again").addEventListener("click", function(){ tourShow(0); });
 
   // ---------- the page's own database: pointers and taps ----------
@@ -1347,7 +1351,7 @@ details.caps summary::after{content:" \25BE"}
         if(ev.type === "data"){ LIVE.cal = payloadOf(ev.result); LIVE.calErr = ""; renderAll(); }
         else if(ev.type === "error"){ LIVE.calErr = calErr(ev.error, cal.server); if(ev.error && /needs_reauth|not_granted|not_in_manifest|server_not_connected/.test(ev.error.code||"")) LIVE.cal = null; renderAll(); }
       }, {refetchInterval:300000, cache:{staleTime:120000}}));
-    } else if(calSource() === "microsoft"){ LIVE.calErr = "Meeting cards don't work with Outlook here yet. Your meetings are on your morning page."; }
+    } else if(calSource() === "microsoft"){ LIVE.calErr = "Meeting cards don't work with Outlook here yet. Your meetings are in your 7:00am summary, under Scheduled."; }
   }
 
   buildChips();

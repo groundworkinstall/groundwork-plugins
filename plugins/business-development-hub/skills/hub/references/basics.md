@@ -92,7 +92,7 @@ Run it at your plugin's first step, after the Notion read works.
 
 **No page.** Make it, then ask what's missing, one message each, saving each answer to the Basics row the moment it's given:
 
-- First name and business name: B01, then B02.
+- First name and business name: B01 (or B01a when it's already known), then B02 (or B02a).
 - Time zone: B03.
 - File home and calendar: never asked from scratch. Read them from what's connected (one small read each, never a test file or event), then confirm in B05.
 - Who they serve: asked inside your plugin's own interview when you need it (the Hub asks it in H03); save it here when it comes.
@@ -109,13 +109,27 @@ END SAY
 Leave out "your writing style" or "your look" when that field is empty; the step that fills it runs later.
 
 ### B01. Your first name
+When: no first name is known yet. First look at what Claude already has: the name on the Claude account, the Instructions for Claude box, and anything the owner has told Claude before. If one of them gives a first name, send B01a instead and save it.
+
 SAY:
 First, what's your first name, the way you'd like me to use it?
 END SAY
 
+### B01a. Your first name, already known
+SAY:
+I'll call you «Maria». Tell me if you'd rather go by something else.
+END SAY
+
 ### B02. Your business
+When: no business name is known yet. Look first in the same places as B01, and in their website or email signature if one is connected. If one of them gives it, send B02a instead and save it.
+
 SAY:
 And what's the name of your business?
+END SAY
+
+### B02a. Your business, already known
+SAY:
+And your business is «Lopez Home Care». Tell me if I have that wrong.
 END SAY
 
 ### B03. Your time zone

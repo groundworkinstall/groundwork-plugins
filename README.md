@@ -1,10 +1,10 @@
 # Groundwork plugins
 
-This is a private plugin marketplace. It's shared only with Groundwork clients.
+Groundwork's plugin marketplace for its clients. Add it in the Claude app: Customize, Plugins, Add, Add marketplace, Add from a repository, then type groundworkinstall/groundwork-plugins.
 
 What's here:
 
-- Business Development Hub (business-development-hub, version 0.1.0). Start it in a new chat by typing: Set up my hub.
+- Business Development Hub (business-development-hub, version 0.1.1). Start it in a new chat by typing: Set up my hub.
 
 If you can't see or install something here, ask Joe Naroditsky at joe@groundworkinstall.com.
 
@@ -13,4 +13,5 @@ To install the Hub: /plugin install business-development-hub@groundwork-plugins
 
 ## Changes
 
+- 0.1.1 (Tue Oct 27, 2026): one screen for the owner (no Notion links; the 7:00am update fills the Hub page's Today tab and leaves a summary under Scheduled), clearer setup wording, name and business taken from what Claude already knows, website colors read from the page source, and a tour with Back, Next and Done.
 - 0.1.0 (Thu Oct 22, 2026): first release, build 260bd6b2.

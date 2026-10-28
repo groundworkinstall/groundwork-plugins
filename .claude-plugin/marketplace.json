@@ -3,7 +3,7 @@
   "owner": {
     "name": "Groundwork"
   },
-  "description": "Groundwork's private plugins for its clients.",
+  "description": "Groundwork's plugins for its clients.",
   "plugins": [
     {
       "name": "business-development-hub",

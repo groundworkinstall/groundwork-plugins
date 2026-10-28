@@ -5,7 +5,7 @@ description: 'Writes the seven-section meeting brief before the owner meets some
 
 # Prep for a meeting
 
-The owner is about to meet someone. You give them one brief in seven sections, saved where the Hub page's Briefs tab and the morning page find it. Work and business only. The words the owner sees are R07 in the hub skill's `references/messages.md`; fields and the Brief format are in the hub skill's `references/data.md`. The morning task writes briefs the same way, for meetings today or on the next weekday (on Fridays, Saturday, Sunday and Monday).
+The owner is about to meet someone. You give them one brief in seven sections, saved where the Hub page's Briefs tab and the 7:00am update find it. Work and business only. The words the owner sees are R07 in the hub skill's `references/messages.md`; fields and the Brief format are in the hub skill's `references/data.md`. The morning task writes briefs the same way, for meetings today or on the next weekday (on Fridays, Saturday, Sunday and Monday).
 
 1. Check the date and time with the time tool.
 2. Find Claude Basics and the Hub through Plugins here (the hub skill's `references/basics.md`). If the Hub isn't built, send R10 and stop.

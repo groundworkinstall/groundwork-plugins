@@ -67,22 +67,22 @@ What happens: nothing is written, except None for File home and Calendar on Neit
 When: the first message once Notion answers. It ends with B01 from basics.md, in the same reply, unless Claude Basics already has this person's row (then B00, then B05 if File home or Calendar is empty, then H01). When the row was made today and Progress has no Workspace line, skip H00 and send only B00.
 
 SAY:
-Let's set up your Business Development Hub. It works like a CRM, the kind of system businesses use to keep track of clients and leads, except you never have to click through its screens or fill in a spreadsheet. It builds your business development plan with you, brings in your contacts, and then feeds you the work every week: who to follow up with, who to ask, and a short brief before each meeting.
+Let's set up your Business Development Hub. It works like a CRM, the kind of system businesses use to keep track of clients and leads, except you never have to click through its screens or fill in a spreadsheet. It builds your business development plan with you, brings in your contacts, and then feeds you the work every week: who to follow up with and who to ask for a meeting or a referral. It also researches the people you're meeting with ahead of time and writes a short brief before each meeting.
 
-You tell it what happened however's easiest: talk to it after a call, or send the transcript of a video call or a photo of your notes. One update can cover several people at once. Claude keeps every contact, next step and reminder up to date from what you tell it and what it reads in your email. Behind the scenes, Claude keeps notes in Notion so it remembers your work from one chat to the next. You won't need to do anything there.
+After a meeting, you tell it what happened however's easiest: talk to it after a call, or send the transcript of a video call or a photo of your notes. One update can cover several people at once. When you meet someone new, send a photo of their business card and it adds them as a contact, with their details filled in. Claude keeps every contact, next step and reminder up to date from what you tell it and what it reads in your email. Behind the scenes, Claude keeps notes in Notion so it remembers your work from one chat to the next. You won't need to do anything there.
 
 This takes real time from you, today and every week after. It's worth it because business development is usually the first thing that slips when you run a business on your own or with a small team, and the Hub keeps it moving.
 
 Here's how today goes, about 90 minutes in all:
 
 1. A few basics, and a workspace for your Hub.
-2. I look at what you already have, so I don't ask you for it again.
+2. I look at your files and your website to learn as much as I can about you and your business, then ask you to fill in the blanks.
 3. About 20 minutes of questions on who you want to reach and who sends you work, which I turn into a one-page business development plan.
 4. You read the plan and tell me what to change. Then I build the Hub and we bring in your contacts.
 5. I learn how you write and what your brand looks like, so every note and page I make looks and sounds like you.
-6. I set up a morning page that tells you who to reach each weekday, and a Hub page you can open on your computer or your phone.
+6. I set up your Hub page, which you can open on your computer or your phone, and an update every weekday at 7:00am that tells you who to reach that day.
 
-At the end you'll have your plan with this week's people to ask, a draft of each ask, your contacts in one place, a morning page that tells you who's due, and your Hub page.
+At the end you'll have your plan with this week's people to ask for a meeting or a referral, a draft of each ask, your contacts in one place, your Hub page, and a 7:00am update every weekday that tells you who's due.
 
 If you need to stop partway, start a new chat and type Set up my hub. I'll pick up where we left off. Along the way, a box may pop up asking to let Claude use your notes, files or calendar. Click Always allow, or Allow each time it shows. Stay on whichever Claude model you're using now for the whole setup; you don't need to switch partway. Nothing you do here can break anything.
 END SAY
@@ -128,13 +128,13 @@ Instructions:
 COPY BOX
 This is the Business Development workspace for «Lopez Home Care». It's where I keep track of the people who can bring me work: clients, leads, and the people who send them to me. I'm «Maria». My time zone is «America/New_York».
 Files: «Google Drive (maria@lopezhomecare.example), in the folder Business Development (its link)». Name the folder every time you make a file.
-My notes: the Notion page «Lopez Home Care Business Development (its link)». Before real work in a chat here, read my row in Basics on the page Claude Basics, and Plugins here, then that notes page (Now, Decisions locked, Open items, From other workspaces), Hub Settings, Hub Plan, and the Log rows since Now was written. Fold each line under From other workspaces into that person's History, then mark the line Folded. Then read History lines ending (Hub page) and the Hub page note Log rows since Now was written: update Next step, Next step date and Stage from them, give any contact my Hub page made with only a name their About and fill their blanks the way you do for a new person, and ask me about any Hub page note that names nobody. When you've worked a Hub page note, add one Log row "Hub page note worked:" and the name, and skip any note that already has one. Once you've asked me about a note that names nobody, add a "Hub page note worked:" Log row with its first few words. For a Go or Hold I tapped there, set Next step and Next step date to what that choice means on the card, then clear Go or hold, Default and Why the default. Clear Follow-up draft once I've tapped Sent on it. Whichever runs first, this chat or the morning task, does this; skip anything the morning task already did. On a weekday after 7:30am, if Hub Today wasn't rewritten today, say so once in your first reply and offer rewrite my Hub Today. When I type pick up where I left off, read Now and the Log rows since, and start at the next step. What you read there beats what you remember. If Notion can't be reached, say so in your first reply and don't work from memory.
+My notes: the Notion page «Lopez Home Care Business Development (its link)». Before real work in a chat here, read my row in Basics on the page Claude Basics, and Plugins here, then that notes page (Now, Decisions locked, Open items, From other workspaces), Hub Settings, Hub Plan, and the Log rows since Now was written. Fold each line under From other workspaces into that person's History, then mark the line Folded. Then read History lines ending (Hub page) and the Hub page note Log rows since Now was written: update Next step, Next step date and Stage from them, give any contact my Hub page made with only a name their About and fill their blanks the way you do for a new person, and ask me about any Hub page note that names nobody. When you've worked a Hub page note, add one Log row "Hub page note worked:" and the name, and skip any note that already has one. Once you've asked me about a note that names nobody, add a "Hub page note worked:" Log row with its first few words. For a Go or Hold I tapped there, set Next step and Next step date to what that choice means on the card, then clear Go or hold, Default and Why the default. Clear Follow-up draft once I've tapped Sent on it. Whichever runs first, this chat or the morning task, does this; skip anything the morning task already did. On a weekday after 7:30am, if Hub Today wasn't rewritten today, say so once in your first reply and offer run my morning update. When I type pick up where I left off, read Now and the Log rows since, and start at the next step. What you read there beats what you remember. If Notion can't be reached, say so in your first reply and don't work from memory.
 My contacts live in the Contacts database on my notes page. When I tell you about a conversation, save first, then reply: find the person (by email, then name, then company), add a dated line under History on their page, and update Last talked, Next step, Next step date and Stage. When Stage changes, end the History line with "Stage:" and the old and new stage. When the next move is the other person's, start the Next step with "Waiting on" and set Next step date to the day I should check in. Anything I promised someone becomes their Next step and Next step date, unless one is already set; then add it as an Open item on the notes page with the day it's due. If an ask I sent got an answer, set Ask landed. If nobody matches, say "New contact:" and the name, and add them. One person per contact. Then add one Log row (Plugin Business Development) and reply in one line with what you saved and the next step. Ask me at most two short questions, one per message, only if the answers would change the next step, then offer one follow-up draft in my writing style in its own message. When I say yes, save the draft in their Follow-up draft field, so it shows on my Hub page until I tap Sent. Write a Go or hold card (Go or hold, with what Go means and what Hold means, Default and Why the default) only when I raise something that needs a yes or no from me. When I say I sent an ask, add a History line "Ask sent:" with the kind of ask, set Last talked to today and Ask landed to No reply yet, and add one Log row "Ask sent:" and the name. When I say a meeting is booked, add one Log row "Conversation booked:" and the name, unless that person already has one this week. For call notes, look on the calendar event first, then in my files for a meeting transcript (Notes by Gemini, Transcript, or a Teams transcript); read the transcript, not the summary, and say what you searched if you find none. Never change or erase what's in a field; add to it, except these, which get replaced, not added to: Go or hold, Default and Why the default; Follow-up draft; Brief, Brief for and Brief written. Never delete a contact; set Archived. When a lead signs, set their Stage to Client and keep them here.
 When I send a photo of a business card, read it and add the person the same way, or add only what's new if they're already here. Write the card's details exactly as printed. If any part is blurry or hard to read, ask me about that part; never guess, and never ask me to type out the card. Each time you add one new person (from a chat, a card, a Maybe add yes, or a name saved from my Hub page), write About, one or two lines on who they are to me, then fill their blank fields with a short web search for work information only: work email, title, website, LinkedIn link and work address. Before you fill anything, check what you found against what I gave you (company, city, email domain, the card). If it doesn't match for sure, fill nothing, set Identity to Unconfirmed, and ask me where they work. Fill only blank fields, never change one that has something in it, and add a dated line for each field you fill under "Where this came from" on their page, like "Website: shahelderlaw.example, from a web search, Oct 23" or "Work phone: from the card, Oct 23". Never do this on an import.
 When I say check my email, read only my email with people in Contacts, never send anything, add one dated line per thread, set Ask landed when a reply answers an ask I sent, and list people I've written back and forth with who aren't in Contacts under Maybe add; add one only on my yes. Needs a reply lists only people in Contacts.
 When I type fill in my contacts, take the next 10 contacts with blank fields and no Filled in date: first this week's people and anyone I have a meeting with, then people who send me work, then the newest added. Skip anyone with no company and no work email domain, and anyone who's a client unless I name them, and tell me how many you skipped. Fill each one the same way as a new person, set Filled in to today on each, even when nothing matched, add one Log row, and tell me how many got filled, how many you couldn't match, and how many are left. When I type research and a name, or research this person, do one pass. First check that what you find is the same person, against what I know (company, city, email domain, card). If it doesn't match, set Identity to Unconfirmed, tell me what didn't match, and research nothing else until I confirm. Then write a section on their page headed "Research," and today's date, in this order: Do they own or run a business (yes, no or can't tell, with the evidence); Who they are; How you're connected; What the business does and who it serves; What they care about, in one sentence; What they've published lately, with dates; Public business records, only when a web search turns them up; Their look (colors), only when it would help; What I couldn't find; Sources, with links and dates. Fill blank fields the same way as a new person, update About, set Research date, and add one Log row. Work information only, never home, family, health or personal accounts. For research and for briefs, read my business profile on my row in Basics (Sells, Who they serve, Where, Rough prices, How work comes in) and use it for where I could help.
 Before you use a status fact older than two weeks, or reuse old text, check its date, time and links first. Before you draft anything someone outside the business will read, use my writing style from Basics. Before you lay out anything, use my look from Basics.
-When I type set up my hub, pick up where I left off, Friday review, back up my contacts, rewrite my Hub Today, check my email, set up my writing style, set up my look, park it, get help, or prep me for my meeting with someone, or send a photo of a business card, use the Business Development Hub plugin's hub or prep skill. When I type import my contacts or fill in my contacts, or attach or name a contact list, use its import-contacts skill. When I type research and a name, or research this person, use its research skill.
+When I type set up my hub, pick up where I left off, Friday review, back up my contacts, run my morning update, check my email, set up my writing style, set up my look, park it, get help, or prep me for my meeting with someone, or send a photo of a business card, use the Business Development Hub plugin's hub or prep skill. When I type import my contacts or fill in my contacts, or attach or name a contact list, use its import-contacts skill. When I type research and a name, or research this person, use its research skill.
 RULES
 - Check the date and time with the time tool before you write or compare any date or time.
 - Live sources: never tell me what's on my calendar, in my files or in my email without reading it in this chat first.
@@ -209,7 +209,7 @@ I read «Lopez Home Care Client Tracker». Here's what I'll use from it in your 
 
 - Your stages: «their stage names, in order»
 - Your extra fields: «up to about ten»
-- Your rules: «for example, check in with every partner once a month». Your morning page uses them to show you who's due.
+- Your rules: «for example, check in with every partner once a month». Your 7:00am update uses them to show you who's due.
 - Fields the Hub already has get the Hub's name: «Last touch becomes Last talked, Next touch becomes Next step date».
 
 The rest goes in a Later section at the bottom of your business development plan, each piece marked one of three ways: the Hub already does it, you can add it yourself, or it's a bigger piece to scope and price on its own if you want it. «Lopez Home Care Client Tracker» stays yours, and I'll link it from your Hub.
@@ -358,7 +358,7 @@ Will anyone else in your business reach out to people for work and use this Hub 
 2. Someone else too (tell me their first name)
 END SAY
 
-What happens: the answer goes under Progress. When it's 2, the asks in H09 count for both people, and the other person sets up their own morning page when they type Set up my hub (R16).
+What happens: the answer goes under Progress. When it's 2, the asks in H09 count for both people, and the other person sets up their own 7:00am update when they type Set up my hub (R16).
 
 ### H09. Your time
 
@@ -514,9 +514,9 @@ Here's your Hub before I build it.
 - Contacts: one list of everyone who can bring you work, with their company, email, phone, website, LinkedIn and address, where they stand with you, who they are to you (client, lead, sends me work, partner or other), and your next step with them and its day. Each person also gets a page of notes, newest first. When a lead signs, they stay right here as a client.
 - Stages: where each person stands with you, so the Hub can tell you who needs a nudge. I've started you with five: New (someone you want to reach), Talking (you're in a conversation), Proposal out (they have your offer), Client (they're working with you), Not now (the timing isn't right; you'll come back to them). Change any word to fit how you talk about it.
 - Asks: each week's people get their own ask, with two drafts, a short text and an email. You copy one, send it yourself, and tell the Hub it's sent. The Hub keeps how each ask landed, so you can see which asks work.
-- Your morning page: Hub Today, rewritten every weekday at 7:00am your time: what's ready for you today, anything waiting on a go or hold, your asks this week, and a short brief for anyone in your Hub you're meeting today or on the next weekday.
+- Your 7:00am update: every weekday at 7:00am your time, Claude updates the Today tab on your Hub page with what's ready for you and anything waiting on a go or hold, and leaves you a short summary under Scheduled in the Claude app: who's due, your meetings, emails that need a reply, your asks this week, and a short brief for anyone in your Hub you're meeting today or on the next weekday.
 - Backups: every Friday review saves a copy of your contacts «in a Contact backups folder in Google Drive».
-- Your Hub page: a visual look at your Hub, laid out like a CRM, on your computer or your phone. Today has your follow-ups and meetings, People has everyone, Outreach has this week's asks and how you're doing against your plan, and Briefs has your meeting briefs.
+- Your Hub page: a visual look at your Hub, laid out like a CRM, on your computer or your phone. It has four sections: Today has your follow-ups and meetings, People has everyone, Outreach has this week's asks and how you're doing against your plan, and Briefs has your meeting briefs.
 
 Is this right?
 
@@ -645,32 +645,32 @@ When: right after writing style, as a full step, from look.md. Skip only when Ba
 
 What happens: Claude searches the owner's files and website for a logo, colors and fonts, asks for exact colors first, and saves hex codes (each with one job), fonts and the logo link on the owner's Basics row. The Hub page reads them from there. Nothing is sent.
 
-### H18. Your morning page
+### H18. Your 7:00am update
 
 When: after look. Quietly first: write the two drafts for each of this week's people (a short text and an email, in their writing style, each one its own ask) into Draft 1 and Draft 2 on their contact; make the morning task as morning-task.md says, at 7:00am weekdays in their time zone; run it once so today's Hub Today exists.
 
 SAY:
-Now your morning page: every weekday at 7:00am your time, Claude rewrites a page called Hub Today with what's ready for you today (who's due, your meetings and any follow-up you said yes to), anything waiting on a go or hold, how many asks you've made this week against your plan, and a short brief for anyone in your Hub you're meeting today or on the next weekday. On Mondays it picks that week's people and drafts each ask for you. On Fridays it puts a line near the top reminding you to type Friday review when you sit down. It's your start-of-day list, so you never have to go looking for who's next.
+Now your 7:00am update. Every weekday at 7:00am your time, Claude updates the Today tab on your Hub page with what's ready for you (who's due, your meetings and any follow-up you said yes to) and anything waiting on a go or hold. On Mondays it picks that week's people and drafts each ask for you. On Fridays it reminds you to type Friday review when you sit down.
 
-Since your email is connected, the morning run also reads your email with the people in your Hub. Replies, next steps and anything you owe show up on their own, with a Needs a reply list below what's ready for you. It also lists people you've been writing back and forth with who aren't in your Hub yet, leaving out newsletters, receipts and anything automated, so you can add them with a yes. It never sends anything, and you can type check my email any time for the same thing.
+It also leaves you a short summary each morning: who's due, your meetings, how many asks you've made this week against your plan, and a link to your Hub page. To read it, click Scheduled in the left panel of the Claude app, then Hub morning, and open the newest run. It's your start-of-day list, so you never have to go looking for who's next.
 
-If a box pops up asking to let Claude write your morning page, click Allow.
+Since your email is connected, the morning run also reads your email with the people in your Hub. Replies, next steps and anything you owe show up on their own, with a Needs a reply list in your morning summary. It also lists people you've been writing back and forth with who aren't in your Hub yet, leaving out newsletters, receipts and anything automated, so you can add them with a yes. It never sends anything, and you can type check my email any time for the same thing.
 
-Here's today's: «Hub Today (link)». It opens in Notion, where your notes live; if it asks you to sign in, use the same email.
+If a box pops up asking to let Claude run your 7:00am update, click Allow.
 
-This page is for reading. To change anything, tell your Business Development chat.
+The first one just ran, so your Hub page will have today's list when we open it in the last step.
 END SAY
 
-When: the email paragraph goes in only when an email app is connected. The Allow line goes in except after R12. Today's Hub Today link always goes in; after R12, Claude writes today's Hub Today itself first.
+When: the email paragraph goes in only when an email app is connected. The Allow line goes in except after R12; after R12, Claude writes today's Hub Today itself first. Never give the owner a link to Hub Today or any Notion page.
 
 What happens: one scheduled task, "Hub morning", weekdays at 7:00am in the owner's time zone, with the prompt in morning-task.md. It reads email and calendar and never sends anything. Its writes are listed in morning-task.md. The first run is started by Claude right after making it.
 
 ### H19. Your Hub page
 
-When: quietly first: publish the Hub page and write its settings, as data.md says. Check that every saved link is a view link with one read, and that every brand color is a hex code, before saving. On Microsoft 365, if no calendar tool worked when you wrote the page's settings, add this line to H19: "Your meetings show on your morning page; meeting cards on your Hub page's Today tab don't work with Outlook yet." and log a Help row.
+When: quietly first: publish the Hub page and write its settings, as data.md says. Check that every saved link is a view link with one read, and that every brand color is a hex code, before saving. On Microsoft 365, if no calendar tool worked when you wrote the page's settings, add this line to H19: "Your meetings show in your 7:00am summary under Scheduled; meeting cards on your Hub page's Today tab don't work with Outlook yet." and log a Help row.
 
 SAY:
-Last, your Hub page. It's a visual look at your Hub, laid out like a CRM, for when you'd rather see your list than ask for it. Today has what your chats saved today, what's ready for you, and anything waiting on a go or hold, People has everyone, Outreach has this week's asks with a copy button for each draft, and Briefs has your meeting briefs. A short tour shows the first time you open it, each part explains itself in a line at the top, and it's private to you until you share it.
+Last, your Hub page: a visual look at your Hub, laid out like a CRM, on your computer or your phone. It has four sections: Today has your follow-ups and meetings, People has everyone, Outreach has this week's asks and how you're doing against your plan, and Briefs has your meeting briefs. A short tour shows the first time you open it, each part explains itself in a line at the top, and it's private to you until you share it.
 
 1. Open it here: «Lopez Home Care Hub (link)».
 2. On your phone, open the Claude app (or get it from the App Store or Google Play and sign in with the same email), find this chat under Recents or in Business Development under Projects, and tap the same link. If a box asks to let the page use your notes or your calendar, tap Allow.
@@ -688,24 +688,24 @@ You're set up. Here's what you have:
 - Your business development plan, with «five» people to ask this week: «Lopez Home Care Business Development Plan»
 - Your contacts, «129» people, in your Hub
 - Two drafts of each ask this week, on your Hub page under Outreach
-- Hub Today, rewritten every weekday at 7:00am: «Hub Today»
+- An update every weekday at 7:00am, on your Hub page's Today tab and as a short summary under Scheduled
 - Your Hub page, on your computer and your phone: «Lopez Home Care Hub»
 - A copy of your contacts each time you type Friday review«: Contact backups»
 
 It all lives in this workspace, Business Development«, and its folder in Google Drive».
 
-How it works from here. Every Monday your morning page gives you this week's people, with a draft of each ask. When you send one, tap Sent on your Hub page, or tell me here, so I can count it. When someone replies, tell me that too, or type check my email and I'll read it myself. Anyone you didn't get to stays on your list, and so does anything you promised someone, until it's done.
+How it works from here. Every Monday your 7:00am update gives you this week's people, with a draft of each ask. When you send one, tap Sent on your Hub page, or tell me here, so I can count it. When someone replies, tell me that too, or type check my email and I'll read it myself. Anyone you didn't get to stays on your list, and so does anything you promised someone, until it's done.
 
 After a call or coffee, open a chat here and just talk into it, or send me the transcript or a photo of your notes. It can be messy and out of order; I'll sort out who it was, what you talked about and what happens next, and offer a follow-up note.
 
-When you meet someone new or think of a new prospect, tell me here too, or send me a photo of their card. I'll add them, fill in what I can find about their work online, ask a couple of quick questions, and work them into your plan, so they show up on your morning page on the day you should contact them.
+When you meet someone new or think of a new prospect, tell me here too, or send me a photo of their card. I'll add them, fill in what I can find about their work online, ask a couple of quick questions, and work them into your plan, so they show up on your Hub page's Today tab on the day you should contact them.
 
 To fill in the blanks on the contacts you brought in, type fill in my contacts; I'll do 10 at a time. To learn more about someone before you reach out, type research and their name, and I'll put what I find on their page.
 
-Your brief is ready by 7:00am on the day of each meeting, and usually the morning before, on your Hub page under Briefs and on your morning page. You can also type prep me for my meeting with, and their name. On Fridays, type Friday review when you sit down. If you need to stop in the middle of something, type park it. You can close this chat now.
+Your brief is ready by 7:00am on the day of each meeting, and usually the morning before, on your Hub page under Briefs and in your 7:00am summary. You can also type prep me for my meeting with, and their name. On Fridays, type Friday review when you sit down. If you need to stop in the middle of something, type park it. You can close this chat now.
 END SAY
 
-When: for a Microsoft 365 owner, the backup line reads "A copy of your contacts each time you type Friday review, as a file to save in OneDrive", and the folder at the end of the next line is left out. After R12, the Hub Today line reads "Hub Today, rewritten when you type rewrite my Hub Today".
+When: for a Microsoft 365 owner, the backup line reads "A copy of your contacts each time you type Friday review, as a file to save in OneDrive", and the folder at the end of the next line is left out. After R12, the update line reads "An update on your Hub page's Today tab whenever you type run my morning update".
 
 What happens: Finished under Progress. Now on the Hub home page rewritten. One Log row: Status, "Hub set up: «what was made, in one line»".
 
@@ -840,12 +840,12 @@ END SAY
 When: the app can't make scheduled tasks. Sent in place of H18's first paragraph; the Allow line is left out.
 
 SAY:
-Your Claude account can't rewrite your morning page on its own, so here's the next best thing: any morning, type rewrite my Hub Today in this workspace and I'll do the same thing on the spot.
+Your Claude account can't run your 7:00am update on its own, so here's the next best thing: any morning, type run my morning update in this workspace and I'll do the same thing on the spot.
 END SAY
 
 ### R13. Email wasn't read
 
-When: the morning run couldn't reach email. The line right after the reading line at the top of Hub Today, not a chat message.
+When: the morning run couldn't reach email. The first line of the run's summary, and the line right after the reading line at the top of Hub Today; not a chat message.
 
 SAY:
 Email wasn't read this morning; type check my email when you sit down.
@@ -857,20 +857,20 @@ SAY:
 I couldn't publish your Hub page here, so we'll skip it for now. Everything it shows, I can tell you in this chat: ask me who's due, or look up anyone by name.
 END SAY
 
-### R15. The morning page didn't run
+### R15. The 7:00am update didn't run
 
 When: a chat opens in Business Development on a weekday after 7:30am and Hub Today wasn't rewritten today. Said once, in the first reply. Never after R12.
 
 SAY:
-Your morning page didn't update today. Want me to do it now? Type rewrite my Hub Today.
+Your 7:00am update didn't run today. Want me to do it now? Type run my morning update.
 END SAY
 
-### R17. Hub Today rewritten
+### R17. Morning update run by hand
 
-When: the owner types rewrite my Hub Today.
+When: the owner types run my morning update (or rewrite my Hub Today).
 
 SAY:
-Hub Today is rewritten: «Hub Today (link)».
+Done. Your Hub page's Today tab is up to date: «Lopez Home Care Hub (link)». «The same short summary the 7:00am run leaves.»
 END SAY
 
 What happens: the morning task's work, done on the spot, with the same writes and one Log row, "Hub Today rewritten".
@@ -880,7 +880,7 @@ What happens: the morning task's work, done on the spot, with the same writes an
 When: Set up my hub, and Plugins here already lists the Hub, but this person has no Basics row. Make their row (basics.md), ask their first name and time zone, check their own Notion, email and calendar connections with one small read each, run writing style for them, then send H01 with their name in the instructions box so they make their own Business Development project, then make their own morning task. Their Claude has to reach the same Notion workspace as the owner's; the facilitator sets that up on screen, and nothing here promises it.
 
 SAY:
-Your business already has a Hub, so you'll share it: the same contacts and plan. You get your own morning page, Hub Today «Dana», rewritten every weekday at 7:15am with the shared follow-ups and your own email. First, a couple of basics.
+Your business already has a Hub, so you'll share it: the same contacts and plan. You get your own 7:00am update, at 7:15am every weekday, with the shared follow-ups and your own email. First, a couple of basics.
 END SAY
 
 What happens: a second scheduled task, "Hub morning «Dana»", weekdays at 7:15am in their time zone, writing only Hub Today «Dana» (morning-task.md, second owner). It reads only that person's inbox. Whether a second seat on a Team plan can open the Hub page hasn't been seen; the facilitator checks it on screen and nothing promises it.

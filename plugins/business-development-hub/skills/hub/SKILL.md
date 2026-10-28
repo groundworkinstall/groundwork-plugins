@@ -1,6 +1,6 @@
 ---
 name: hub
-description: 'Runs the Business Development Hub: sets it up in a 90-minute session, then saves what happened after every conversation, reads email with the people in it, keeps the morning page, writes meeting briefs and runs the Friday review. Use when someone says "set up my hub", "pick up where I left off", "check my email", "Friday review", "back up my contacts", "rewrite my Hub Today", "set up my writing style", "set up my look", "park it", "get help", sends a photo of a business card, or tells a chat in the Business Development workspace about a call, coffee, email, text, transcript or photo of notes.'
+description: 'Runs the Business Development Hub: sets it up in a 90-minute session, then saves what happened after every conversation, reads email with the people in it, runs the 7:00am update, writes meeting briefs and runs the Friday review. Use when someone says "set up my hub", "pick up where I left off", "check my email", "Friday review", "back up my contacts", "run my morning update", "rewrite my Hub Today", "set up my writing style", "set up my look", "park it", "get help", sends a photo of a business card, or tells a chat in the Business Development workspace about a call, coffee, email, text, transcript or photo of notes.'
 ---
 
 # Business Development Hub
@@ -67,7 +67,7 @@ When the owner types Set up my hub in a chat in the Business Development project
 9. **Contacts in: H15 or H15b, H15c** for the source they named, then the import-contacts skill for each file (it sends H16 and H17). At 60 minutes in, if contacts haven't started, offer "Just the people from my plan for now" first. A list over 500 rows: bring in the first 500, send R11 and go on; the rest comes in after the session. After the last file, or when nothing was imported, add every name kept under Progress from H06 to H08b that isn't in Contacts yet, as H17's walk says. Imports and those names aren't filled in on their own; they wait for fill in my contacts. Set Contacts in to Done.
 10. **Writing style:** W01 to W06 from `references/writing-style.md`, as a full step, unless Basics already has a Writing style (B00 said so). Set Writing style to Done.
 11. **Look:** L01 to L05 from `references/look.md`, as a full step, unless Basics already has Brand colors. Set Look to Done.
-12. **H18, the morning page.** Quietly first: write Draft 1 (a short text) and Draft 2 (an email) for each of this week's people, each its own ask, in their writing style; make the morning task as `references/morning-task.md` says; run it once so today's Hub Today exists. The email paragraph goes in only when an email app is connected. If the app can't make scheduled tasks, send R12 in place of H18's first paragraph, leave out the Allow line, and do the morning task's work once on the spot so the link works. Set Morning page to Done.
+12. **H18, the 7:00am update.** Quietly first: write Draft 1 (a short text) and Draft 2 (an email) for each of this week's people, each its own ask, in their writing style; make the morning task as `references/morning-task.md` says; run it once so today's Hub Today exists. The email paragraph goes in only when an email app is connected. If the app can't make scheduled tasks, send R12 in place of H18's first paragraph, leave out the Allow line, and do the morning task's work once on the spot so the link works. Set Morning page to Done.
 13. **H19, the Hub page.** Publish it and write its settings as `references/data.md` says. If it can't be published, send R14 instead. Set Hub page to Done.
 14. **H20.** Set Finished, rewrite Now on the Hub home page, log "Hub set up: «what was made, in one line»".
 
@@ -97,7 +97,7 @@ Everything here happens in a chat in the Business Development project. If the Hu
 - **Prep me for my meeting with someone:** use the prep skill.
 - **Friday review (R05):** only when the owner types it. Counts come from this week's Log rows with Plugin Business Development. Then the backup (R06), then ask for three names and add any they give.
 - **Back up my contacts (R06)**, as its walk says. Never delete an older backup.
-- **Rewrite my Hub Today:** do the morning task's work on the spot, from `references/morning-task.md`, then send R17.
+- **Run my morning update (or rewrite my Hub Today):** do the morning task's work on the spot, from `references/morning-task.md`, then send R17.
 - **Pick up where I left off:** read Now and the Log rows since, say where things stand in one line, and start at the next step.
 - **Set up my writing style / Set up my look:** run that shared step alone.
 - **Park it:** `references/park-it.md`.
