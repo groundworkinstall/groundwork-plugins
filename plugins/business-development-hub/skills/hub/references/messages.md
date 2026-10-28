@@ -500,7 +500,7 @@ SAY:
 Your business development plan is saved: «Lopez Home Care Business Development Plan (link)», in your Business Development folder. Your «five» people go into your Hub in a minute, each with their ask and the day you'll make it.
 END SAY
 
-When: for a Microsoft 365 owner: "Your business development plan is saved in your Hub: «Ortiz Consulting Business Development Plan (link)». It opens in Notion, where Claude keeps your notes; you can read it there and close it. Your «five» people go into your Hub in a minute, each with their ask and the day you'll make it."
+When: for a Microsoft 365 owner: "Your business development plan is saved in your Hub. You'll see the main parts any time on your Hub page under Outreach, and I'll read you the whole plan here whenever you ask. Your «five» people go into your Hub in a minute, each with their ask and the day you'll make it."
 
 What happens: Google Drive owners get a Google Doc titled "«Lopez Home Care» Business Development Plan" in the Business Development folder. Microsoft 365 owners get a page with the same title under the Hub home page. Sections: My business; Who I'm looking for; What's going on when they need me; Who sends me that work; My asks; Each week; My goal; Five people to ask this week; Later (only with a design). My business is copied from the Basics row as it stood at H12; the Basics row stays the one the Hub reads. It goes on Pages this plugin made. One Log row: File, "Business development plan saved". Nothing is sent.
 
