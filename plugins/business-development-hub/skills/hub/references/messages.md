@@ -212,7 +212,7 @@ I read «Lopez Home Care Client Tracker». Here's what I'll use from it in your 
 - Your rules: «for example, check in with every partner once a month». Your 7:00am update uses them to show you who's due.
 - Fields the Hub already has get the Hub's name: «Last touch becomes Last talked, Next touch becomes Next step date».
 
-The rest goes in a Later section at the bottom of your business development plan, each piece marked one of three ways: the Hub already does it, you can add it yourself, or it's a bigger piece to scope and price on its own if you want it. «Lopez Home Care Client Tracker» stays yours, and I'll link it from your Hub.
+The rest goes in a Later section at the bottom of your business development plan, each piece marked one of three ways: the Hub already does it, you can add it yourself, or it's a bigger piece to scope and price on its own if you want it. «Lopez Home Care Client Tracker» stays yours, and your Hub keeps a note of where it is.
 
 Does that sound right?
 
@@ -514,7 +514,7 @@ Here's your Hub before I build it.
 - Contacts: one list of everyone who can bring you work, with their company, email, phone, website, LinkedIn and address, where they stand with you, who they are to you (client, lead, sends me work, partner or other), and your next step with them and its day. Each person also gets a page of notes, newest first. When a lead signs, they stay right here as a client.
 - Stages: where each person stands with you, so the Hub can tell you who needs a nudge. I've started you with five: New (someone you want to reach), Talking (you're in a conversation), Proposal out (they have your offer), Client (they're working with you), Not now (the timing isn't right; you'll come back to them). Change any word to fit how you talk about it.
 - Asks: each week's people get their own ask, with two drafts, a short text and an email. You copy one, send it yourself, and tell the Hub it's sent. The Hub keeps how each ask landed, so you can see which asks work.
-- Your 7:00am update: every weekday at 7:00am your time, Claude updates the Today tab on your Hub page with what's ready for you and anything waiting on a go or hold, and leaves you a short summary under Scheduled in the Claude app: who's due, your meetings, emails that need a reply, your asks this week, and a short brief for anyone in your Hub you're meeting today or on the next weekday.
+- Your 7:00am update: every weekday at 7:00am your time, Claude updates the Today tab on your Hub page with what's ready for you and anything waiting on a go or hold. It also leaves you a short summary under Scheduled in the Claude app: who's due, your meetings and which ones have a brief ready, emails that need a reply, and your asks this week.
 - Backups: every Friday review saves a copy of your contacts «in a Contact backups folder in Google Drive».
 - Your Hub page: a visual look at your Hub, laid out like a CRM, on your computer or your phone. It has four sections: Today has your follow-ups and meetings, People has everyone, Outreach has this week's asks and how you're doing against your plan, and Briefs has your meeting briefs.
 
@@ -652,16 +652,16 @@ When: after look. Quietly first: write the two drafts for each of this week's pe
 SAY:
 Now your 7:00am update. Every weekday at 7:00am your time, Claude updates the Today tab on your Hub page with what's ready for you (who's due, your meetings and any follow-up you said yes to) and anything waiting on a go or hold. On Mondays it picks that week's people and drafts each ask for you. On Fridays it reminds you to type Friday review when you sit down.
 
-It also leaves you a short summary each morning: who's due, your meetings, how many asks you've made this week against your plan, and a link to your Hub page. To read it, click Scheduled in the left panel of the Claude app, then Hub morning, and open the newest run. It's your start-of-day list, so you never have to go looking for who's next.
+It also leaves you a short summary each morning: who's due, your meetings and which ones have a brief ready, how many asks you've made this week against your plan, and a link to your Hub page. To read it on your computer, click Scheduled in the left panel of the Claude app, then Hub morning, and open the newest run.
 
-Since your email is connected, the morning run also reads your email with the people in your Hub. Replies, next steps and anything you owe show up on their own, with a Needs a reply list in your morning summary. It also lists people you've been writing back and forth with who aren't in your Hub yet, leaving out newsletters, receipts and anything automated, so you can add them with a yes. It never sends anything, and you can type check my email any time for the same thing.
+Since your email is connected, your 7:00am update also reads your email with the people in your Hub. Replies, next steps and anything you owe show up on their own, with a Needs a reply list in your summary. It also lists people you've been writing back and forth with who aren't in your Hub yet, leaving out newsletters, receipts and anything automated, so you can add them with a yes. It never sends anything, and you can type check my email any time for the same thing.
 
 If a box pops up asking to let Claude run your 7:00am update, click Allow.
 
 The first one just ran, so your Hub page will have today's list when we open it in the last step.
 END SAY
 
-When: the email paragraph goes in only when an email app is connected. The Allow line goes in except after R12; after R12, Claude writes today's Hub Today itself first. Never give the owner a link to Hub Today or any Notion page.
+When: the email paragraph goes in only when an email app is connected. The Allow line goes in except after R12; after R12, Claude writes today's Hub Today itself first. Never give the owner a link to Hub Today or any Notion page. On Microsoft 365, when no calendar tool works for the page, the first paragraph reads "(who's due and any follow-up you said yes to)" in place of "(who's due, your meetings and any follow-up you said yes to)".
 
 What happens: one scheduled task, "Hub morning", weekdays at 7:00am in the owner's time zone, with the prompt in morning-task.md. It reads email and calendar and never sends anything. Its writes are listed in morning-task.md. The first run is started by Claude right after making it.
 
@@ -702,10 +702,10 @@ When you meet someone new or think of a new prospect, tell me here too, or send 
 
 To fill in the blanks on the contacts you brought in, type fill in my contacts; I'll do 10 at a time. To learn more about someone before you reach out, type research and their name, and I'll put what I find on their page.
 
-Your brief is ready by 7:00am on the day of each meeting, and usually the morning before, on your Hub page under Briefs and in your 7:00am summary. You can also type prep me for my meeting with, and their name. On Fridays, type Friday review when you sit down. If you need to stop in the middle of something, type park it. You can close this chat now.
+Your brief is ready by 7:00am on the day of each meeting, and usually the morning before, on your Hub page under Briefs, and your 7:00am summary tells you when one's ready. You can also type prep me for my meeting with, and their name. On Fridays, type Friday review when you sit down. If you need to stop in the middle of something, type park it. You can close this chat now.
 END SAY
 
-When: for a Microsoft 365 owner, the backup line reads "A copy of your contacts each time you type Friday review, as a file to save in OneDrive", and the folder at the end of the next line is left out. After R12, the update line reads "An update on your Hub page's Today tab whenever you type run my morning update".
+When: for a Microsoft 365 owner, the backup line reads "A copy of your contacts each time you type Friday review, as a file to save in OneDrive", and the folder at the end of the next line is left out, and the plan line reads "Your business development plan, with «five» people to ask this week, on your Hub page under Outreach". After R12, the update line reads "An update on your Hub page's Today tab whenever you type run my morning update".
 
 What happens: Finished under Progress. Now on the Hub home page rewritten. One Log row: Status, "Hub set up: «what was made, in one line»".
 
@@ -880,7 +880,7 @@ What happens: the morning task's work, done on the spot, with the same writes an
 When: Set up my hub, and Plugins here already lists the Hub, but this person has no Basics row. Make their row (basics.md), ask their first name and time zone, check their own Notion, email and calendar connections with one small read each, run writing style for them, then send H01 with their name in the instructions box so they make their own Business Development project, then make their own morning task. Their Claude has to reach the same Notion workspace as the owner's; the facilitator sets that up on screen, and nothing here promises it.
 
 SAY:
-Your business already has a Hub, so you'll share it: the same contacts and plan. You get your own 7:00am update, at 7:15am every weekday, with the shared follow-ups and your own email. First, a couple of basics.
+Your business already has a Hub, so you'll share it: the same contacts and plan. You get your own update every weekday at 7:15am, with the shared follow-ups and your own email. First, a couple of basics.
 END SAY
 
 What happens: a second scheduled task, "Hub morning «Dana»", weekdays at 7:15am in their time zone, writing only Hub Today «Dana» (morning-task.md, second owner). It reads only that person's inbox. Whether a second seat on a Team plan can open the Hub page hasn't been seen; the facilitator checks it on screen and nothing promises it.

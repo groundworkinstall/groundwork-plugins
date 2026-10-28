@@ -1202,14 +1202,15 @@ details.caps summary::after{content:" \25BE"}
   // ---------- first-open tour ----------
   var TOUR = [
     ["After a call, coffee or email, type what happened in the box at the top of any tab, in your own words, and tap Save. Name the people and it goes on their notes right away. The next time you open a chat in your Business Development project, or by the next weekday morning, Claude reads it and updates what's next with them.", ""],
-    ["Today is your business development list for the day, in three parts. From the hub chat today: what you told Claude today. Ready for you: who to reach out to or follow up with, and your meetings. Go or hold: people waiting on your OK before you contact them this week. Tap the buttons as you go. To change anything else, tell Claude in your Business Development project.", ""],
+    ["Today is your business development list for the day, in three parts. From the hub chat today: what you told Claude today. Ready for you: who to reach out to or follow up with, and your meetings. Go or hold: things waiting on a yes or no from you. Tap the buttons as you go. To change anything else, tell Claude in your Business Development project.", ""],
     ["People is everyone in your Hub. Search a name or a company, and tap a card to see their notes and history.", ""],
     ["Outreach is this week's asks, picked every Monday from your plan, each with two drafts: a short text and an email. Copy one, send it yourself from your own email or phone, then tap Sent so it's counted.", ""],
     ["Briefs has a short brief for each meeting with someone in your Hub, ready by 7:00am on the day and usually the morning before. In a Business Development chat you can also type: prep me for my meeting with, research this person, fill in my contacts, check my email, Friday review, or park it.", ""]];
   var tourAt = 0;
+  var tourReplay = false;
   function tourShow(i){
     tourAt = i; $("tour").hidden = false;
-    $("tour-k").textContent = "First time you open it · " + (i + 1) + " of " + TOUR.length;
+    $("tour-k").textContent = (tourReplay ? "Tour · " : "First time you open it · ") + (i + 1) + " of " + TOUR.length;
     $("tour-p").textContent = TOUR[i][0]; $("tour-r").hidden = !TOUR[i][1]; $("tour-r").textContent = TOUR[i][1];
     $("tour-dots").innerHTML = TOUR.map(function(x, j){ return '<i' + (j === i ? ' class="on"' : '') + '></i>'; }).join("");
     var last = i >= TOUR.length - 1;
@@ -1222,7 +1223,7 @@ details.caps summary::after{content:" \25BE"}
   $("tour-next").addEventListener("click", function(){ if(tourAt < TOUR.length - 1) tourShow(tourAt + 1); });
   $("tour-back").addEventListener("click", function(){ if(tourAt > 0) tourShow(tourAt - 1); });
   $("tour-done").addEventListener("click", tourClose);
-  $("tour-again").addEventListener("click", function(){ tourShow(0); });
+  $("tour-again").addEventListener("click", function(){ tourReplay = true; tourShow(0); });
 
   // ---------- the page's own database: pointers and taps ----------
   function bootDb(){
