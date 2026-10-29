@@ -487,8 +487,8 @@ details.caps summary::after{content:" \25BE"}
       briefWritten:dateOf(r, F.briefWritten), website:str(r[F.website]), linkedin:str(r[F.linkedin]), address:str(r[F.address]),
       about:str(r[F.about]), followup:str(r[F.followup]), goHold:str(r[F.goHold]), dflt:str(r[F.dflt]), whyDefault:str(r[F.whyDefault]),
       whyWeek:str(r[F.whyWeek]), created:dateOf(r, F.created)};
-    // Search covers the row: name (a group row's names too), company, title, email, Who they are, Stage, Next step, About, Referred by
-    p.hay = fold([p.name, p.company, p.title, p.email, p.who, p.stage, p.next, p.about, p.referred].join(" "));
+    // Search covers the row: name, first and last name, also known as (a group row's names too), company, title, email, Who they are, Stage, Next step, About, Referred by
+    p.hay = fold([p.name, p.first, p.last, p.aka, p.company, p.title, p.email, p.email2, p.who, p.stage, p.next, p.about, p.referred].join(" "));
     return p;
   }
   function all(){ return Object.keys(PEOPLE).map(function(k){ return PEOPLE[k]; }); }
