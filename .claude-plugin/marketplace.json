@@ -20,6 +20,14 @@
       "author": {
         "name": "Groundwork"
       }
+    },
+    {
+      "name": "networking-event-finder",
+      "source": "./plugins/networking-event-finder",
+      "description": "Networking Event Finder: finds networking events near you that fit who you want to meet, checks your calendar, gives you three picks a week and registers you for the ones you say yes to. Start it by typing: Find me networking events this month.",
+      "author": {
+        "name": "Groundwork"
+      }
     }
   ]
 }

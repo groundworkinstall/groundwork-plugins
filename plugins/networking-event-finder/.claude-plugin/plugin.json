@@ -1,0 +1,9 @@
+{
+  "name": "networking-event-finder",
+  "version": "0.1.0",
+  "description": "Networking Event Finder: finds in-person networking events near you that fit who you want to meet, checks them against your calendar, gives you three picks a week, and registers you for the ones you say yes to. Start it by typing: Find me networking events this month.",
+  "author": {
+    "name": "Joe Naroditsky, Groundwork"
+  },
+  "keywords": ["networking", "events", "business development", "small business"]
+}

@@ -6,14 +6,18 @@ What's here:
 
 - Business Development Hub (business-development-hub, version 0.1.2). Start it in a new chat by typing: Set up my hub.
 - YouTube Machine (youtube-machine, version 0.2.0). Start it in a new chat by typing: Set up the YouTube Machine.
+- Networking Event Finder (networking-event-finder, version 0.1.0). Start it in a new chat by typing: Find me networking events this month.
 
 If you can't see or install something here, ask Joe Naroditsky at joe@groundworkinstall.com.
 
 To add this marketplace in Claude Code: /plugin marketplace add groundworkinstall/groundwork-plugins
 To install the Hub: /plugin install business-development-hub@groundwork-plugins
 To install the YouTube Machine: /plugin install youtube-machine@groundwork-plugins
+To install the Networking Event Finder: /plugin install networking-event-finder@groundwork-plugins
 
 ## Changes
+
+- Thu Oct 29, 2026: Networking Event Finder 0.1.0 added (finds events, checks the calendar, three picks a week, registers with your yes).
 
 - 0.1.2 (Thu Oct 29, 2026): People search on the Hub page now finds first names, last names, nicknames and second emails, so a person inside a family or group row shows up.
 - Wed Oct 28, 2026: YouTube Machine 0.2.0 added (fixes from the Oct 20 best practices review, checked by a separate reviewer).
