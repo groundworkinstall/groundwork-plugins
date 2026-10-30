@@ -16,12 +16,12 @@ The first run asks eight questions, makes the YouTube Machine Tracker (a Google 
 
 ## vidIQ credits per video
 Prices as of October 2026. The free plan gives 150 credits a month. Boost is $19 a month for 2,000 credits. Most calls cost 5 credits; checking the balance costs nothing.
-- Topic check: 5 to 10 (search numbers, and the exact questions people type if needed).
+- Topic check: 5 to 15 (search numbers, the exact questions people type if needed, and one more topic's numbers when there aren't enough to compare).
 - Research brief: 25 to 35 (the videos ranking, the breakout videos, comments on the top two videos, viewer questions across the subject, and a transcript only when needed).
 - Titles: 15 (a score for each of the three choices).
-- About 45 a video, 60 at most. The monthly field scan adds about 10, and the every-four-videos look back about 25, only if your channel is linked in vidIQ.
-- So the free plan covers about two videos a month. Three a month, or more, needs Boost.
-Before each brief the machine checks the balance. With fewer than 30 credits left, it stops and says so instead of running half a brief. Credits used go on the tracker's Log tab.
+- About 45 a video, 65 at most. The monthly field scan adds about 10, and the every-four-videos look back about 25, only if your channel is linked in vidIQ.
+- The free plan's 150 credits a month cover two videos with room to spare, or three in a month when nothing extra is needed. More than that needs Boost: $19 a month for 2,000 credits (as of October 2026).
+Before each brief the machine checks the balance. With fewer than 35 credits left, it stops and says so instead of running half a brief. Credits used go on the tracker's Log tab.
 
 ## Skills
 - youtube-machine: the coordinator. Start here every time.

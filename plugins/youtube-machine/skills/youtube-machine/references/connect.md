@@ -7,7 +7,7 @@ Give one app at a time, then wait for "done". These are the steps on claude.ai a
 2. Click Settings, then Connectors. (Some versions of the app put this under Customize, then Connectors instead. If you don't see Connectors under Settings, look there, and send a screenshot if it's in neither.)
 3. Find the app in the list. If it isn't there, click Browse connectors and search for its name.
 4. Click Connect next to it, sign in to that app with your own account, and click Allow.
-5. Come back to this chat and say "done".
+5. Come back to this chat and say "done", and say which vidIQ plan you're on (Free is fine). Write it on the Settings tab's `vidIQ plan` row.
 
 On a Team plan, if the app isn't in the list at all, the plan's owner adds it first: Organization settings, then Connectors, then Add. Then each person connects it with their own account.
 
@@ -26,16 +26,16 @@ vidIQ is how the machine sees YouTube: how many people search for a topic each m
 
 Before the steps, say these things in plain words:
 - It's the business's own vidIQ account. A free account is enough to start. You don't need a YouTube channel for any of this.
-- The free plan gives 150 credits a month (as of October 2026). Most looks cost 5 credits. One video usually uses about 45, and never more than 60 (5 to 10 to check the topic, 25 to 35 for the research brief, 15 to score the three titles; the README lays it out). The monthly field scan uses about 10. So the free plan covers two videos a month with room to spare, and three only when no extra calls are needed. If you make more than that, vidIQ's Boost plan is $19 a month for 2,000 credits (as of October 2026).
+- The free plan gives 150 credits a month (as of October 2026). Most looks cost 5 credits. One video usually uses about 45, and never more than 65 (5 to 15 to check the topic, 25 to 35 for the research brief, 15 to score the three titles; the README lays it out). The monthly field scan uses about 10. The free plan's 150 credits a month cover two videos with room to spare, or three in a month when nothing extra is needed. More than that needs Boost: $19 a month for 2,000 credits (as of October 2026).
 - vidIQ only gets the topic's search words and the title choices. Nothing about the business, its clients or its recordings goes to it.
 - vidIQ can also do things like change videos, reply to comments and make AI media. The machine never uses any of that. It only reads.
 
 Then, one step at a time, waiting for "done" after each. Say once: "I haven't seen these screens for your account, so if something looks different, tell me what you see or send a screenshot."
-1. In Claude, open the vidIQ page in the connector directory: claude.ai/directory/vidiq
+1. In Claude, click your name or initials at the bottom left, then Settings, then Connectors. Click Browse connectors, search for vidIQ and open it. (In a web browser you can also go straight to claude.ai/directory/vidiq.)
 2. Click Connect.
 3. A vidIQ sign-in page opens. If you have a vidIQ account, sign in. If not, make a free account on that page.
 4. vidIQ asks you to let Claude use your account. Click to approve it.
-5. Come back to this chat and say "done".
+5. Come back to this chat and say "done", and say which vidIQ plan you're on (Free is fine). Write it on the Settings tab's `vidIQ plan` row.
 
 On a Team plan, if Connect isn't offered, the plan's owner adds vidIQ first: Organization settings, then Connectors, then Add. Then each person connects it with their own account.
 
