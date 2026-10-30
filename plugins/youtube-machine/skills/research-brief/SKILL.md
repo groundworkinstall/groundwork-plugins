@@ -17,7 +17,7 @@ vidIQ is for reading only. Use only the vidIQ tools named in this skill. Never c
 
 Set the video's Step to `2 Research brief`, Status `In progress`, before you search.
 
-**vidIQ credits first.** Call `vidiq_balance` (free). If vidIQ isn't connected or the call fails, walk them through connecting it as the youtube-machine skill's `references/connect.md` says, and wait; never write the brief without it. A brief uses about 25 credits. If fewer than 30 are left, stop before any other call and say plainly: "vidIQ has [n] credits left this month, and a brief needs about 25 to 30. They renew on [renewal date from the balance]. Or vidIQ's Boost plan adds 2,000 a month for $19 (as of October 2026). Which do you want?" Never run part of a brief. Write the balance down so you can log what the brief used.
+**vidIQ credits first.** Call `vidiq_balance` (free). If vidIQ isn't connected or the call fails, walk them through connecting it as the youtube-machine skill's `references/connect.md` says, and wait; never write the brief without it. A brief uses 25 to 35 credits. If fewer than 30 are left, stop before any other call and say plainly: "vidIQ has [n] credits left this month, and a brief needs 25 to 35. They renew on [renewal date from the balance]. Or vidIQ's Boost plan adds 2,000 a month for $19 (as of October 2026). Which do you want?" Never run part of a brief. Write the balance down so you can log what the brief used.
 
 **The vidIQ calls, in this order** (5 credits each unless noted; use the phrase in the topic's `Who searches for it, in their words` cell):
 1. `vidiq_youtube_search`, type `["video"]`, that phrase, 10 results. Gives the videos ranking now, with views, upload dates, views per hour and outlier score.
