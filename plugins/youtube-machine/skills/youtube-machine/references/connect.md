@@ -7,7 +7,7 @@ Give one app at a time, then wait for "done". These are the steps on claude.ai a
 2. Click Settings, then Connectors. (Some versions of the app put this under Customize, then Connectors instead. If you don't see Connectors under Settings, look there, and send a screenshot if it's in neither.)
 3. Find the app in the list. If it isn't there, click Browse connectors and search for its name.
 4. Click Connect next to it, sign in to that app with your own account, and click Allow.
-5. Come back to this chat and say "done", and say which vidIQ plan you're on (Free is fine). Write it on the Settings tab's `vidIQ plan` row.
+5. Come back to this chat and say "done".
 
 On a Team plan, if the app isn't in the list at all, the plan's owner adds it first: Organization settings, then Connectors, then Add. Then each person connects it with their own account.
 
