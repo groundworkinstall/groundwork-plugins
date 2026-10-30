@@ -1,6 +1,6 @@
 {
   "name": "youtube-machine",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Runs a small business's YouTube channel with them, one video at a time: research brief, interview, outline, Descript trim, video package and email drafts. Keeps its place in a Google Sheet so any new chat picks up where they left off. A person always clicks Publish and Send.",
   "author": {
     "name": "Joe Naroditsky, Groundwork"

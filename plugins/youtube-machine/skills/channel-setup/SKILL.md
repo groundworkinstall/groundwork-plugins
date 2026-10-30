@@ -2,7 +2,7 @@
 name: channel-setup
 description: 'Sets up the YouTube channel once for the YouTube Machine: drafts every field ahead (name ideas, handle, description, banner words, profile picture, playlists, links), walks a person through pasting each one into YouTube Studio, and verifies the channel so chapters, the pinned comment and clickable links work. Use when the youtube-machine skill reaches step 9 and there is no channel yet, or when someone says "set up the channel" or "channel setup".'
 metadata:
-  machine-version: "0.2.0"
+  machine-version: "0.3.0"
 ---
 
 # Channel setup

@@ -2,7 +2,7 @@
 name: interview
 description: 'Runs the YouTube Machine interview: asks the people on camera the brief''s questions one at a time (they answer by dictation) with short follow-ups for stories and specifics, then writes the outline (a scripted first 30 seconds, key points, shots and clips, a scripted close), then fact-checks it against the brief. Use when the youtube-machine skill reaches step 3 or 4, or when someone says "interview me for the next video", "start the interview", "write the outline" or "fact check the outline".'
 metadata:
-  machine-version: "0.2.0"
+  machine-version: "0.3.0"
 ---
 
 # Interview, outline and fact check

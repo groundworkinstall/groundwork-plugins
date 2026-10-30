@@ -6,15 +6,21 @@ If the Settings tab's `Change for next four` names a change, keep it in mind at 
 
 ## 1. Topic
 - Suggest the next topic from the Topics tab: the first `Open` topic, unless one has a note that makes it more timely (a deadline, a season, a date in the news). Before you suggest it, run the topic check below and say the result in one line, with a default.
+- vidIQ first. If the Settings tab's `Connector: vidIQ` isn't `Read OK`, or a `vidiq_balance` call fails, walk them through connecting it right now, as `connect.md` says, and wait. Never skip the research because vidIQ isn't there; there's no other way to see YouTube.
+- Credits: call `vidiq_balance` (free). The topic check uses 5 to 10 credits. If fewer than 10 are left, stop and say plainly: "vidIQ is out of credits for this month. They renew on [renewal date from the balance]. Or the Boost plan adds 2,000 a month for $19 (as of October 2026)." Wait for them to choose.
 - Topic check, about two minutes, all by you:
-  1. Read YouTube's search suggestions for the topic with WebFetch: `https://suggestqueries.google.com/complete/search?client=firefox&ds=yt&q=` plus the topic's first three or four words. Do it twice with different starts (for example "how to" and "when to"). If it fails, say so and use web search for the phrasing instead.
-  2. Pick the phrase closest to how a customer would ask it. Write it in the topic's `Who searches for it, in their words` cell.
-  3. Write in `Notes`: `Check [date]: people ask yes/thin; we can answer yes/no; top results weak/strong (see brief)`. "We can answer" is no if it needs one of the professionals in the Settings tab's `Advice goes to`; then say so and suggest the next topic.
-- A topic is worth a video when people ask it, the business can answer it from its own work, and what's on YouTube now is old, off-topic or thin. Two out of three is enough. Say which ones it has.
+  1. Run `vidiq_keyword_research` with mode `research` and the topic's main words (5 credits). Read the monthly searches (`estimatedMonthlySearch`), competition (0 to 100, lower is easier), growth, and the related searches.
+  2. Only if the related searches don't show how a customer would ask it: run `vidiq_keyword_research` with mode `questions` on the best phrase (5 credits), to see the exact questions people type. If that comes back thin, mode `matching_terms` is the other choice; never run both.
+  3. Pick the phrase closest to how a customer would ask it, from those real searches. Write it in the topic's `Who searches for it, in their words` cell.
+  4. Extra, free: read YouTube's search suggestions for the topic with WebFetch: `https://suggestqueries.google.com/complete/search?client=firefox&ds=yt&q=` plus the topic's first three or four words. Use it only to check the phrasing; skip it if it fails.
+  5. Write in `Notes`: `Check [date]: [n] searches a month, competition [n], growth [n]%; people ask yes/thin; we can answer yes/no; top results weak/strong (see brief)`. "We can answer" is no if it needs one of the professionals in the Settings tab's `Advice goes to`; then say so and suggest the next topic.
+- Ranking the open topics: a topic's numbers stay in its `Notes` for three months, so each topic is checked once, not every time. When you suggest the next topic, compare the open topics that have numbers: more searches, lower competition and growing searches rank higher. If fewer than two open topics have numbers, check one more with mode `research` (5 credits). Never check the whole list at once.
+- A topic is worth a video when people ask it, the business can answer it from its own work, and what's on YouTube now is old, off-topic or thin. Two out of three is enough. Say which ones it has, with the numbers: "People ask it: yes, about [n] searches a month and growing [n]%." A topic with almost no searches can still be worth a video if their own customers ask it all the time; say so.
+- After the topic check, add a `Credits` Log row with what it used and what's left.
 - If they want a new topic, add it to the Topics tab first.
 - Ask: "Is this video already filmed? If it is, paste the link to the recording." If it is, put the link in `Raw file`, write `Already filmed` in `Filmed`, and say in one line that the brief, interview and outline still run, because the outline feeds the package and the email.
 - Add the video row with a working title, set the topic's Status to `In a video`.
-- Done when the row exists with a topic, and the topic's `Notes` has a `Check [date]` line.
+- Done when the row exists with a topic, and the topic's `Notes` has a `Check [date]` line with the search numbers.
 
 ## 2. Research brief
 Run the research-brief skill. Done when the brief doc reads back with all five parts, every fact has a source, the page's own date and the checked date, and part 1 lists the ranking videos (or says why it couldn't).
@@ -116,4 +122,4 @@ Then the clips, one at a time, by a person, spaced two or three days apart:
 Say: "The email is ready in [the email service as a draft, or the Email drafts doc], with the video link filled in. Before you click Send: click the video link and check it opens the video, click the checklist link and check it opens the signup page, and read the subject line out loud. Change anything you want, and click Send when you're happy. Tell me when it's sent, or if you're holding it."
 Done when they say it's sent, or held with a reason. Write `Sent at [time]` or `Held: [reason]` in `Email sent`.
 
-When step 10 is Done, set the video's Status to `Done`, set its topic to `Done`, and log `Step done: video [#] finished`. Then count Done videos since the last `Learned` row; at four, offer what-we-learned.
+When step 10 is Done, set the video's Status to `Done`, set its topic to `Done`, and log `Step done: video [#] finished`. Then count Done videos since the last `Learned` row; at four, offer what-we-learned. Its numbers come from vidIQ only if `vidiq_user_channels` shows the owner's channel linked there; otherwise a person reads them from YouTube Studio, as that skill says.

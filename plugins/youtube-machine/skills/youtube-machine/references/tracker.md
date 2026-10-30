@@ -24,6 +24,8 @@ Make it with Google Drive's create file (a Google Sheet), titled exactly `YouTub
 | Mailing address for emails | `Not set yet` |
 | Send from | `Not set yet` (an address on the business's own domain, never Gmail) |
 | Email service | name, or `Not yet` |
+| YouTube data | `vidIQ` |
+| vidIQ plan | from answer 6 (`Free`, `Boost` or another plan), or `Not asked yet` |
 | What we know doc | link |
 | Last field scan | this month (set at first run) |
 | Change for next four | `None yet` (what-we-learned writes it) |
@@ -32,11 +34,11 @@ Make it with Google Drive's create file (a Google Sheet), titled exactly `YouTub
 | Connector: Google Sheets | same |
 | Connector: Descript | same, or `Not used yet` |
 | Connector: Email service | same, or `Not used yet` |
-| Connector: Apify | `Read OK at [time]`, or `Not used` (optional, the business's own free account) |
+| Connector: vidIQ | `Read OK at [time], [n] credits left`, or `Missing` (needed; the business's own account) |
 | Board | link, once the board is published |
-| Machine version | `0.2.0` |
+| Machine version | `0.3.0` |
 
-A tracker made by an older version won't have every row. Add any missing row with its first-run value, in the place this table shows, and change `Machine version` to `0.2.0`. Add a `Setup` Log row: `Tracker updated to 0.2.0`.
+A tracker made by an older version won't have every row. Add any missing row with its first-run value, in the place this table shows, and change `Machine version` to `0.3.0`. Add a `Setup` Log row: `Tracker updated to 0.3.0`. A tracker from 0.2.0 may have a connector row for the old optional research tool: delete it, since vidIQ replaces it, and add the vidIQ rows. If `Connector: vidIQ` is `Missing`, connecting it is the next thing to do, as `connect.md` says.
 
 ### Topics tab
 
@@ -59,8 +61,8 @@ Columns, in this order:
 ### Log tab
 
 Columns: `Time`, `Video #`, `Type`, `What happened`.
-Types: `Setup`, `Step done`, `Didn't match`, `Fixed`, `Decision`, `Help`, `Field scan`, `Learned`, `Cut check`.
-Add a row for every step done, every mismatch and every fix (a `Fixed` row names the `Didn't match` row it fixes). A `Cut check` row says `[n] cuts played, [n] restored, words fixed: [words or none]`, one per video, written after a person has played every cut in Descript.
+Types: `Setup`, `Step done`, `Didn't match`, `Fixed`, `Decision`, `Help`, `Field scan`, `Learned`, `Cut check`, `Credits`.
+Add a row for every step done, every mismatch and every fix (a `Fixed` row names the `Didn't match` row it fixes). A `Cut check` row says `[n] cuts played, [n] restored, words fixed: [words or none]`, one per video, written after a person has played every cut in Descript. A `Credits` row says `vidIQ: [n] credits used for [what: topic check, brief, title scores, field scan or look back], [n] left`, read from `vidiq_balance` before and after.
 
 ## What we know (Google Doc)
 

@@ -2,8 +2,8 @@
 name: youtube-machine
 description: 'Runs the YouTube Machine: one video at a time, from topic to the email that goes out with it, keeping its place in the "YouTube Machine Tracker" Google Sheet so any new chat picks up where they left off. Use when someone says "start my next video", "where are we on the videos", "pick up the video where we left off", "set up the YouTube Machine", "next step on video", "what''s left on this video", or "what YouTube Machine version is this?". Hands off to the research-brief, interview, descript-trim, video-package, email-list, channel-setup and what-we-learned skills in this plugin at the right step.'
 metadata:
-  machine-version: "0.2.0"
-  build-date: "2026-10-28"
+  machine-version: "0.3.0"
+  build-date: "2026-10-30"
   written-for: "Sonnet or Opus 5.5 in a Claude project or chat, Pro or Team plan"
 ---
 
@@ -35,7 +35,7 @@ Do these before you ask anything.
 1. Get the date and time.
 2. Check Google Drive and Google Sheets work: search Drive for "YouTube Machine Tracker". Skip anything whose title starts with ARCHIVE or OLD. If Drive or Sheets isn't connected, say exactly that, give the steps in `references/connect.md`, and stop. Everything depends on them.
 3. If there's no tracker, this is a first run: go to "First run" below.
-4. If there's a tracker, read all of it: the Settings tab, the Videos tab and the Log tab. If the Settings tab has no `Board` row (a tracker made before v0.1.2), offer once to publish the board as `references/board.md` says; the default is yes. If the Settings tab's `Machine version` is older than `0.2.0`, add the missing rows as `references/tracker.md` says, before anything else, and say so in one line.
+4. If there's a tracker, read all of it: the Settings tab, the Videos tab and the Log tab. If the Settings tab has no `Board` row (a tracker made before v0.1.2), offer once to publish the board as `references/board.md` says; the default is yes. If the Settings tab's `Machine version` is older than `0.3.0`, add the missing rows as `references/tracker.md` says, before anything else, and say so in one line.
 5. Find where things are: the first video on the Videos tab whose Status isn't `Done` or `Parked`. If there's none, the next video is the first open topic on the Topics tab.
 6. Monthly field scan: if the Settings tab's `Last field scan` is in an earlier month than today, offer it in one line. If a video is in progress, the default is "later" and you carry on with the video. If no video is in progress, the default is to run it now with the research-brief skill ("Monthly field scan"). "Later" puts a `Field scan: put off` row in the Log.
 7. Every four videos marked Done since the last `Learned` row in the Log, offer the what-we-learned skill once. "Later" is fine; offer again next open.
@@ -52,12 +52,12 @@ Set up the machine once, before the first video.
    3. Which Google Drive folder should the machine's files live in? Paste its link, or say "make one" and I'll make a folder called "YouTube Machine" at the top of your Drive.
    4. Is there a YouTube channel already? If so, paste its link. If not, say "not yet"; we'll set it up when the first video is ready to upload.
    5. What topics do you already know you want videos on? Any order is fine.
-   6. Windows or Mac? Which phone does each person on camera film with (iPhone or Android, and the model)? Which Descript plan, if any (Free, Hobbyist, Creator)? Which email service will hold your list ("not yet" is fine)?
+   6. Windows or Mac? Which phone does each person on camera film with (iPhone or Android, and the model)? Which Descript plan, if any (Free, Hobbyist, Creator)? Which email service will hold your list ("not yet" is fine)? Do you have a vidIQ account, and which plan ("no" is fine; I'll walk you through making a free one)?
    7. Who are the right professionals to send people to when a question crosses into advice, like a lawyer, an accountant or a doctor? Name the kinds that fit your business.
    8. Is this a real video or a short test run? A test run asks three interview questions instead of six and skips anything that can wait.
 3. Save first: make the tracker exactly as `references/tracker.md` says, in their folder. Fill the Settings tab from the answers and the Topics tab from answer 5. Set `Last field scan` to today's month, so the first scan comes next month. Read the tracker back to check it's there.
 4. Make the "What we know" Google Doc in the same folder (`references/tracker.md` says how) and put its link on the Settings tab.
-5. Check the connectors the machine uses, one small read each: Google Drive, Google Docs, Google Sheets, then Descript and the email service if they named them. Write each result on the Settings tab. Read, never create, to test a connector. Apify is optional: offer it once, in one line, as `references/connect.md` says (the business's own free account, or a screenshot per video instead; default: the screenshot way). For any that's missing, give the steps in `references/connect.md`, one at a time, and wait for "done". After a new connection, they need a new chat: say exactly "Start a new chat and type: This is the YouTube Machine chat: pick up where we left off. That loads the new connection. I can't start a chat for you."
+5. Check the connectors the machine uses, one small read each: Google Drive, Google Docs, Google Sheets, vidIQ, then Descript and the email service if they named them. Write each result on the Settings tab. Read, never create, to test a connector. vidIQ is how the machine sees YouTube: what people search for, which videos already rank, and what viewers ask in the comments. If it isn't connected, connecting it is the next setup step: walk them through it as `references/connect.md` says (making a free vidIQ account first if they don't have one), then check it with one `vidiq_balance` call. For any other that's missing, give the steps in `references/connect.md`, one at a time, and wait for "done". After a new connection, they need a new chat: say exactly "Start a new chat and type: This is the YouTube Machine chat: pick up where we left off. That loads the new connection. I can't start a chat for you."
 6. Publish the video board, as `references/board.md` says: a page that shows every video's ten steps, what's waiting on a person, reminders and the next topics, read live from the tracker. Put its link on the Settings tab's `Board` row. Ask once, in one line, whether to pin it to their sidebar; pin only on yes, and the default is no. If the board can't be published in this app, say so in one line and go on; the tracker works without it.
 7. Log a `Setup` row and tell them the one next thing: step 1, the topic.
 
@@ -65,8 +65,8 @@ Set up the machine once, before the first video.
 
 Every video moves through these. `references/steps.md` says exactly how to run and check each one.
 
-1. Topic (and whether footage already exists)
-2. Research brief (research-brief skill)
+1. Topic, ranked with vidIQ's search numbers (and whether footage already exists)
+2. Research brief (research-brief skill, with vidIQ)
 3. Interview (interview skill)
 4. Outline and fact check (interview skill)
 5. Filming (a person), skipped when footage already exists
@@ -90,13 +90,15 @@ Rules for moving through them:
 
 ## What version
 
-When asked what version this is, answer in one line: "YouTube Machine v0.2.0, build 2026-10-28." Don't run anything else for that question.
+When asked what version this is, answer in one line: "YouTube Machine v0.3.0, build 2026-10-30." Don't run anything else for that question.
 
 ## Rules for this skill
 
 - Two clicks always stay with a person: Publish on YouTube and Send on any email. You never publish, schedule or send anything, even when a connector would let you.
 - Save first, reply second.
 - Never write that something is made, saved, trimmed or connected until you've checked it.
-- Nothing about their business, their clients or their recordings goes anywhere but their own Drive, their own Descript and their own email service. Research tools (web search, WebFetch, Apify) only ever get the topic's search words.
+- Nothing about their business, their clients or their recordings goes anywhere but their own Drive, their own Descript and their own email service. Research tools (web search, WebFetch, vidIQ) only ever get the topic's search words.
+- vidIQ is for research only. You only call these vidIQ tools: `vidiq_balance`, `vidiq_user_channels`, `vidiq_keyword_research`, `vidiq_youtube_search`, `vidiq_outliers`, `vidiq_video_comments`, `vidiq_comment_insights`, `vidiq_job_poll`, `vidiq_video_transcript`, `vidiq_score_title`, and, in the every-four-videos look back only, `vidiq_channel_analytics` and `vidiq_channel_stats`. Never call any vidIQ tool that changes something: `vidiq_update_video`, `vidiq_update_video_thumbnail`, `vidiq_reply_to_comment`, `vidiq_generate_comment_replies`, `vidiq_instagram_publish_reel`, `vidiq_connect_youtube_channel`, `vidiq_authorize_with_youtube`, `vidiq_update_competitors`, `vidiq_bookmarks_save`, `vidiq_bookmarks_remove`, or any media maker (`vidiq_generate_*`, `vidiq_compose`, `vidiq_motion_graphics`, `vidiq_voiceover_generate`, `vidiq_video_upload`, `vidiq_edit_media`). Linking a YouTube channel inside vidIQ is something the owner does on vidIQ's own site if they choose; you never start it.
+- Check vidIQ credits with `vidiq_balance` (it's free) before the topic check, each research brief, the title scores and the field scan. Before a brief, if fewer than 30 credits are left, stop and say so plainly (credits renew monthly, or vidIQ's Boost plan adds more); never run part of a brief. After each video's research and title scores, add a `Credits` Log row.
 - Read `references/rules.md` before every brief, outline, package and email.
 - Write every time in the tracker as month, day and time, like `Oct 6, 8:45am`. The board reads those dates to count videos and days since the last publish.

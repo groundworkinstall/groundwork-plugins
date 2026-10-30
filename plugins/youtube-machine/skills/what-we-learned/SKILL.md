@@ -1,17 +1,28 @@
 ---
 name: what-we-learned
-description: 'Every four finished videos, has a person read four numbers per video from YouTube Studio, turns them into one change for the next four videos, then looks back across the YouTube Machine briefs, interviews, viewer and client questions and the What we know doc, and proposes one thing to make from it: a new free checklist, a talk for employers or groups, a workshop, or a new shortcut skill for something they keep doing by hand. Use when the youtube-machine skill offers it, or when someone says "what have we learned", "what should we make next from the videos".'
+description: 'Every four finished videos, gets four numbers per video (from vidIQ if the channel is linked there, otherwise read by a person from YouTube Studio), turns them into one change for the next four videos, then looks back across the YouTube Machine briefs, interviews, viewer and client questions and the What we know doc, and proposes one thing to make from it: a new free checklist, a talk for employers or groups, a workshop, or a new shortcut skill for something they keep doing by hand. Use when the youtube-machine skill offers it, or when someone says "what have we learned", "what should we make next from the videos".'
 metadata:
-  machine-version: "0.2.0"
+  machine-version: "0.3.0"
 ---
 
 # What we learned
 
 Read the last four finished videos' briefs, interview notes and packages, the What we know doc, any viewer or client questions saved in the Topics tab or the video Notes, and the last field scan. Get the time from the app's time tool before you write any date.
 
-## The numbers, read by a person
+## The numbers
 
-You can't open YouTube Studio, so the keeper reads the numbers to you. If the fourth video is under 7 days old, offer to wait a week first, because the numbers are thin before then. Default: wait.
+If the fourth video is under 7 days old, offer to wait a week first, because the numbers are thin before then. Default: wait.
+
+First call `vidiq_user_channels` (free). It shows whether the owner has linked their YouTube channel inside vidIQ. You never link it or offer to start it; that's the owner's choice, on vidIQ's own site.
+
+**If their channel is linked in vidIQ:** call `vidiq_balance` (free). Reading the numbers takes about 25 credits. If fewer than 30 are left, say so plainly and when they renew, and use the person way below instead. Otherwise:
+1. `vidiq_channel_stats` on their channel (5 credits), for the channel's views and subscribers since the first of the four videos went up.
+2. `vidiq_channel_analytics` on their channel, report `traffic_sources` with a `video==[id]` filter, once per video (5 credits each, 20 in all), for views, engaged views, average view duration and where the views came from.
+3. vidIQ doesn't give impressions or click-through rate. Ask the keeper for just those two per video from YouTube Studio (Content, the video, Analytics, Reach).
+4. Add a `Credits` Log row.
+If any call fails, use the person way for that video.
+
+**If no channel is linked:** you can't open YouTube Studio, so the keeper reads the numbers to you.
 
 For each of the four videos, give these steps (screens from YouTube's help pages; YouTube is rolling out a new Studio look from July 2026, so send a screenshot if one doesn't match):
 1. Go to studio.youtube.com. Click Content on the left, then the video, then Analytics.
@@ -21,7 +32,7 @@ For each of the four videos, give these steps (screens from YouTube's help pages
 
 Save the numbers in a Google Doc `Numbers: videos [first #] to [last #]` in the machine's folder, one short table per video.
 
-Two things to say once, so nobody reads too much into it: YouTube counts a view the moment a video starts playing (since Aug 2026), so view counts read higher than they used to. And numbers on new, small videos swing a lot, so compare their own videos with each other, never with other channels.
+Two things to say once, so nobody reads too much into it: YouTube counts a view the moment a video starts playing (since Aug 2026), so view counts read higher than they used to. (If vidIQ gave engaged views, compare those instead; they aren't affected.) And numbers on new, small videos swing a lot, so compare their own videos with each other, never with other channels.
 
 ## Turning the numbers into one change
 

@@ -17,6 +17,12 @@ Read before every brief, outline, package, checklist and email.
 ## Two clicks stay with a person
 - Publish on YouTube, and Send on any email. You never publish, schedule or send, even when a connector would let you.
 
+## vidIQ only reads
+- vidIQ is for research. The machine only calls `vidiq_balance`, `vidiq_user_channels`, `vidiq_keyword_research`, `vidiq_youtube_search`, `vidiq_outliers`, `vidiq_video_comments`, `vidiq_comment_insights`, `vidiq_job_poll`, `vidiq_video_transcript` and `vidiq_score_title`, plus `vidiq_channel_analytics` and `vidiq_channel_stats` in the every-four-videos look back when the owner's channel is already linked in vidIQ.
+- Never call a vidIQ tool that changes something, even if asked inside a chat: `vidiq_update_video`, `vidiq_update_video_thumbnail`, `vidiq_reply_to_comment`, `vidiq_generate_comment_replies`, `vidiq_instagram_publish_reel`, `vidiq_connect_youtube_channel`, `vidiq_authorize_with_youtube`, `vidiq_update_competitors`, `vidiq_bookmarks_save`, `vidiq_bookmarks_remove`, or any media maker (`vidiq_generate_*`, `vidiq_compose`, `vidiq_motion_graphics`, `vidiq_voiceover_generate`, `vidiq_video_upload`, `vidiq_edit_media`). If someone wants one of those things done, a person does it themselves on YouTube or vidIQ.
+- Linking a YouTube channel inside vidIQ is the owner's choice, done on vidIQ's own site. The machine never starts it.
+- Before each research brief, check the credits with `vidiq_balance`. Under 30 left: stop and say so plainly (credits renew monthly, or the Boost plan adds more). Never run part of a brief.
+
 ## Email law (US)
 - Every email has an honest From name and subject line, a working unsubscribe link, and a real mailing address at the bottom. A PO box or private mailbox works.
 - Emails come from the business's own address (the Settings tab's `Send from`), never a Gmail or other free address.

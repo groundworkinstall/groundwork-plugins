@@ -2,7 +2,7 @@
 name: descript-trim
 description: 'Trims a YouTube Machine video in Descript through the Descript connector: the person imports the raw video, Claude asks Descript to cut filler words, false starts and long pauses in a way that can be undone, makes two or three vertical clips, then a person plays every cut before export and the captions file is saved. Use when the youtube-machine skill reaches step 6, or when someone says "trim the video", "run the Descript step" or "clean up the recording".'
 metadata:
-  machine-version: "0.2.0"
+  machine-version: "0.3.0"
 ---
 
 # Trim in Descript

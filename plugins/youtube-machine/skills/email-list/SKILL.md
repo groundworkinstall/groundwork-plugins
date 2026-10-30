@@ -2,7 +2,7 @@
 name: email-list
 description: 'Builds and runs the YouTube Machine email list: drafts the free one-page checklist for a topic, the signup page words, the confirm email, the three welcome emails, the email that goes out with each new video and the monthly note. Drafts only: puts drafts into the email service through its connector, or into a Google Doc, and a person always clicks Send. Use when the youtube-machine skill reaches step 8, or when someone says "set up the email list", "make the checklist for", "draft the welcome emails", "email for the new video" or "monthly email".'
 metadata:
-  machine-version: "0.2.0"
+  machine-version: "0.3.0"
 ---
 
 # Email list
