@@ -1,4 +1,4 @@
-# Business Development Hub 0.1.2
+# Business Development Hub 0.1.3
 
 Keeps track of the people who can bring you work: clients, leads, and the people who send them to you. It runs on its own; no other plugin is needed.
 

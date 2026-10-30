@@ -120,6 +120,10 @@ p.help,div.help{font-size:13px;color:var(--ink3);margin:0;font-style:italic}
 .pc dl{margin:2px 0 0;display:grid;grid-template-columns:auto minmax(0,1fr);gap:2px 12px;font-size:13px}
 .pc dt{color:var(--ink3)}
 .pc dd{margin:0;color:var(--ink2);overflow-wrap:anywhere}
+.pc dd{-webkit-user-select:text;user-select:text;-webkit-touch-callout:default;display:flex;flex-wrap:wrap;align-items:center;gap:4px 8px}
+.pc dd a{color:var(--acc-ink);text-decoration:underline;text-underline-offset:2px;padding:4px 0}
+.pc dd .cp{font-family:inherit;font-weight:500;font-size:12px;color:var(--acc-ink);background:var(--acc-soft);border:1px solid var(--acc);border-radius:999px;padding:2px 10px;min-height:30px;flex:none;cursor:pointer}
+.pc dd .cpd{font-size:12px;color:var(--ink3)}
 .pc dd a{display:inline-block;min-height:24px}
 .pc .hist{font-size:13px;color:var(--ink2);border-top:1px solid var(--line2);padding-top:6px;margin-top:2px;display:flex;flex-direction:column;gap:3px}
 .pc .hist p{margin:0;overflow-wrap:anywhere}
@@ -706,7 +710,11 @@ details.caps summary::after{content:" \25BE"}
     var cap = 200, h = "";
     people.slice(0, cap).forEach(function(p){
       var org = [p.company, p.title].filter(Boolean).join(" · "), o = p.id === OPEN_ID;
-      var dl = [["Email", p.email ? esc(p.email) : ""], ["Phone", esc(p.phone || p.phone2)],
+      // Email and phone: tap to open Mail or the dialer, or Copy. The address text stays selectable on phones.
+      var cpb = function(v){ return '<button type="button" class="cp" data-cp="'+esc(v)+'">Copy</button><span class="cpd" aria-live="polite"></span>'; };
+      var ph = p.phone || p.phone2;
+      var dl = [["Email", p.email && /^[^\s@]+@[^\s@]+$/.test(p.email) ? '<a href="mailto:'+esc(p.email)+'" target="_blank" rel="noopener">'+esc(p.email)+'</a>'+cpb(p.email) : esc(p.email)],
+        ["Phone", ph ? '<a href="tel:'+esc(String(ph).replace(/[^0-9+]/g,""))+'" target="_blank" rel="noopener">'+esc(ph)+'</a>'+cpb(ph) : ""],
         ["Website", p.website ? '<a href="'+esc(href(p.website))+'" target="_blank" rel="noopener">'+esc(bare(p.website))+'</a>' : ""],
         ["LinkedIn", p.linkedin ? '<a href="'+esc(href(p.linkedin))+'" target="_blank" rel="noopener">'+pronoun(p.first)+' profile</a>' : ""],
         ["Address", esc(p.address)]].filter(function(x){ return x[1]; });
@@ -764,6 +772,10 @@ details.caps summary::after{content:" \25BE"}
   }
   $("grid").addEventListener("click", function(e){
     if(e.target.closest && e.target.closest("a[href]")) return;
+    var cpx = e.target.closest && e.target.closest("[data-cp]");
+    if(cpx){ e.stopPropagation(); copyOne(cpx.getAttribute("data-cp"), cpx); return; }
+    if(e.target.closest && e.target.closest("dd")) return;
+    if(window.getSelection && String(window.getSelection())) return;
     var bb = e.target.closest && e.target.closest("[data-brief]");
     if(bb){ e.stopPropagation(); BRIEF_SEL = bb.getAttribute("data-brief"); renderBriefs(); show("briefs"); window.scrollTo(0, 0); return; }
     var b = e.target.closest && e.target.closest(".pc"); if(!b) return;
@@ -866,6 +878,18 @@ details.caps summary::after{content:" \25BE"}
     $("weekbar").querySelector("i").style.width = (total ? Math.round(handled / total * 100) : 0) + "%";
     if(!total) box.innerHTML = '<p class="msg">'+(LOADED.people ? "Nobody on this week's list yet. Your 7:00am update picks them on Monday." : (configured() ? "Reading your contacts." : "This week's asks show here once the page is connected."))+'</p>';
     $("n-outreach").textContent = LOADED.people ? String(n.open) : "";
+  }
+  // Copy one email or phone from an open card. If the clipboard is blocked, select the text so the phone's own Copy menu shows.
+  function copyOne(text, btn){
+    var line = btn.nextElementSibling;
+    function ok(){ if(line){ line.textContent = "Copied"; setTimeout(function(){ line.textContent = ""; }, 2500); } }
+    function fallback(){
+      try{ var ta = document.createElement("textarea"); ta.value = text; ta.setAttribute("readonly",""); ta.style.position = "fixed"; ta.style.opacity = "0"; ta.style.top = "0";
+        document.body.appendChild(ta); ta.focus(); ta.select(); ta.setSelectionRange(0, text.length); var d = document.execCommand && document.execCommand("copy"); document.body.removeChild(ta); if(d){ ok(); return; } }catch(e){}
+      try{ var a = btn.parentNode.querySelector("a"); var rg = document.createRange(); rg.selectNodeContents(a); var sel = window.getSelection(); sel.removeAllRanges(); sel.addRange(rg);
+        if(line) line.textContent = "Selected. Tap Copy in your phone's menu."; }catch(e){ if(line) line.textContent = "Press and hold to copy it."; }
+    }
+    try{ if(navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(text).then(ok, fallback); else fallback(); }catch(e){ fallback(); }
   }
   // Copy: the clipboard only. Nothing is written and nothing is counted.
   function copyText(text, ck, el){

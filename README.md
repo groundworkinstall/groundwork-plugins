@@ -4,7 +4,7 @@ Groundwork's plugin marketplace for its clients. Add it in the Claude app: Custo
 
 What's here:
 
-- Business Development Hub (business-development-hub, version 0.1.2). Start it in a new chat by typing: Set up my hub.
+- Business Development Hub (business-development-hub, version 0.1.3). Start it in a new chat by typing: Set up my hub.
 - YouTube Machine (youtube-machine, version 0.2.0). Start it in a new chat by typing: Set up the YouTube Machine.
 - Networking Event Finder (networking-event-finder, version 0.1.0). Start it in a new chat by typing: Find me networking events this month.
 
@@ -17,6 +17,7 @@ To install the Networking Event Finder: /plugin install networking-event-finder@
 
 ## Changes
 
+- 0.1.3 (Fri Oct 30, 2026): on the Hub page's People cards, email and phone are now links that open Mail or the phone, each has a Copy button, the text can be selected on a phone, and tapping a contact row no longer closes the card.
 - Thu Oct 29, 2026: Networking Event Finder 0.1.0 added (finds events, checks the calendar, three picks a week, registers with your yes).
 
 - 0.1.2 (Thu Oct 29, 2026): People search on the Hub page now finds first names, last names, nicknames and second emails, so a person inside a family or group row shows up.
